@@ -1,0 +1,9 @@
+# repository root netlify.toml
+# https://docs.netlify.com/configure-builds/monorepos/
+# [build]
+#  command = "yarn build"
+#  publish = "frontend/dist"
+
+
+
+
