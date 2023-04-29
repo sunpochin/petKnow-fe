@@ -35,6 +35,9 @@ import { NButton } from 'naive-ui'
         <n-button type="error">
           Error
         </n-button>
+        <n-button type="error">
+          Error
+        </n-button>
       </n-space>
     </div>
   </header>
