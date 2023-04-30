@@ -8,21 +8,18 @@
 import VimeoPlayer from './VimeoPlayer.vue'
 
 export default {
-  data() {
+  data () {
     return {
       videoId: '',
       // 3 initial demo videos of cat and dog.
       vimeoIdList: ['807306477', '807306201', '192191']
     }
   },
-  mounted() {
-  },
+  mounted () {},
 
-  methods: {
-  },
+  methods: {},
   components: {
     VimeoPlayer
   }
 }
 </script>
-
