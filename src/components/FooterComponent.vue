@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { NIcon, NGrid, NGridItem, NAvatar } from "naive-ui";
-import { InstagramFilled, LinkedinFilled, YoutubeFilled } from "@vicons/antd";
-import { FacebookRound } from "@vicons/material";
+import { NIcon } from 'naive-ui'
+import { InstagramFilled, LinkedinFilled, YoutubeFilled } from '@vicons/antd'
+import { FacebookRound } from '@vicons/material'
 </script>
 
 <template>
@@ -73,14 +73,12 @@ import { FacebookRound } from "@vicons/material";
     }
 }
 
-
 .container {
     max-width: 1328px;
     height: 100%;
     margin: 0 auto;
     padding: 0 1rem;
 }
-
 
 .info-section {
     display: flex;
@@ -95,8 +93,6 @@ import { FacebookRound } from "@vicons/material";
 
     }
 
-
-
     ul {
         list-style-type: none;
     }
@@ -104,7 +100,6 @@ import { FacebookRound } from "@vicons/material";
     .info {
         display: flex;
         padding: 0;
-
 
         @media (max-width: 768px) {
             display: block;
@@ -132,10 +127,7 @@ import { FacebookRound } from "@vicons/material";
 
             }
 
-
         }
-
-
 
     }
 
@@ -158,9 +150,7 @@ import { FacebookRound } from "@vicons/material";
 
     }
 
-
 }
-
 
 .copy-right {
     @media (max-width: 768px) {

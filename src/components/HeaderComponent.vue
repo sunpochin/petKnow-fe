@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { NIcon, NGrid, NGridItem, NAvatar } from "naive-ui";
-import { Search, Cart, Menu } from "@vicons/ionicons5";
-import { ArrowRightAltSharp } from "@vicons/material";
+import { NIcon, NGrid, NGridItem, NAvatar } from 'naive-ui'
+import { Search, Cart, Menu } from '@vicons/ionicons5'
+import { ArrowRightAltSharp } from '@vicons/material'
 </script>
 
 <template>
