@@ -6,6 +6,7 @@ import ProfilePage from "@/views/manage/ProfilePage.vue";
 import LearningList from "@/views/manage/LearningList.vue";
 import TeachingList from "@/views/manage/TeachingList.vue";
 import CourseAdd from "@/views/manage/CourseAdd.vue";
+import CourseEdit from "@/views/manage/CourseEdit.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -41,6 +42,11 @@ const router = createRouter({
       path: '/manage/courses/add',
       name: 'courseAdd',
       component: CourseAdd,       
+    },
+    {
+      path: '/manage/courses/edit',
+      name: 'courseEdit',
+      component: CourseEdit,       
     },
   ],
 });
