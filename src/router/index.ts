@@ -9,6 +9,8 @@ import CourseAdd from "@/views/manage/CourseAdd.vue";
 import CourseEdit from "@/views/manage/CourseEdit.vue";
 import ChapterList from "@/views/manage/ChapterList.vue";
 import ChapterAdd from "@/views/manage/ChapterAdd.vue";
+import ChapterEdit from "@/views/manage/ChapterEdit.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -59,6 +61,11 @@ const router = createRouter({
       path: '/manage/chapters/add',
       name: 'chapterAdd',
       component: ChapterAdd,       
+    },
+    {
+      path: '/manage/chapters/edit',
+      name: 'chapterEdit',
+      component: ChapterEdit,       
     },
   ],
 });
