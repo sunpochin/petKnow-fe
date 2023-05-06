@@ -3,6 +3,7 @@ import LandingPage from "@/views/LandingPage.vue";
 
 // pages for logined member 
 import ProfilePage from "@/views/manage/ProfilePage.vue";
+import LearningList from "@/views/manage/LearningList.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/manage/profile',
       name: 'profilePage',
       component: ProfilePage,       
+    },
+    {
+      path: '/manage/learning',
+      name: 'learingList',
+      component: LearningList,       
     },
   ],
 });
