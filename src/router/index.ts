@@ -5,6 +5,7 @@ import LandingPage from "@/views/LandingPage.vue";
 import ProfilePage from "@/views/manage/ProfilePage.vue";
 import LearningList from "@/views/manage/LearningList.vue";
 import TeachingList from "@/views/manage/TeachingList.vue";
+import CourseAdd from "@/views/manage/CourseAdd.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -35,6 +36,11 @@ const router = createRouter({
       path: '/manage/teaching',
       name: 'teachingList',
       component: TeachingList,       
+    },
+    {
+      path: '/manage/courses/add',
+      name: 'courseAdd',
+      component: CourseAdd,       
     },
   ],
 });
