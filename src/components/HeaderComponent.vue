@@ -10,10 +10,10 @@ import { ArrowRightAltSharp } from '@vicons/material'
       <n-grid cols="3" item-responsive responsive="self">
         <n-grid-item span="2  769:1">
           <div class="logo">
-            <picture>
-              <!-- <source media="(max-width: 768px)" srcset="@/assets/logo/petknow-logo-phone.svg" /> -->
+            <!-- <picture>
+              <source media="(max-width: 768px)" srcset="@/assets/logo/petknow-logo-phone.svg" />
               <img src="@/assets/logo/petknow-logo-pc.svg" alt="petknow-logo" />
-            </picture>
+            </picture> -->
           </div>
         </n-grid-item>
         <n-grid-item span="0  769:1">
