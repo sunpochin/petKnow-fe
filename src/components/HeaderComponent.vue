@@ -11,7 +11,7 @@ import { ArrowRightAltSharp } from '@vicons/material'
         <n-grid-item span="2  769:1">
           <div class="logo">
             <picture>
-              <source media="(max-width: 768px)" srcset="@/assets/logo/petknow-logo-phone.svg" />
+              <!-- <source media="(max-width: 768px)" srcset="@/assets/logo/petknow-logo-phone.svg" /> -->
               <img src="@/assets/logo/petknow-logo-pc.svg" alt="petknow-logo" />
             </picture>
           </div>
