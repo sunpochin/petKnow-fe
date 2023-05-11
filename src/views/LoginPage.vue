@@ -27,7 +27,7 @@
                 />
               </n-form-item-row>
             </n-form>
-            <n-button type="primary" block secondary strong> 登入 </n-button>
+            <n-button @click="LoginBtn" type="primary" block secondary strong> 登入 </n-button>
           </n-tab-pane>
           <n-tab-pane name="signup" tab="註冊">
             <n-form :model="userRegister" :rules="validateRules">
@@ -82,6 +82,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useAuthStore } from '@/stores';
 
 const userLogin = ref({
   email: '',
@@ -115,6 +116,19 @@ const validateRules = {
     trigger: ['input', 'blur']
   }
 }
+
+const LoginBtn = async () => {
+  console.log('userLogin email: ', userLogin.value.email)
+  console.log('userLogin password: ', userLogin.value.password)
+  try {
+    const authStore = useAuthStore()
+    const { email, password } = userLogin.value
+    await authStore.login(email, password)
+  } catch (error) {
+    // alertStore.error(error);
+  }
+}
+
 </script>
 <style lang="scss" scoped>
 .fit {
