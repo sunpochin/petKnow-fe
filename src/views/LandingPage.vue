@@ -1,19 +1,17 @@
 <script setup>
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/stores'
 
-import { useAuthStore } from '@/stores';
-
-const authStore = useAuthStore();
-const { user } = storeToRefs(authStore);
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
 </script>
-
 
 <template>
     <div class="wrapper">
         <div class="container">
             <div class="content">
-                <h1>Hi {{ user.firstName }}!</h1>
-                    <h3>landingpage</h3>
+                <h1>開始學習，{{ user.firstName }} ！</h1>
+                <h3>this is the landingpage</h3>
 
             </div>
         </div>
