@@ -53,7 +53,7 @@
                 />
               </n-form-item-row>
             </n-form>
-            <n-button type="primary" block secondary strong> 註冊 </n-button>
+            <n-button  @click="RegisterBtn" type="primary" block secondary strong> 註冊 </n-button>
           </n-tab-pane>
           <n-tab-pane name="forgerPassword" tab="忘記密碼">
             <n-form :model="forgerPassword" :rules="validateRules">
@@ -82,7 +82,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useAuthStore } from '@/stores';
+import { useAuthStore, useUsersStore } from '@/stores'
 
 const userLogin = ref({
   email: '',
@@ -124,6 +124,20 @@ const LoginBtn = async () => {
     const authStore = useAuthStore()
     const { email, password } = userLogin.value
     await authStore.login(email, password)
+  } catch (error) {
+    // alertStore.error(error);
+  }
+}
+
+const RegisterBtn = async () => {
+  console.log('RegisterBtn')
+  const usersStore = useUsersStore()
+  // const alertStore = useAlertStore();
+  const values = { ...userRegister }
+  try {
+    await usersStore.register(values)
+    // await router.push('/account/login');
+    // alertStore.success('Registration successful');
   } catch (error) {
     // alertStore.error(error);
   }

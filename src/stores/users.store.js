@@ -13,7 +13,8 @@ export const useUsersStore = defineStore({
   }),
   actions: {
     async register (user) {
-      await fetchWrapper.post(`${baseUrl}/register`, user)
+      const result = await fetchWrapper.post(`${baseUrl}/register`, user)
+      console.log(result)
     },
     async getAll () {
       this.users = { loading: true }
