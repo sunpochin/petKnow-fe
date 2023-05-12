@@ -4,7 +4,7 @@ import { fetchWrapper } from '@/helpers'
 import router from '@/router'
 // import { useAlertStore } from '@/stores';
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/users`
+const baseUrl = `${import.meta.env.VITE_API_URL}/api`
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -14,20 +14,17 @@ export const useAuthStore = defineStore({
     returnUrl: null
   }),
   actions: {
-    async login (username, password) {
+    async login (email, password) {
       try {
-        const user = await fetchWrapper.post(`${baseUrl}/authenticate`, {
-          username,
+        const user = await fetchWrapper.post(`${baseUrl}/login`, {
+          email,
           password
         })
-
         // update pinia state
         this.user = user
-
         // store user details and jwt in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(user))
         console.log('user: ', user)
-
         // redirect to previous url or default to home page
         router.push(this.returnUrl || '/')
       } catch (error) {

@@ -10,7 +10,7 @@ const { user } = storeToRefs(authStore)
     <div class="wrapper">
         <div class="container">
             <div class="content">
-                <h1>開始學習，{{ user.firstName }} ！</h1>
+                <h1>開始學習，{{ user.name }} ！</h1>
                 <h3>this is the landingpage</h3>
 
             </div>
