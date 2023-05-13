@@ -1,16 +1,21 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import { defineComponent } from "vue";
-import { NButton } from "naive-ui";
-
-import HeaderComponent from "@/components/HeaderComponent.vue";
-import FooterComponent from "@/components/FooterComponent.vue";
-</script>
-
 <template>
-    <HeaderComponent />
-    <RouterView />
-    <FooterComponent />
+  <HeaderComponent v-if="route.path !== '/login'" />
+  <RouterView />
+  <FooterComponent v-if="route.path !== '/login'" />
 </template>
+<script setup lang="ts">
+// import { onMounted, watch } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
 
-<style lang="scss"  scoped></style>
+import HeaderComponent from '@/components/HeaderComponent.vue'
+import FooterComponent from '@/components/FooterComponent.vue'
+
+const route = useRoute()
+// watch(
+//   () => route.path,
+//   () => {
+//     console.log('route', route.path)
+//   }
+// )
+</script>
+<style lang="scss" scoped></style>
