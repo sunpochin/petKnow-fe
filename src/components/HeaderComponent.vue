@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { NIcon, NGrid, NGridItem, NAvatar } from 'naive-ui'
+import { Search, Cart, Menu } from '@vicons/ionicons5'
+import { ArrowRightAltSharp } from '@vicons/material'
 </script>
 
 <template>
@@ -8,8 +11,8 @@
         <n-grid-item span="2  769:1">
           <div class="logo">
             <picture>
-              <source media="(max-width: 768px)" srcset="@/assets/logo/petknowLogo-88-40.svg" />
-              <img src="@/assets/logo/petknowLogo-140-64.svg" alt="petknow-logo" />
+              <source media="(max-width: 768px)" srcset="@/assets/logo/petknow-logo-phone.svg" />
+              <img src="@/assets/logo/petknow-logo-pc.svg" alt="petknow-logo" />
             </picture>
           </div>
         </n-grid-item>
@@ -60,7 +63,6 @@
 .header {
   width: 100vw;
   height: 112px;
-  background-color: #ffffff;
 
   @media (max-width: 768px) {
     height: 80px;
@@ -71,12 +73,16 @@
   max-width: 1328px;
   height: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
   padding: 0 1rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 768px) {
+    height: 80px;
+  }
 }
 
 .search-bar {
@@ -93,6 +99,7 @@
     display: flex;
     align-items: center;
     padding: 0 32px;
+    box-sizing: border-box;
 
     .search-input {
       margin-left: 12px;
@@ -150,6 +157,7 @@
   justify-content: center;
 
   .button {
+    box-sizing: border-box;
     display: flex;
     align-items: center;
 
