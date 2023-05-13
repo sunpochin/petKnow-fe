@@ -10,10 +10,10 @@
       <div style="width: 300px">
         <n-tabs type="segment">
           <n-tab-pane name="signin" tab="登入">
-            <n-form :model="userLogin" :rules="validateRules">
+            <n-form :model="loginData" :rules="validateRules">
               <n-form-item-row label="Email" path="email">
                 <n-input
-                  v-model:value="userLogin.email"
+                  v-model:value="loginData.email"
                   placeholder="test@gmail.com"
                 />
               </n-form-item-row>
@@ -23,11 +23,19 @@
                   show-password-on="mousedown"
                   placeholder="輸入密碼"
                   :maxlength="8"
-                  v-model:value="userLogin.password"
+                  v-model:value="loginData.password"
                 />
               </n-form-item-row>
             </n-form>
-            <n-button type="primary" block secondary strong> 登入 </n-button>
+            <n-button
+              type="primary"
+              block
+              secondary
+              strong
+              @click="handleLogin"
+            >
+              登入
+            </n-button>
           </n-tab-pane>
           <n-tab-pane name="signup" tab="註冊">
             <n-form :model="userRegister" :rules="validateRules">
@@ -81,12 +89,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+// import { useAuthStore } from 'src/stores/auth.js'
+import { useRouter } from 'vue-router'
+// import { useNotification } from 'naive-ui'
 
-const userLogin = ref({
-  email: '',
-  password: ''
+// const notification = useNotification()
+// const authStore = useAuthStore()
+const router = useRouter()
+// const route = useRoute()
+
+const loginData = reactive({
+  email: 'test1',
+  password: 'p@$$w0rd'
 })
+
+async function handleLogin () {
+  try {
+    // Login
+    const loginResult = await authStore.login(loginData)
+    if (loginResult) {
+      // Redirect
+      // const redirectUrl = ${route.query.redirect || "/"};
+      router.push('/')
+    } else {
+      // notification.error({
+      //   content: '登入失敗，請確認帳號密碼是否正確',
+      //   // meta: '想不出来',
+      //   duration: 2500,
+      //   keepAliveOnHover: true
+      // })
+      // $q.notify({
+      //   type: "negative",
+      //   message: "登入失敗，請確認帳號密碼是否正確",
+      //   position: "top",
+      // });
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      // $q.notify({
+      //   type: "negative",
+      //   message: String(err),
+      //   position: "top",
+      // });
+    }
+  }
+}
 
 const userRegister = ref({
   name: '',
