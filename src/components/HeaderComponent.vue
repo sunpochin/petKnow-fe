@@ -63,6 +63,7 @@ import { ArrowRightAltSharp } from '@vicons/material'
 .header {
   width: 100vw;
   height: 112px;
+  background-color: #ffffff;
 
   @media (max-width: 768px) {
     height: 80px;
@@ -73,16 +74,12 @@ import { ArrowRightAltSharp } from '@vicons/material'
   max-width: 1328px;
   height: 100%;
   margin: 0 auto;
-  box-sizing: border-box;
   padding: 0 1rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 768px) {
-    height: 80px;
-  }
 }
 
 .search-bar {
@@ -99,7 +96,6 @@ import { ArrowRightAltSharp } from '@vicons/material'
     display: flex;
     align-items: center;
     padding: 0 32px;
-    box-sizing: border-box;
 
     .search-input {
       margin-left: 12px;
@@ -157,7 +153,6 @@ import { ArrowRightAltSharp } from '@vicons/material'
   justify-content: center;
 
   .button {
-    box-sizing: border-box;
     display: flex;
     align-items: center;
 
