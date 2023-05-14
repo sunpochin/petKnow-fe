@@ -1,20 +1,23 @@
 import axios from 'axios'
+import { useAuthStore } from '@/stores/auth.js'
+import { storeToRefs } from 'pinia'
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL: import.meta.env.VITE_API_URL,
   timeout: 20000,
   headers: {
-    "Content-Type": "application/json; charset=utf-8;",
+    "Content-Type": "application/json",
   },
 });
 service.interceptors.request.use(
   (config) => {
     // 這裡 accessToken 從 pinia 撈
-    // const accessToken = Cookies.get("accessToken");
-    // if (accessToken) {
-    //   config.headers.Authorization = "Bearer " + accessToken;
-    // }
-    console.log("config", config);
+    const authStore = useAuthStore()
+    const { accessToken } = storeToRefs(authStore);
+    if (accessToken) {
+      config.headers.Authorization = "Bearer " + accessToken;
+    }
+    console.log("axiosConfig", config);
     return config;
   },
   (error) => {
@@ -35,7 +38,7 @@ service.interceptors.response.use(
   }
 )
 const req = <T>(method: string, url: string, data: T | null = null) => {
-    url = "/api" + url;
+    // url = import.meta.env.VITE_APP_BASE_API + url;
     method = method.toLowerCase();
     if (method === "post") {
       console.log(

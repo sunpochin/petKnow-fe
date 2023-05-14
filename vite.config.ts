@@ -23,13 +23,13 @@ export default defineConfig({
       '/images': 'src/assets/images',
     }
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: loadEnv('', process.cwd()).VITE_APP_URL,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      },
-    }
-  }
+  // server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: loadEnv('', process.cwd()).VITE_API_URL,
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/api/, '')
+  //     },
+  //   }
+  // }
 })
