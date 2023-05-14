@@ -90,30 +90,32 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-// console.log()
-// import { useAuthStore } from 'src/stores/auth.js'
+// Fixme
+import { useAuthStore } from '@/stores/auth.js'
 import { useRouter } from 'vue-router'
 // import { useNotification } from 'naive-ui'
 
 // const notification = useNotification()
-// const authStore = useAuthStore()
+const authStore = useAuthStore()
 const router = useRouter()
 // const route = useRoute()
 
 const loginData = reactive({
-  email: 'test1',
-  password: 'p@$$w0rd'
+  email: 'test1, test3, test5',
+  password: 'test12'
 })
 
 async function handleLogin () {
   try {
     // Login
     const loginResult = await authStore.login(loginData)
+    console.log('loginResult', loginResult)
     if (loginResult) {
       // Redirect
       // const redirectUrl = ${route.query.redirect || "/"};
       router.push('/')
     } else {
+      alert('登入失敗，請確認帳號密碼是否正確')
       // notification.error({
       //   content: '登入失敗，請確認帳號密碼是否正確',
       //   // meta: '想不出来',

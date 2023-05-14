@@ -1,9 +1,12 @@
 import axios from 'axios'
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API
-})
-
+  baseURL: import.meta.env.VITE_APP_BASE_API,
+  timeout: 20000,
+  headers: {
+    "Content-Type": "application/json; charset=utf-8;",
+  },
+});
 service.interceptors.request.use(
   (config) => {
     // 這裡 accessToken 從 pinia 撈

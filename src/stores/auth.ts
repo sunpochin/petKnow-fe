@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import Login from "src/api/login.js";
+import Login from "@/api/login.js";
 import type { AxiosResponse } from "axios";
 import { computed, ref } from "vue";
 
@@ -9,11 +9,9 @@ type loginData = {
 };
 
 export const useAuthStore = defineStore("auth", () => {
-  const accessToken = ref<string>();
+  const userToken = ref<string>();
   const userId = ref<string>()
-//   const accessToken = computed(() =>
-//     userToken.value ? userToken.value : Cookies.get("accessToken")
-//   );
+  const accessToken = computed(() => userToken.value );
 
   // 登入
   async function login(loginData: loginData) {
@@ -30,8 +28,8 @@ export const useAuthStore = defineStore("auth", () => {
     //     sameSite: "Lax",
     //     secure: true,
     //   });
-    accessToken.value = accessToken;
-    userId.value = accessToken;
+    userToken.value = accessToken;
+    userId.value = id;
     //   console.log("pinia userToken", userToken.value);
 
     //   Cookies.set("userId", id, {

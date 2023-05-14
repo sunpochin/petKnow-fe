@@ -5,7 +5,7 @@ interface loginData{
 }
 const login = {
     apiPostLogin(data:loginData){
-        return req("get","/login",data)
+        return req("post","/login",data)
     }
 }
 
