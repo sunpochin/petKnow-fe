@@ -115,7 +115,7 @@ const loginData = reactive({
 })
 async function handleLogin () {
   try {
-    // Login
+    // Login 登入
     const loginResult = await authStore.login(loginData)
     console.log('loginResult', loginResult)
     if (loginResult) {
@@ -142,7 +142,7 @@ const userRegister = ref({
   password: ''
 })
 async function handleRegister () {
-  // register
+  // Register 註冊
   const registerResult = await Auth.apiPostRegister(userRegister.value)
   try {
     if (registerResult) {
