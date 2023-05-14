@@ -8,12 +8,12 @@
   >
     <n-grid-item span="0 m:12 l:4" class="center">
       <div style="width: 300px">
-        <n-tabs type="segment">
-          <n-tab-pane name="signin" tab="登入">
-            <n-form :model="userLogin" :rules="validateRules">
+        <n-tabs type="segment" v-model:value="selectedTab">
+          <n-tab-pane name="login" tab="登入">
+            <n-form :model="loginData" :rules="validateRules">
               <n-form-item-row label="Email" path="email">
                 <n-input
-                  v-model:value="userLogin.email"
+                  v-model:value="loginData.email"
                   placeholder="test@gmail.com"
                 />
               </n-form-item-row>
@@ -23,13 +23,21 @@
                   show-password-on="mousedown"
                   placeholder="輸入密碼"
                   :maxlength="8"
-                  v-model:value="userLogin.password"
+                  v-model:value="loginData.password"
                 />
               </n-form-item-row>
             </n-form>
-            <n-button type="primary" block secondary strong> 登入 </n-button>
+            <n-button
+              type="primary"
+              block
+              secondary
+              strong
+              @click="handleLogin"
+            >
+              登入
+            </n-button>
           </n-tab-pane>
-          <n-tab-pane name="signup" tab="註冊">
+          <n-tab-pane name="register" tab="註冊">
             <n-form :model="userRegister" :rules="validateRules">
               <n-form-item-row label="姓名" path="name">
                 <n-input
@@ -53,7 +61,15 @@
                 />
               </n-form-item-row>
             </n-form>
-            <n-button type="primary" block secondary strong> 註冊 </n-button>
+            <n-button
+              type="primary"
+              block
+              secondary
+              strong
+              @click="handleRegister"
+            >
+              註冊
+            </n-button>
           </n-tab-pane>
           <n-tab-pane name="forgerPassword" tab="忘記密碼">
             <n-form :model="forgerPassword" :rules="validateRules">
@@ -81,18 +97,79 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+import { useAuthStore } from '@/stores/auth.js'
+import { useRouter } from 'vue-router'
+import { useNotification } from 'naive-ui'
 
-const userLogin = ref({
-  email: '',
-  password: ''
+import Auth from '@/api/auth.js'
+const notification = useNotification()
+const authStore = useAuthStore()
+const router = useRouter()
+
+const selectedTab = ref('login')
+
+const loginData = reactive({
+  email: 'test1',
+  password: 'test12'
 })
+async function handleLogin () {
+  try {
+    // Login 登入
+    const loginResult = await authStore.login(loginData)
+    console.log('loginResult', loginResult)
+    if (loginResult) {
+      router.push('/')
+      notification.success({
+        content: '登入成功',
+        duration: 2500,
+        keepAliveOnHover: true
+      })
+    }
+  } catch (err) {
+    notification.error({
+      content: '登入失敗',
+      meta: '請確認帳號密碼是否正確',
+      duration: 2500,
+      keepAliveOnHover: true
+    })
+  }
+}
 
 const userRegister = ref({
   name: '',
   email: '',
   password: ''
 })
+async function handleRegister () {
+  // Register 註冊
+  const registerResult = await Auth.apiPostRegister(userRegister.value)
+  try {
+    if (registerResult) {
+      selectedTab.value = 'login'
+      notification.success({
+        content: '註冊成功',
+        meta: '請重新登入',
+        duration: 2500,
+        keepAliveOnHover: true
+      })
+    } else {
+      notification.error({
+        content: '註冊失敗',
+        meta: '請與相關人員聯繫',
+        duration: 2500,
+        keepAliveOnHover: true
+      })
+    }
+  } catch {
+    notification.error({
+      content: '註冊失敗',
+      meta: '請與相關人員聯繫',
+      duration: 2500,
+      keepAliveOnHover: true
+    })
+  }
+}
 
 const forgerPassword = ref({
   email: ''
