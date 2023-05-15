@@ -1,8 +1,27 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+import TabBar from '@/components/manage/shared/TabBar.vue'
+export default defineComponent({
+  components: {
+    TabBar
+  },
+  data () {
+    return {
+      pageTitle: '編輯子章節'
+    }
+  },
+  methods: {
+    submitForm: function () {
+
+    }
+  }
+})
+</script>
 <template>
   <div class="wrapper">
     <div class="container">
       <div class="content">
-        <h3>後台 / 編輯子章節</h3>
+        <TabBar :page-title="pageTitle"/>
       </div>
     </div>
   </div>
