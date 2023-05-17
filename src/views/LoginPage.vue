@@ -143,17 +143,27 @@ const userRegister = ref({
 })
 async function handleRegister () {
   // Register 註冊
-  const registerResult = await Auth.apiPostRegister(userRegister.value)
-  try {
-    if (registerResult) {
-      selectedTab.value = 'login'
-      notification.success({
-        content: '註冊成功',
-        meta: '請重新登入',
-        duration: 2500,
-        keepAliveOnHover: true
-      })
-    } else {
+  const emailRule = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (emailRule.test(userRegister.value.email)) {
+    const registerResult = await Auth.apiPostRegister(userRegister.value)
+    try {
+      if (registerResult) {
+        selectedTab.value = 'login'
+        notification.success({
+          content: '註冊成功',
+          meta: '請重新登入',
+          duration: 2500,
+          keepAliveOnHover: true
+        })
+      } else {
+        notification.error({
+          content: '註冊失敗',
+          meta: '請與相關人員聯繫',
+          duration: 2500,
+          keepAliveOnHover: true
+        })
+      }
+    } catch {
       notification.error({
         content: '註冊失敗',
         meta: '請與相關人員聯繫',
@@ -161,10 +171,10 @@ async function handleRegister () {
         keepAliveOnHover: true
       })
     }
-  } catch {
+  } else {
     notification.error({
-      content: '註冊失敗',
-      meta: '請與相關人員聯繫',
+      content: 'email格式錯誤',
+      meta: '請輸入正確的email格式',
       duration: 2500,
       keepAliveOnHover: true
     })
