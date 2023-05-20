@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import Auth from "@/api/auth.js";
 import type { AxiosResponse } from "axios";
 import { computed, ref } from "vue";
+import { useRouter } from 'vue-router'
 
 type loginData = {
   email: string;
@@ -11,6 +12,7 @@ type loginData = {
 export const useAuthStore = defineStore("auth", () => {
   const userToken = ref<string>();
   const accessToken = computed(() => userToken.value );
+  const router = useRouter()
 
   // 登入
   async function login(loginData: loginData) {
@@ -20,10 +22,11 @@ export const useAuthStore = defineStore("auth", () => {
       password,
     })) as AxiosResponse;
     if (result.data) {
-      const { accessToken } = result.data;
+      const { token } = result.data.data;
+      userToken.value = token;
+      // localStorage 存進 accessToken
+      if(token)localStorage.setItem('accessToken',token)
 
-    userToken.value = accessToken;
- 
       return result.data;
     } else {
       console.log("error.response.status=>", result);
@@ -33,7 +36,10 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   function logout() {
-    console.log("logout")
+    userToken.value = "";
+    localStorage.setItem('accessToken',"")
+    router.push('/login');
+
   }
 
   return { login, logout, accessToken };
