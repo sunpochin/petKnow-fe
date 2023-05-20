@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandingPage from "@/views/LandingPage.vue";
-
+import SearchPage from "@/views/SearchPage.vue";
 // pages for logined member 
 import ProfilePage from "@/views/manage/ProfilePage.vue";
 import LearningList from "@/views/manage/LearningList.vue";
@@ -71,6 +71,11 @@ const router = createRouter({
       path: '/manage/chapters/edit',
       name: 'chapterEdit',
       component: ChapterEdit,       
+    },
+    {
+      path: '/search/:searchTag?',
+      name: 'search',
+      component: SearchPage,       
     },
   ],
 });
