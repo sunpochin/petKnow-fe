@@ -1,7 +1,15 @@
-<script setup lang="ts">
+<script setup >
+import { ref } from 'vue'
 import { NIcon, NGrid, NGridItem, NAvatar } from 'naive-ui'
 import { Search, Cart, Menu } from '@vicons/ionicons5'
 import { ArrowRightAltSharp } from '@vicons/material'
+
+const toggleMenu = ref(null)
+const isLogin = ref(false)
+
+function openToggleMenu () {
+  toggleMenu.value.style.right = toggleMenu.value.style.right === '0px' ? '-100%' : '0px'
+}
 </script>
 
 <template>
@@ -28,18 +36,28 @@ import { ArrowRightAltSharp } from '@vicons/material'
         </n-grid-item>
         <n-grid-item span="1  769:1">
           <div class="d-flex-end">
-            <div class="cart">
-              <n-icon size="20" color="#020202">
-                <Cart />
-              </n-icon>
-            </div>
+            <n-button v-if="isLogin" quaternary class="my-course">
+              我的課堂
+            </n-button>
+            <n-button v-if="isLogin" quaternary type="error" class="sign-out">
+              登出
+            </n-button>
             <div class="member-photo">
-              <div class="member-photo-background">
+              <div class="cart">
+                <n-icon size="20" color="#020202">
+                  <Cart />
+                </n-icon>
+              </div>
+              <div v-if="isLogin" class="member-photo-background">
                 <n-avatar round :size="40" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
               </div>
+              <router-link v-else to="/login">
+                <n-button strong secondary type="info">
+                  登入/註冊
+                </n-button>
+              </router-link>
             </div>
             <div class="become-teacher">
-
               <button class="button">
                 <p class="button-text">成為講師</p>
                 <n-icon class="arrow-icon" size="28" color="#ffffff">
@@ -47,7 +65,13 @@ import { ArrowRightAltSharp } from '@vicons/material'
                 </n-icon>
               </button>
             </div>
-            <div class="menu">
+            <!-- RWD手機板menu -->
+            <div class="cart-phone">
+              <n-icon size="20" color="#020202">
+                <Cart />
+              </n-icon>
+            </div>
+            <div class="menu-phone" @click="openToggleMenu">
               <n-icon size="20" color="#020202">
                 <Menu />
               </n-icon>
@@ -57,6 +81,42 @@ import { ArrowRightAltSharp } from '@vicons/material'
       </n-grid>
     </div>
   </header>
+  <div class="menu-dropdown" ref="toggleMenu">
+    <div>
+      <div class="member-info">
+        <n-avatar round :size="40" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+        <div class="member-text">
+          <p class="name">陳曉明</p>
+          <p class="email">chenxiaomin@gmail.com</p>
+        </div>
+      </div>
+      <ul v-if="isLogin">
+        <a href="https://">
+          <li>個人資料</li>
+        </a>
+        <a href="https://">
+          <li>我的課堂</li>
+        </a>
+        <a href="https://">
+          <li>我開的課</li>
+        </a>
+        <a href="https://">
+          <li>購買紀錄</li>
+        </a>
+        <a href="https://">
+          <li>成為講師</li>
+        </a>
+        <a href="https://">
+          <li>登出</li>
+        </a>
+      </ul>
+      <ul v-else>
+        <router-link to="/login">
+          <li>登入/註冊</li>
+        </router-link>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -117,14 +177,14 @@ import { ArrowRightAltSharp } from '@vicons/material'
 }
 
 .cart {
-  margin-right: 1.6875rem;
+  margin-right: 1rem;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
 .member-photo {
-  margin-right: 2rem;
+  margin-right: 1rem;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -161,7 +221,7 @@ import { ArrowRightAltSharp } from '@vicons/material'
     border-radius: 1rem;
     background-color: #ed888c;
     color: #ffffff;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     text-align: center;
     transition: all 0.3s ease;
@@ -173,8 +233,8 @@ import { ArrowRightAltSharp } from '@vicons/material'
       color: #ed888c;
 
       svg {
-          color: #ed888c;
-        }
+        color: #ed888c;
+      }
     }
 
     .button-text {
@@ -193,13 +253,81 @@ import { ArrowRightAltSharp } from '@vicons/material'
   }
 }
 
-.menu {
+.cart-phone {
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}
+.menu-phone {
   margin-right: 1.6875rem;
   display: flex;
   align-items: center;
   cursor: pointer;
 
   @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+.menu-dropdown {
+  background-color: #ffffff;
+  width: 100%;
+  position: absolute;
+  top: 80px;
+  right: -100%;
+  /* 初始時菜單在畫面右側以隱藏 */
+  z-index: 999;
+  transition: right 0.3s ease;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+
+  .member-info {
+    display: flex;
+    align-items: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 12px;
+
+    .member-text {
+      margin-left: 1rem;
+
+      .name {
+        font-weight: 900;
+        font-size: 20px;
+        line-height: 120%;
+      }
+
+      .email {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 150%;
+        color: #919191;
+      }
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  li {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 12px;
+    border: 1px solid #F2F2F2;
+  }
+}
+
+.my-course,
+.sign-out {
+  @media screen and (max-width: 768px) {
     display: none;
   }
 }
