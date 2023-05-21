@@ -72,6 +72,15 @@ const router = createRouter({
       name: 'chapterEdit',
       component: ChapterEdit,       
     },
+    // 測試
+    {
+      path: "/home",
+      name: "home",
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("@/views/HomeView.vue"),
+    },
   ],
 });
 

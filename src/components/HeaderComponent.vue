@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NIcon, NGrid, NGridItem, NAvatar } from 'naive-ui'
+// import { NIcon, NGrid, NGridItem, NAvatar } from 'naive-ui'
 import { Search, Cart, Menu } from '@vicons/ionicons5'
 import { ArrowRightAltSharp } from '@vicons/material'
 </script>
@@ -11,8 +11,14 @@ import { ArrowRightAltSharp } from '@vicons/material'
         <n-grid-item span="2  769:1">
           <div class="logo">
             <picture>
-              <source media="(max-width: 768px)" srcset="@/assets/logo/petknowLogo-88-40.svg" />
-              <img src="@/assets/logo/petknowLogo-140-64.svg" alt="petknow-logo" />
+              <source
+                media="(max-width: 768px)"
+                srcset="@/assets/logo/petknowLogo-88-40.svg"
+              />
+              <img
+                src="@/assets/logo/petknowLogo-140-64.svg"
+                alt="petknow-logo"
+              />
             </picture>
           </div>
         </n-grid-item>
@@ -35,11 +41,14 @@ import { ArrowRightAltSharp } from '@vicons/material'
             </div>
             <div class="member-photo">
               <div class="member-photo-background">
-                <n-avatar round :size="40" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+                <n-avatar
+                  round
+                  :size="40"
+                  src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+                />
               </div>
             </div>
             <div class="become-teacher">
-
               <button class="button">
                 <p class="button-text">成為講師</p>
                 <n-icon class="arrow-icon" size="28" color="#ffffff">
@@ -79,7 +88,6 @@ import { ArrowRightAltSharp } from '@vicons/material'
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .search-bar {
@@ -173,8 +181,8 @@ import { ArrowRightAltSharp } from '@vicons/material'
       color: #ed888c;
 
       svg {
-          color: #ed888c;
-        }
+        color: #ed888c;
+      }
     }
 
     .button-text {
