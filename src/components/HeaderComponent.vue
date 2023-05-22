@@ -1,4 +1,4 @@
-<script setup >
+<script setup>
 import { ref } from 'vue'
 import { NIcon, NGrid, NGridItem, NAvatar } from 'naive-ui'
 import { Search, Cart, Menu } from '@vicons/ionicons5'
@@ -8,7 +8,8 @@ const toggleMenu = ref(null)
 const isLogin = ref(false)
 
 function openToggleMenu () {
-  toggleMenu.value.style.right = toggleMenu.value.style.right === '0px' ? '-100%' : '0px'
+  toggleMenu.value.style.right =
+    toggleMenu.value.style.right === '0px' ? '-100%' : '0px'
 }
 </script>
 
@@ -19,8 +20,14 @@ function openToggleMenu () {
         <n-grid-item span="2  769:1">
           <div class="logo">
             <picture>
-              <source media="(max-width: 768px)" srcset="@/assets/logo/petknowLogo-88-40.svg" />
-              <img src="@/assets/logo/petknowLogo-140-64.svg" alt="petknow-logo" />
+              <source
+                media="(max-width: 768px)"
+                srcset="@/assets/logo/petknowLogo-88-40.svg"
+              />
+              <img
+                src="@/assets/logo/petknowLogo-140-64.svg"
+                alt="petknow-logo"
+              />
             </picture>
           </div>
         </n-grid-item>
@@ -49,12 +56,14 @@ function openToggleMenu () {
                 </n-icon>
               </div>
               <div v-if="isLogin" class="member-photo-background">
-                <n-avatar round :size="40" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+                <n-avatar
+                  round
+                  :size="40"
+                  src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+                />
               </div>
               <router-link v-else to="/login">
-                <n-button strong secondary type="info">
-                  登入/註冊
-                </n-button>
+                <n-button strong secondary type="info"> 登入/註冊 </n-button>
               </router-link>
             </div>
             <div class="become-teacher">
@@ -84,7 +93,11 @@ function openToggleMenu () {
   <div class="menu-dropdown" ref="toggleMenu">
     <div>
       <div class="member-info">
-        <n-avatar round :size="40" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+        <n-avatar
+          round
+          :size="40"
+          src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+        />
         <div class="member-text">
           <p class="name">陳曉明</p>
           <p class="email">chenxiaomin@gmail.com</p>
@@ -139,7 +152,6 @@ function openToggleMenu () {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .search-bar {
@@ -321,7 +333,7 @@ function openToggleMenu () {
     padding-top: 16px;
     padding-bottom: 16px;
     padding-left: 12px;
-    border: 1px solid #F2F2F2;
+    border: 1px solid #f2f2f2;
   }
 }
 

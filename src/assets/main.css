@@ -1,1 +1,17 @@
 @import './base.css';
+.n-collapse-item__header-main {
+    padding: 20px;
+  }
+.bg-gray {
+background-color: #f8f8f8;
+}
+
+.bg-white {
+background-color: #fff;
+}
+.flex{
+    display: flex;
+}
+.justify-between{
+    justify-content: space-between;
+}
