@@ -13,12 +13,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@types/vimeo__player": "^2.18.0",
     "@vimeo/player": "^2.18.0",
     "axios": "^1.4.0",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
-    "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
