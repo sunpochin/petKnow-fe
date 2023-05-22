@@ -1,38 +1,27 @@
 <template>
-  <div v-bind:id="divName">
-
-  </div>
+  <div :id="divName"></div>
 </template>
 
-<script>
-import Player from '@vimeo/player'
-export default {
-  data () {
-    return {
-      divName: 'divFrame'
-    }
-  },
-  props: {
-    id: {
-      type: String
-    }
-  },
-  created () {
-    this.divName = this.divName + '_' + this.id
-  },
-  mounted () {
-    // let vm=this
-    const options = {
-      id: this.id,
-      // responsive: false,
-      width: 640
-    }
-    // var player = new Player(this.divName, options)
-    const player = new Player(this.divName, options)
-    console.log(player)
-  }
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 
-}
+import Player from '@vimeo/player'
+const props = defineProps({
+  id: {
+    type: String
+  }
+})
+const divName = ref('divFrame')
+
+onMounted(() => {
+  const options = {
+    id: Number(props.id),
+    responsive: true
+    // width: 640
+  }
+  const player = new Player(divName.value, options)
+  console.log('player', player)
+})
 </script>
 
 <style lang="scss" scoped></style>
