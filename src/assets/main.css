@@ -1,1 +1,26 @@
 @import './base.css';
+.n-collapse-item__header-main {
+    padding: 20px;
+  }
+.bg-gray {
+background-color: #f8f8f8;
+}
+
+.bg-white {
+background-color: #fff;
+}
+.flex{
+    display: flex;
+}
+.justify-between{
+    justify-content: space-between;
+}
+
+/* .n-collapse-item--active{
+    background-color: #f8f8f8;
+} */
+
+/* .n-checkbox .n-checkbox--checked{
+    --n-color-checked: #ed888c !important;
+    --n-border-checked: 1px solid #ed888c !important;
+} */
