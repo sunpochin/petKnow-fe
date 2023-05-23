@@ -23,6 +23,11 @@ export default defineConfig({
       '/images': 'src/assets/images',
     }
   },
+  build: {
+    rollupOptions: {
+      external: ['swiper/css','swiper/vue'],
+    },
+  },
   // server: {
   //   proxy: {
   //     '/api': {
