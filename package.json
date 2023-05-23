@@ -17,6 +17,7 @@
     "@vimeo/player": "^2.18.0",
     "axios": "^1.4.0",
     "pinia": "^2.0.32",
+    "swiper": "^9.3.2",
     "vue": "^3.2.47",
     "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.1.6"
