@@ -155,8 +155,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 // import { Pagination } from 'Swiper'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
+// import { Swiper, SwiperSlide } from 'swiper/vue'
+// import 'swiper/css'
 import { Book, Cart } from '@vicons/ionicons5'
 // const modules = ref([Pagination])
 const isDone = ref(false)
