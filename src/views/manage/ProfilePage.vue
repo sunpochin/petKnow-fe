@@ -1,61 +1,57 @@
-<script lang="ts">
-import { NCard, NForm, NFormItem, NInput, NButton } from 'naive-ui'
-import { defineComponent } from 'vue'
-import TabBar from '@/components/manage/shared/TabBar.vue'
-export default defineComponent({
-  components: {
-    TabBar,
-    NButton,
-    NInput,
-    NCard,
-    NForm,
-    NFormItem
-  },
-  data () {
-    return {
-      pageTitle: '個人資料',
-      formData: {
-        username: '',
-        email: '',
-        age: 0
-      },
-      formRules: {
-        username: [{ required: true, message: 'Please enter a username' }],
-        email: [
-          { required: true, message: 'Please enter your email' },
-          { type: 'email', message: 'Please enter a valid email address' }
-        ]
-      }
-    }
-  },
-  methods: {
-    submitForm: function () {
+<script setup lang="ts">
+import { ref, reactive, defineComponent } from 'vue'
+import { useUserStore } from '@/stores/user.js'
+import { useRouter } from 'vue-router'
+import { useNotification } from 'naive-ui'
+import User from '@/api/user.js'
+const userStore = useUserStore()
+const accessToken = userStore.accessToken
+console.log(accessToken)
+const router = useRouter()
+userStore.getUserData()
 
-    }
+const pageTitle = '個人資料'
+const formData = {
+  username: '',
+  email: '',
+  age: 0
+}
+
+const validateRules = {
+  username: {
+    required: true,
+    message: '輸入暱稱',
+    trigger: ['input', 'blur']
+  },
+  email: {
+    required: true,
+    message: '輸入email',
+    trigger: ['input', 'blur']
   }
-})
-
-// export default ProfilePage
+}
+const submitForm = function () {
+  console.log('submitForm')
+}
 </script>
 <template>
   <div class="wrapper">
     <div class="container">
       <div class="content">
         <TabBar :page-title="pageTitle"/>
-        <n-card>
-          <n-form ref="form" :model="formData" :formrules="formRules">
+        <div class="form-wrapper">
+          <n-form ref="form" :model="formData" :formrules="validateRules">
             <!-- TODO: inset .avatar-upload-section here -->
             <div class="input-section">
-              <n-form-item label="暱稱" required>
-                <n-input v-model="formData.username" />
+              <n-form-item label="暱稱" path="username" required>
+                <n-input v-model.value="formData.username" placeholder="暱稱"/>
               </n-form-item>
-              <n-form-item label="信箱" required>
-                <n-input v-model="formData.email" />
+              <n-form-item label="信箱" path="email" required>
+                <n-input v-model.value="formData.email" placeholder="test@gmail.com"/>
               </n-form-item>
               <n-button type="primary" @click="submitForm">儲存</n-button>
             </div>
           </n-form>
-        </n-card>
+        </div>
       </div>
     </div>
   </div>
@@ -73,4 +69,10 @@ export default defineComponent({
   padding: 0 1rem;
 }
 
+.form-wrapper {
+  width: 300px;
+  max-width: 100%;
+  padding: 64px 0;
+  margin: 0 auto 128px 0;
+}
 </style>
