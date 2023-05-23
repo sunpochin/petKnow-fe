@@ -158,8 +158,6 @@ import { ref } from 'vue'
 import { Pagination } from 'Swiper'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css'
-import 'swiper/css/pagination'
-
 import { Book, Cart } from '@vicons/ionicons5'
 const modules = ref([Pagination])
 const isDone = ref(false)
