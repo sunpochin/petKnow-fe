@@ -24,11 +24,11 @@ export default defineConfig({
       '/images': 'src/assets/images',
     }
   },
-  build: {
-    rollupOptions: {
-      external: ['Swiper','swiper/css'],
-    },
-  },
+  // build: {
+  //   rollupOptions: {
+  //     external: ['Swiper','swiper/css'],
+  //   },
+  // },
   // server: {
   //   proxy: {
   //     '/api': {
