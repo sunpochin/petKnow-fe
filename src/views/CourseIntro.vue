@@ -68,7 +68,6 @@
               </div>
               <swiper
                 class="swiper"
-                :modules="modules"
                 :space-between="30"
                 :slides-per-view="4"
                 :centered-slides="true"
@@ -155,13 +154,10 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Pagination } from 'Swiper'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css'
-import 'swiper/css/pagination'
 
 import { Book, Cart } from '@vicons/ionicons5'
-const modules = ref([Pagination])
 const isDone = ref(false)
 </script>
 <style lang="scss" scoped>

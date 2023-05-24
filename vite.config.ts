@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig,loadEnv } from 'vite'
+import { defineConfig,loadEnv,splitVendorChunkPlugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
@@ -10,6 +10,7 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    splitVendorChunkPlugin(),
     vue(),
     Components({
     dirs: [ 'src/components' ], // 指定components位置 預設是'src/components'
@@ -22,6 +23,11 @@ export default defineConfig({
       // '@': fileURLToPath(new URL('./src', import.meta.url)),
       '/images': 'src/assets/images',
     }
+  },
+  build: {
+    rollupOptions: {
+      external: ['swiper/css','swiper/vue'],
+    },
   },
   // server: {
   //   proxy: {
