@@ -39,7 +39,6 @@ export const useAuthStore = defineStore("auth", () => {
     userToken.value = "";
     localStorage.setItem('accessToken',"")
     router.push('/login');
-
   }
 
   return { login, logout, accessToken };

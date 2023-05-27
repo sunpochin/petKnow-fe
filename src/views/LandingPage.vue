@@ -10,7 +10,11 @@
           掌握養寵必備知識 共創寵物相伴<br />
           美好時光
         </h2>
-        <SearchButton :text="'搜尋'" style="cursor: pointer" />
+        <SearchButton
+          :text="'搜尋'"
+          style="cursor: pointer"
+          @click="router.push('/search')"
+        />
       </div>
     </div>
     <div class="user-recommend-section">
@@ -269,8 +273,11 @@ import AccordionComponent from '@/components/AccordionComponent.vue'
 import courseCardImg from '@/assets/landing-page/course-card-img.png'
 import courseCardImg416160 from '@/assets/landing-page/course-card-img-416-160.png'
 import courseCardImg416451 from '@/assets/landing-page/course-card-img-416-451.png'
+import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css'
+const router = useRouter()
+
 // import carouselImg from '@/assets/landing-page/carousel-img.png'
 </script>
 <style lang="scss" scoped>
