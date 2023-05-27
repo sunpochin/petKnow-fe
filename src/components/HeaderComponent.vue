@@ -3,7 +3,7 @@
     <div class="container">
       <n-grid cols="3" item-responsive responsive="self">
         <n-grid-item span="2  769:1">
-          <div class="logo">
+          <div class="logo" @click="router.push('/')" style="cursor: pointer">
             <picture>
               <source
                 media="(max-width: 768px)"
@@ -31,7 +31,13 @@
             <n-button v-if="isLogin" quaternary class="my-course">
               我的課堂
             </n-button>
-            <n-button v-if="isLogin" quaternary type="error" class="sign-out">
+            <n-button
+              v-if="isLogin"
+              quaternary
+              type="error"
+              class="sign-out"
+              @click="authStore.logout"
+            >
               登出
             </n-button>
             <div class="member-photo">
@@ -94,24 +100,12 @@
           </div>
         </div>
         <ul v-if="isLogin">
-          <a href="https://">
-            <li>個人資料</li>
-          </a>
-          <a href="https://">
-            <li>我的課堂</li>
-          </a>
-          <a href="https://">
-            <li>我開的課</li>
-          </a>
-          <a href="https://">
-            <li>購買紀錄</li>
-          </a>
-          <a href="https://">
-            <li>成為講師</li>
-          </a>
-          <a href="https://">
-            <li>登出</li>
-          </a>
+          <li>個人資料</li>
+          <li>我的課堂</li>
+          <li>我開的課</li>
+          <li>購買紀錄</li>
+          <li>成為講師</li>
+          <li @click="authStore.logout">登出</li>
         </ul>
         <ul v-else>
           <router-link to="/login">
@@ -126,9 +120,14 @@
 import { ref, onMounted } from 'vue'
 import { Search, Cart, Menu } from '@vicons/ionicons5'
 import { ArrowRightAltSharp } from '@vicons/material'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const authStore = useAuthStore()
 
 const isOpenMenu = ref(false)
 const isLogin = ref(false)
+
 onMounted(() => {
   const accessToken = localStorage.getItem('accessToken')
   if (accessToken !== '') isLogin.value = true
@@ -295,14 +294,15 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
+
   .menu-dropdown {
     background-color: #ffffff;
     z-index: 999;
     right: -100%;
     transition: all 0.5s;
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
     .member-info {
       display: flex;
       align-items: center;
