@@ -123,13 +123,16 @@
   </div>
 </template>
 <script setup land="ts">
-import { ref } from 'vue'
-// import { NIcon, NGrid, NGridItem, NAvatar } from 'naive-ui'
+import { ref, onMounted } from 'vue'
 import { Search, Cart, Menu } from '@vicons/ionicons5'
 import { ArrowRightAltSharp } from '@vicons/material'
 
 const isOpenMenu = ref(false)
 const isLogin = ref(false)
+onMounted(() => {
+  const accessToken = localStorage.getItem('accessToken')
+  if (accessToken !== '') isLogin.value = true
+})
 </script>
 <style lang="scss" scoped>
 .header {
