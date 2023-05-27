@@ -25,7 +25,8 @@ console.log(props)
 <style lang="scss" scoped>
 .course-card {
   width: 100%;
-  min-height: 451px;
+  max-width: 416px;
+  max-height: 451px;
 
   .card-img {
     width: 100%;
@@ -37,7 +38,7 @@ console.log(props)
 
   .card-content {
     width: 100%;
-    height: 31%;
+    height: 100%;
 
     .title {
       font-weight: 900;
