@@ -6,7 +6,7 @@
     class="fit"
     style="heigh: 100%"
   >
-    <n-grid-item span="0 m:12 l:4" class="center">
+    <n-grid-item span="12 m:12 l:4" class="center">
       <div style="width: 300px">
         <n-tabs type="segment" v-model:value="selectedTab">
           <n-tab-pane name="login" tab="登入">
@@ -85,7 +85,7 @@
         </n-tabs>
       </div>
     </n-grid-item>
-    <n-grid-item span="0 m:12 l:8">
+    <n-grid-item span="12 m:12 l:8">
       <div class="p-20" style="height: 100%">
         <img
           class="loginImg"

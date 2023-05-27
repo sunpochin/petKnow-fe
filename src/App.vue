@@ -7,9 +7,14 @@
 </template>
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
-import HeaderComponent from '@/components/HeaderComponent.vue'
-import FooterComponent from '@/components/FooterComponent.vue'
+// import HeaderComponent from '@/components/HeaderComponent.vue'
+// import FooterComponent from '@/components/FooterComponent.vue'
 
 const route = useRoute()
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.fit {
+  height: 100vh;
+  width: 100vw;
+}
+</style>
