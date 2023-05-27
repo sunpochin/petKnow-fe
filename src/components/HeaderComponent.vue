@@ -28,7 +28,7 @@
         </n-grid-item>
         <n-grid-item span="1  769:1">
           <div class="d-flex-end">
-            <n-button v-if="isLogin" quaternary class="my-course">
+            <n-button v-if="isLogin" quaternary class="my-course" @click="router.push('/manage/learning')">
               我的課堂
             </n-button>
             <n-button
