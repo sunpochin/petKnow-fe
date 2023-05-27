@@ -213,6 +213,7 @@
       </div>
       <swiper
         class="swiper"
+        :modules="[Autoplay]"
         :space-between="20"
         :slides-per-view="1.5"
         :centered-slides="false"
@@ -225,6 +226,10 @@
             slidesPerView: 5.5,
             spaceBetween: 30
           }
+        }"
+        :autoplay="{
+          delay: 2000,
+          disableOnInteraction: false
         }"
       >
         <swiper-slide class="slide" v-for="i in 10" :key="i">
@@ -239,6 +244,7 @@
       </swiper>
       <swiper
         class="swiper"
+        :modules="[Autoplay]"
         :space-between="20"
         :slides-per-view="1.5"
         :centered-slides="false"
@@ -251,6 +257,10 @@
             slidesPerView: 5.5,
             spaceBetween: 30
           }
+        }"
+        :autoplay="{
+          delay: 2500,
+          disableOnInteraction: false
         }"
       >
         <swiper-slide class="slide" v-for="i in 10" :key="i">
@@ -267,6 +277,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { NIcon } from 'naive-ui'
 import { ArrowRightAltSharp } from '@vicons/material'
 import AccordionComponent from '@/components/AccordionComponent.vue'
@@ -275,10 +286,40 @@ import courseCardImg416160 from '@/assets/landing-page/course-card-img-416-160.p
 import courseCardImg416451 from '@/assets/landing-page/course-card-img-416-451.png'
 import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import { Autoplay } from 'swiper'
 import 'swiper/css'
-const router = useRouter()
-
+import type { AxiosResponse } from 'axios'
 // import carouselImg from '@/assets/landing-page/carousel-img.png'
+import HomePage from '@/api/homePage.js'
+const router = useRouter()
+const carouselData = ref([])
+const popularData = ref<
+  {
+    tag: string
+    courses: {
+      cover: string
+      discountPrice: number
+      isFree: boolean
+      price: number
+      title: string
+      _id: string
+    }[]
+  }[]
+>([])
+
+async function getData() {
+  const registerResult = (await HomePage.apiGetHomePageData()) as AxiosResponse
+  console.log('registerResult', registerResult.data.data)
+  if (registerResult.data.data) {
+    carouselData.value = registerResult.data.data.carousel
+    popularData.value = registerResult.data.data.popular
+  }
+  console.log('data', carouselData.value, popularData.value)
+}
+
+onMounted(() => {
+  getData()
+})
 </script>
 <style lang="scss" scoped>
 .wrapper {
