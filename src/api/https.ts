@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { useAuthStore } from '@/stores/auth.js'
-import { storeToRefs } from 'pinia'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -12,8 +10,7 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 這裡 accessToken 從 pinia 撈
-    const authStore = useAuthStore()
-    const { accessToken } = storeToRefs(authStore);
+    const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
       config.headers.Authorization = "Bearer " + accessToken;
     }

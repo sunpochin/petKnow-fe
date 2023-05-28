@@ -1,24 +1,9 @@
-<script setup>
-import { ref } from 'vue'
-import { NIcon, NGrid, NGridItem, NAvatar } from 'naive-ui'
-import { Search, Cart, Menu } from '@vicons/ionicons5'
-import { ArrowRightAltSharp } from '@vicons/material'
-
-const toggleMenu = ref(null)
-const isLogin = ref(false)
-
-function openToggleMenu () {
-  toggleMenu.value.style.right =
-    toggleMenu.value.style.right === '0px' ? '-100%' : '0px'
-}
-</script>
-
 <template>
   <header class="header">
     <div class="container">
       <n-grid cols="3" item-responsive responsive="self">
         <n-grid-item span="2  769:1">
-          <div class="logo">
+          <div class="logo" @click="router.push('/')" style="cursor: pointer">
             <picture>
               <source
                 media="(max-width: 768px)"
@@ -43,10 +28,16 @@ function openToggleMenu () {
         </n-grid-item>
         <n-grid-item span="1  769:1">
           <div class="d-flex-end">
-            <n-button v-if="isLogin" quaternary class="my-course">
+            <n-button v-if="isLogin" quaternary class="my-course" @click="router.push('/manage/learning')">
               我的課堂
             </n-button>
-            <n-button v-if="isLogin" quaternary type="error" class="sign-out">
+            <n-button
+              v-if="isLogin"
+              quaternary
+              type="error"
+              class="sign-out"
+              @click="authStore.logout"
+            >
               登出
             </n-button>
             <div class="member-photo">
@@ -80,7 +71,7 @@ function openToggleMenu () {
                 <Cart />
               </n-icon>
             </div>
-            <div class="menu-phone" @click="openToggleMenu">
+            <div class="menu-phone" @click="isOpenMenu = !isOpenMenu">
               <n-icon size="20" color="#020202">
                 <Menu />
               </n-icon>
@@ -90,48 +81,58 @@ function openToggleMenu () {
       </n-grid>
     </div>
   </header>
-  <div class="menu-dropdown" ref="toggleMenu">
-    <div>
-      <div class="member-info">
-        <n-avatar
-          round
-          :size="40"
-          src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-        />
-        <div class="member-text">
-          <p class="name">陳曉明</p>
-          <p class="email">chenxiaomin@gmail.com</p>
+  <div class="menuWrap">
+    <div
+      class="menu-dropdown"
+      ref="toggleMenu"
+      :class="{ 'end-100': isOpenMenu }"
+    >
+      <div>
+        <div class="member-info">
+          <n-avatar
+            round
+            :size="40"
+            src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+          />
+          <div class="member-text">
+            <p class="name">陳曉明</p>
+            <p class="email">chenxiaomin@gmail.com</p>
+          </div>
         </div>
-      </div>
-      <ul v-if="isLogin">
-        <a href="https://">
+        <ul v-if="isLogin">
           <li>個人資料</li>
-        </a>
-        <a href="https://">
           <li>我的課堂</li>
-        </a>
-        <a href="https://">
           <li>我開的課</li>
-        </a>
-        <a href="https://">
           <li>購買紀錄</li>
-        </a>
-        <a href="https://">
           <li>成為講師</li>
-        </a>
-        <a href="https://">
-          <li>登出</li>
-        </a>
-      </ul>
-      <ul v-else>
-        <router-link to="/login">
-          <li>登入/註冊</li>
-        </router-link>
-      </ul>
+          <li @click="authStore.logout">登出</li>
+        </ul>
+        <ul v-else>
+          <router-link to="/login">
+            <li>登入/註冊</li>
+          </router-link>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
+<script setup land="ts">
+import { ref, onMounted } from 'vue'
+import { Search, Cart, Menu } from '@vicons/ionicons5'
+import { ArrowRightAltSharp } from '@vicons/material'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const authStore = useAuthStore()
 
+const isOpenMenu = ref(false)
+const isLogin = ref(false)
+
+onMounted(() => {
+  const accessToken = localStorage.getItem('accessToken')
+  if (accessToken !== '') isLogin.value = true
+})
+</script>
 <style lang="scss" scoped>
 .header {
   width: 100vw;
@@ -284,56 +285,60 @@ function openToggleMenu () {
     display: none;
   }
 }
-
-.menu-dropdown {
-  background-color: #ffffff;
-  width: 100%;
+.end-100 {
+  right: 0% !important;
+}
+.menuWrap {
   position: absolute;
-  top: 80px;
-  right: -100%;
-  /* 初始時菜單在畫面右側以隱藏 */
-  z-index: 999;
-  transition: right 0.3s ease;
+  right: 0%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
+  .menu-dropdown {
+    background-color: #ffffff;
+    z-index: 999;
+    right: -100%;
+    transition: all 0.5s;
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+    .member-info {
+      display: flex;
+      align-items: center;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      padding-left: 12px;
 
-  .member-info {
-    display: flex;
-    align-items: center;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    padding-left: 12px;
+      .member-text {
+        margin-left: 1rem;
 
-    .member-text {
-      margin-left: 1rem;
+        .name {
+          font-weight: 900;
+          font-size: 20px;
+          line-height: 120%;
+        }
 
-      .name {
-        font-weight: 900;
-        font-size: 20px;
-        line-height: 120%;
-      }
-
-      .email {
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 150%;
-        color: #919191;
+        .email {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 150%;
+          color: #919191;
+        }
       }
     }
-  }
 
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
 
-  li {
-    padding-top: 16px;
-    padding-bottom: 16px;
-    padding-left: 12px;
-    border: 1px solid #f2f2f2;
+    li {
+      padding-top: 16px;
+      padding-bottom: 16px;
+      padding-left: 12px;
+      border: 1px solid #f2f2f2;
+    }
   }
 }
 
