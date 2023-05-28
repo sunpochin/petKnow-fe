@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  timeout: 20000,
+  timeout: 50000,
   headers: {
     "Content-Type": "application/json",
   },

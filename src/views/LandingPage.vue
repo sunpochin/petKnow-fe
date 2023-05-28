@@ -107,18 +107,23 @@
           <p class="cn-title mb-4">你可能會喜歡</p>
           <swiper
             class="swiper"
+            :modules="[Autoplay]"
             :space-between="20"
             :slides-per-view="1.2"
-            :centered-slides="false"
+            :centered-slides="true"
             :breakpoints="{
               '768': {
                 slidesPerView: 2,
                 spaceBetween: 20
               },
               '1024': {
-                slidesPerView: 3.5,
+                slidesPerView: 2,
                 spaceBetween: 30
               }
+            }"
+            :autoplay="{
+              delay: 2000,
+              disableOnInteraction: false
             }"
           >
             <swiper-slide
