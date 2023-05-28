@@ -26,7 +26,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['swiper/css','swiper/vue'],
+      external: ['./swiper/css','./swiper/vue'],
     },
   },
   // server: {
