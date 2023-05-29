@@ -103,9 +103,9 @@ function submitForm () {
   width: 320px;
   max-width: 100%;
   button.save-btn {
-    background-color: pink !important;
+    background-color: #ED888C !important;
     box-shadow: none;
-    border-color: pink;
+    border-color: #ED888C;
   }
 }
 </style>
