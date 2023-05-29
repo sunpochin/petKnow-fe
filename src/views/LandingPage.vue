@@ -107,26 +107,34 @@
           <p class="cn-title mb-4">你可能會喜歡</p>
           <swiper
             class="swiper"
+            :modules="[Autoplay]"
             :space-between="20"
             :slides-per-view="1.2"
-            :centered-slides="false"
+            :centered-slides="true"
             :breakpoints="{
               '768': {
                 slidesPerView: 2,
                 spaceBetween: 20
               },
               '1024': {
-                slidesPerView: 3.5,
+                slidesPerView: 2,
                 spaceBetween: 30
               }
             }"
+            :autoplay="{
+              delay: 2000,
+              disableOnInteraction: false
+            }"
           >
-            <swiper-slide class="slide" v-for="i in 5" :key="i">
+            <swiper-slide
+              class="slide"
+              v-for="item in carouselData"
+              :key="item._id"
+            >
               <CourseCard-416-451
-                :imageUrl="courseCardImg416451"
-                :title="'寵物訓練實拍：實戰技巧教學與寵物互動樂趣'"
+                :imageUrl="item.cover"
+                :title="item.title"
                 :teacher="'寵物訓練大師 Mr. Chen'"
-                :price="2500"
               />
             </swiper-slide>
           </swiper>
@@ -148,40 +156,50 @@
               </n-icon>
             </span>
           </p>
-          <div class="mb-2 flex-between align-items-center">
-            <h4 class="sub-title">熱門課程</h4>
-            <p style="cursor: pointer">
-              看更多
-              <n-icon class="arrow-icon" size="16" color="#000000">
-                <ArrowRightAltSharp />
-              </n-icon>
-            </p>
-          </div>
-          <swiper
-            class="swiper"
-            :space-between="20"
-            :slides-per-view="1.2"
-            :centered-slides="false"
-            :breakpoints="{
-              '768': {
-                slidesPerView: 1.2,
-                spaceBetween: 20
-              },
-              '1024': {
-                slidesPerView: 3.5,
-                spaceBetween: 30
-              }
-            }"
+          <div
+            v-for="(item, index) in popularData"
+            :key="index"
+            style="margin-bottom: 40px"
           >
-            <swiper-slide class="slide" v-for="i in 5" :key="i">
-              <CourseCard-416-451
-                :imageUrl="courseCardImg416451"
-                :title="'寵物訓練實拍：實戰技巧教學與寵物互動樂趣'"
-                :teacher="'寵物訓練大師 Mr. Chen'"
-                :price="2500"
-              />
-            </swiper-slide>
-          </swiper>
+            <div class="mb-2 flex-between align-items-center">
+              <h4 class="sub-title">{{ item.tag }}</h4>
+              <p style="cursor: pointer">
+                看更多
+                <n-icon class="arrow-icon" size="16" color="#000000">
+                  <ArrowRightAltSharp />
+                </n-icon>
+              </p>
+            </div>
+            <swiper
+              class="swiper"
+              :space-between="20"
+              :slides-per-view="1.2"
+              :centered-slides="false"
+              :breakpoints="{
+                '768': {
+                  slidesPerView: 1.2,
+                  spaceBetween: 20
+                },
+                '1024': {
+                  slidesPerView: 3.5,
+                  spaceBetween: 30
+                }
+              }"
+            >
+              <swiper-slide
+                class="slide"
+                v-for="course in item.courses"
+                :key="course._id"
+              >
+                <CourseCard-416-451
+                  :imageUrl="course.cover"
+                  :title="course.title"
+                  :teacher="'寵物訓練大師 Mr. Chen'"
+                  :price="course.price"
+                />
+              </swiper-slide>
+            </swiper>
+          </div>
         </div>
       </div>
     </div>
@@ -197,7 +215,41 @@
             </div>
           </n-grid-item>
           <n-grid-item span="2 769:1">
-            <AccordionComponent />
+            <n-card>
+              <n-collapse
+                default-expanded-names="1"
+                accordion
+                arrow-placement="right"
+              >
+                <n-collapse-item :name="i" v-for="i in 3" :key="i">
+                  <template #header>
+                    <div style="font-weight: bold; font-size: 36px">
+                      我可以在這個平台學習到什麼
+                    </div>
+                  </template>
+                  <!-- <template #header-extra>
+                    <n-icon><ArrowRightAltSharp /></n-icon>
+                  </template> -->
+                  <template #arrow>
+                    <div></div>
+                    <n-icon
+                      style="
+                        margin-left: 50px;
+                        font-size: 24px;
+                        font-weight: bold;
+                      "
+                    >
+                      <ArrowRightAltSharp />
+                    </n-icon>
+                  </template>
+                  <div>
+                    我們的線上學習平台提供多樣化的寵物知識課程，讓您可以學習如何與寵物建立更好的溝通關係、培養寵物的好習慣和技能，以及解決寵物的不良行為，讓您和您的寵物共同享受快樂的生活。
+                  </div>
+                </n-collapse-item>
+              </n-collapse>
+            </n-card>
+
+            <!-- <AccordionComponent /> -->
           </n-grid-item>
         </n-grid>
       </div>
@@ -213,6 +265,7 @@
       </div>
       <swiper
         class="swiper"
+        :modules="[Autoplay]"
         :space-between="20"
         :slides-per-view="1.5"
         :centered-slides="false"
@@ -226,10 +279,14 @@
             spaceBetween: 30
           }
         }"
+        :autoplay="{
+          delay: 2000,
+          disableOnInteraction: false
+        }"
       >
         <swiper-slide class="slide" v-for="i in 10" :key="i">
           <div class="topic-scrollbar">
-            <div>
+            <div @click="router.push('/search')">
               <button class="topic-button" style="cursor: pointer">
                 <p>寵物洗澡教學</p>
               </button>
@@ -239,6 +296,7 @@
       </swiper>
       <swiper
         class="swiper"
+        :modules="[Autoplay]"
         :space-between="20"
         :slides-per-view="1.5"
         :centered-slides="false"
@@ -252,10 +310,14 @@
             spaceBetween: 30
           }
         }"
+        :autoplay="{
+          delay: 2500,
+          disableOnInteraction: false
+        }"
       >
         <swiper-slide class="slide" v-for="i in 10" :key="i">
-          <div class="topic-scrollbar" style="margin-left: 80px">
-            <div>
+          <div class="topic-scrollbar" style="margin-left: 100px">
+            <div @click="router.push('/search')">
               <button class="topic-button" style="cursor: pointer">
                 <p>寵物洗澡教學</p>
               </button>
@@ -267,6 +329,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { NIcon } from 'naive-ui'
 import { ArrowRightAltSharp } from '@vicons/material'
 import AccordionComponent from '@/components/AccordionComponent.vue'
@@ -275,10 +338,46 @@ import courseCardImg416160 from '@/assets/landing-page/course-card-img-416-160.p
 import courseCardImg416451 from '@/assets/landing-page/course-card-img-416-451.png'
 import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import { Autoplay } from 'swiper'
 import 'swiper/css'
-const router = useRouter()
-
+import type { AxiosResponse } from 'axios'
 // import carouselImg from '@/assets/landing-page/carousel-img.png'
+import HomePage from '@/api/homePage.js'
+const router = useRouter()
+const carouselData = ref<
+  {
+    _id: string
+    title: string
+    cover: string
+  }[]
+>([])
+const popularData = ref<
+  {
+    tag: string
+    courses: {
+      cover: string
+      discountPrice: number
+      isFree: boolean
+      price: number
+      title: string
+      _id: string
+    }[]
+  }[]
+>([])
+
+async function getData() {
+  const registerResult = (await HomePage.apiGetHomePageData()) as AxiosResponse
+  console.log('registerResult', registerResult.data.data)
+  if (registerResult.data.data) {
+    carouselData.value = registerResult.data.data.carousel
+    popularData.value = registerResult.data.data.popular
+  }
+  console.log('data', carouselData.value, popularData.value)
+}
+
+onMounted(() => {
+  getData()
+})
 </script>
 <style lang="scss" scoped>
 .wrapper {
