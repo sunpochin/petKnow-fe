@@ -8,15 +8,19 @@ const props = defineProps({
 console.log(props)
 </script>
 <template>
-  <div class="course-card">
+  <div class="course-card" style="cursor: pointer">
     <div class="card-img">
-      <img :src="imageUrl" alt="course-img" />
+      <img
+        style="object-fit: cover; width: 100%"
+        :src="imageUrl"
+        alt="course-img"
+      />
     </div>
     <div class="card-content">
       <h3 class="title">{{ title }}</h3>
       <div class="flex-between">
         <p class="teacher">{{ teacher }}</p>
-        <p class="price">NT${{ price }}</p>
+        <p class="price" v-if="props.price">NT${{ price }}</p>
       </div>
     </div>
   </div>
@@ -25,20 +29,23 @@ console.log(props)
 <style lang="scss" scoped>
 .course-card {
   width: 100%;
-  max-width: 416px;
-  max-height: 451px;
-
+  height: 100%;
   .card-img {
     width: 100%;
     height: 69%;
     border-radius: 0px 0px 80px 0px;
     overflow: hidden;
     margin-bottom: 1.5rem;
+    img {
+      height: 312px;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
   }
 
   .card-content {
     width: 100%;
-    height: 100%;
+    height: 31%;
 
     .title {
       font-weight: 900;
