@@ -2,6 +2,8 @@
 import { reactive, onMounted } from 'vue'
 import { useUserStore } from '@/stores/user.js'
 import { useRouter } from 'vue-router'
+import { useNotification } from 'naive-ui'
+const notification = useNotification()
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -26,32 +28,58 @@ function renderFormData () {
 onMounted(renderFormData)
 
 function submitForm () {
-  userStore.updateUserData({
-    nickname: formData.nickname,
-    bio: formData.bio
-  }).then(renderFormData)
+  userStore
+    .updateUserData({
+      nickname: formData.nickname,
+      bio: formData.bio
+    })
+    .then(() => {
+      renderFormData()
+      notification.success({
+        content: '修改成功',
+        duration: 2500,
+        keepAliveOnHover: true
+      })
+    })
+    .catch(() => {
+      notification.error({
+        content: '修改失敗',
+        duration: 2500,
+        keepAliveOnHover: true
+      })
+    })
 }
 </script>
 <template>
   <div class="wrapper">
     <div class="container">
       <div class="content">
-        <TabBar :page-title="pageTitle"/>
+        <TabBar :page-title="pageTitle" />
         <div class="form-wrapper">
-        <n-card>
-          <n-form ref="form" :model="formData">
-            <!-- TODO: inset .avatar-upload-section here -->
-            <div class="input-section">
-              <n-form-item label="暱稱">
-                <n-input v-model:value="formData.nickname" placeholder="請輸入暱稱" />
-              </n-form-item>
-              <n-form-item label="簡介">
-                <n-input v-model:value="formData.bio" placeholder="簡介" type="textarea" :autosize="{ minRows: 3, maxRows: 5 }"/>
-              </n-form-item>
-              <n-button type="primary" class="save-btn" @click="submitForm">儲存</n-button>
-            </div>
-          </n-form>
-        </n-card>
+          <n-card>
+            <n-form ref="form" :model="formData">
+              <!-- TODO: inset .avatar-upload-section here -->
+              <div class="input-section">
+                <n-form-item label="暱稱">
+                  <n-input
+                    v-model:value="formData.nickname"
+                    placeholder="請輸入暱稱"
+                  />
+                </n-form-item>
+                <n-form-item label="簡介">
+                  <n-input
+                    v-model:value="formData.bio"
+                    placeholder="簡介"
+                    type="textarea"
+                    :autosize="{ minRows: 3, maxRows: 5 }"
+                  />
+                </n-form-item>
+                <n-button type="primary" class="save-btn" @click="submitForm"
+                  >儲存</n-button
+                >
+              </div>
+            </n-form>
+          </n-card>
         </div>
       </div>
     </div>
@@ -61,7 +89,7 @@ function submitForm () {
 .wrapper {
   width: 100%;
   height: 100%;
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 }
 .container {
   max-width: 1328px;
