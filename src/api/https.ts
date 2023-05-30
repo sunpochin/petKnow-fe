@@ -78,7 +78,7 @@ const req = <T>(method: string, url: string, data: T | null = null) => {
         return service.request({
           url,
           method: "delete",
-          headers: { "Content-Type": "application/json;charset=UTF-8;" },
+          headers: { "Content-Type": "application/json" },
           data,
         });
       }
@@ -89,7 +89,7 @@ const req = <T>(method: string, url: string, data: T | null = null) => {
       return service.request({
         url,
         method: "put",
-        headers: { "Content-Type": "application/json;charset=UTF-8;" },
+        headers: { "Content-Type": "application/json" },
         data,
       });
     } else if (method === "patch") {
