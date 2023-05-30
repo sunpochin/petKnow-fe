@@ -130,6 +130,7 @@
               class="slide"
               v-for="item in carouselData"
               :key="item._id"
+              @click="router.push(`/courseIntro/${item._id}`)"
             >
               <CourseCard-416-451
                 :imageUrl="item.cover"
@@ -190,11 +191,12 @@
                 class="slide"
                 v-for="course in item.courses"
                 :key="course._id"
+                @click="router.push(`/courseIntro/${course._id}`)"
               >
                 <CourseCard-416-451
                   :imageUrl="course.cover"
                   :title="course.title"
-                  :teacher="'寵物訓練大師 Mr. Chen'"
+                  :teacher="course.instructorName"
                   :price="course.price"
                 />
               </swiper-slide>
@@ -341,7 +343,6 @@ import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { Autoplay } from 'swiper'
 import 'swiper/css'
 import type { AxiosResponse } from 'axios'
-// import carouselImg from '@/assets/landing-page/carousel-img.png'
 import HomePage from '@/api/homePage.js'
 const router = useRouter()
 const carouselData = ref<
@@ -360,6 +361,7 @@ const popularData = ref<
       isFree: boolean
       price: number
       title: string
+      instructorName:string
       _id: string
     }[]
   }[]
