@@ -89,4 +89,11 @@ const router = createRouter({
   }
 });
 
+router.beforeEach((to) => {
+  const gotoManagePage = to.path.includes('/manage/')
+  const hasLogin = localStorage.getItem('accessToken') ? true : false
+  if (gotoManagePage && (!hasLogin)) {
+    router.push('/login')
+  }
+})
 export default router;
