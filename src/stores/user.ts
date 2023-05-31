@@ -13,7 +13,7 @@ export const useUserStore = defineStore("user", () => {
   // get user data
   async function getUserData () {
     const getResult = (await User.apiGetUserData()) as AxiosResponse
-    if (getResult && getResult.data && (getResult.data.message == 'Success')) {
+    if (getResult && getResult.data && (getResult.data.statusCode == 200)) {
       const userData = {
         nickname: getResult.data.data.nickname || getResult.data.data.name,
         bio: getResult.data.data.bio || '尚未填寫自我介紹' // default bio data
