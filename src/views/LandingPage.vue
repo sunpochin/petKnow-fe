@@ -23,7 +23,7 @@
           <h3 class="en-title mb-2 d-flex align-items-center">
             <span class="dot"></span> JUST FOR YOU
           </h3>
-          <p class="mb-4">陳曉明，開始學習</p>
+          <p class="mb-4">{{user.nickName}}，開始學習</p>
           <swiper
             class="swiper"
             :space-between="20"
@@ -342,6 +342,8 @@ import { Autoplay } from 'swiper'
 import 'swiper/css'
 import type { AxiosResponse } from 'axios'
 import HomePage from '@/api/homePage.js'
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()
 const router = useRouter()
 const tagNames = ref<string[]>([])
 const carouselData = ref<
@@ -366,6 +368,9 @@ const popularData = ref<
   }[]
 >([])
 
+const user = {
+  nickName: '親愛的'
+}
 async function getData() {
   const registerResult = (await HomePage.apiGetHomePageData()) as AxiosResponse
   console.log('registerResult', registerResult.data.data)
@@ -377,8 +382,13 @@ async function getData() {
   console.log('data', carouselData.value, popularData.value)
 }
 
-onMounted(() => {
-  getData()
+async function getUser() {
+  const userData = await userStore.getUserData()
+  user.nickName = userData.nickname
+}
+onMounted(function (){
+  getData(),
+  getUser()
 })
 </script>
 <style lang="scss" scoped>
