@@ -12,6 +12,7 @@ import ChapterAdd from "@/views/manage/ChapterAdd.vue";
 import ChapterEdit from "@/views/manage/ChapterEdit.vue";
 import CourseIntro from "@/views/CourseIntro.vue";
 import checkOrder from "@/views/checkOrder.vue";
+import CartPage from "@/views/CartPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -89,6 +90,11 @@ const router = createRouter({
       name: "order",
       component: checkOrder,
     },
+    {
+      path: "/cart",
+      name: "cartPage",
+      component: CartPage,
+    }
   ],
   scrollBehavior (to, from, savedPosition) {
     return { top: 0 }
