@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
   imageUrl: String,
+  level: String,
   title: String,
   teacher: String,
   time: Number,
@@ -24,12 +25,12 @@ console.log(props)
       <hr>
       <div class="card-lower">
         <div class="lower-1">
-          <div class="lower-2">{{ teacher }}</div>
+          <div class="lower-2">{{ teacher }}老師</div>
           <div class="lower-2">共計 {{ time }} 小時</div>
         </div>
         <div class="lower-1">
-          <div class="lower-2">12堂講座</div>
-          <div class="lower-2">初階課程</div>
+          <div class="lower-2">{{ courseNum }} 堂講座</div>
+          <div class="lower-2">{{ level }}課程</div>
         </div>
       </div>
       <hr>
@@ -38,6 +39,20 @@ console.log(props)
 </template>
 
 <style lang="scss" scoped>
+.title {
+  width: 636px;
+  height: 38px;
+  /* TC / Heading03 / Regular */
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 120%;
+  /* or 38px */
+  /* Black/100 */
+  color: #020202;
+}
+
 .course-card {
   @media (max-width: 768px) {
     flex-direction: column;
@@ -63,7 +78,6 @@ console.log(props)
 
   .card-content {
     // width: 69%;
-    // height: 100%;
     width: 100%;
 
     .card-upper {
@@ -73,6 +87,9 @@ console.log(props)
 
       @media (max-width: 768px) {
         flex-direction: column;
+        height: 200px;
+        margin-bottom: 1.5rem;
+        // margin: 0rem, auto, 2rem;
       }
 
       // font-weight: 900;
@@ -80,7 +97,6 @@ console.log(props)
       // line-height: 120%;
       // margin-bottom: 1.5rem;
       .price {
-        width: 78px;
         height: 38px;
         /* TC / Heading03 / Bold */
         font-family: 'Noto Sans TC';
@@ -92,33 +108,22 @@ console.log(props)
         text-align: right;
         /* Black/100 */
         color: #020202;
-        /* Inside auto layout */
-        flex: none;
-        order: 0;
-        flex-grow: 0;
+        // /* Inside auto layout */
+        // flex: none;
+        // order: 0;
+        // flex-grow: 0;
 
         @media (max-width: 768px) {
           // width: 196px;
+          width: 48px;
           height: 29px;
-          /* TC / Heading05 / Bold */
-          font-family: 'Noto Sans TC';
-          font-style: normal;
-          font-weight: 900;
           font-size: 24px;
-          line-height: 120%;
-          /* identical to box height, or 29px */
-          /* Black/100 */
-          color: #020202;
-          /* Inside auto layout */
-          flex: none;
-          order: 0;
-          flex-grow: 0;
         }
       }
 
       .remove {
         /* 移除 */
-        width: 32px;
+        // width: 32px;
         height: 24px;
         /* TC / Body / Bold */
         font-family: 'Noto Sans TC';
@@ -133,24 +138,6 @@ console.log(props)
         flex: none;
         order: 1;
         flex-grow: 0;
-
-        @media (max-width: 768px) {
-          width: 32px;
-          height: 24px;
-          /* TC / Body / Bold */
-          font-family: 'Noto Sans TC';
-          font-style: normal;
-          font-weight: 700;
-          font-size: 16px;
-          line-height: 150%;
-          /* identical to box height, or 24px */
-          /* Primary/Main */
-          color: #ED888C;
-          /* Inside auto layout */
-          flex: none;
-          order: 1;
-          flex-grow: 0;
-        }
       }
 
     }
