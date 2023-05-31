@@ -250,8 +250,6 @@
                 </n-collapse-item>
               </n-collapse>
             </n-card>
-
-            <!-- <AccordionComponent /> -->
           </n-grid-item>
         </n-grid>
       </div>
@@ -286,11 +284,11 @@
           disableOnInteraction: false
         }"
       >
-        <swiper-slide class="slide" v-for="i in 10" :key="i">
+        <swiper-slide class="slide" v-for="i,index in tagNames" :key="index">
           <div class="topic-scrollbar">
-            <div @click="router.push('/search')">
+            <div @click="router.push(`/search/${i}`)">
               <button class="topic-button" style="cursor: pointer">
-                <p>寵物洗澡教學</p>
+                <p>{{i}}</p>
               </button>
             </div>
           </div>
@@ -317,11 +315,11 @@
           disableOnInteraction: false
         }"
       >
-        <swiper-slide class="slide" v-for="i in 10" :key="i">
+        <swiper-slide class="slide" v-for="i,index in tagNames.reverse()" :key="index">
           <div class="topic-scrollbar" style="margin-left: 100px">
-            <div @click="router.push('/search')">
+            <div @click="router.push(`/search/${i}`)">
               <button class="topic-button" style="cursor: pointer">
-                <p>寵物洗澡教學</p>
+                <p>{{i}}</p>
               </button>
             </div>
           </div>
@@ -345,6 +343,7 @@ import 'swiper/css'
 import type { AxiosResponse } from 'axios'
 import HomePage from '@/api/homePage.js'
 const router = useRouter()
+const tagNames = ref<string[]>([])
 const carouselData = ref<
   {
     _id: string
@@ -373,6 +372,7 @@ async function getData() {
   if (registerResult.data.data) {
     carouselData.value = registerResult.data.data.carousel
     popularData.value = registerResult.data.data.popular
+    tagNames.value = registerResult.data.data.tagNames
   }
   console.log('data', carouselData.value, popularData.value)
 }
@@ -534,7 +534,7 @@ onMounted(() => {
     width: 100%;
     // margin-bottom: 8rem;
     .topic-button {
-      width: 110%;
+      width: 210px;
       height: 10%;
       padding: 40px 20px;
       border: 4px solid #020202;
