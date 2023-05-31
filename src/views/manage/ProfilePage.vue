@@ -27,27 +27,24 @@ function renderFormData () {
 
 onMounted(renderFormData)
 
-function submitForm () {
-  userStore
-    .updateUserData({
-      nickname: formData.nickname,
-      bio: formData.bio
+async function submitForm () {
+  try {
+    await userStore.updateUserData({ 
+      nickname: formData.nickname, 
+      bio: formData.bio 
+    });
+    notification.success({
+      content: '修改成功',
+      duration: 2500,
+      keepAliveOnHover: true
     })
-    .then(() => {
-      renderFormData()
-      notification.success({
-        content: '修改成功',
-        duration: 2500,
-        keepAliveOnHover: true
-      })
-    })
-    .catch(() => {
-      notification.error({
-        content: '修改失敗',
-        duration: 2500,
-        keepAliveOnHover: true
-      })
-    })
+  } catch (error) {
+    notification.error({
+      content: '修改失敗',
+      duration: 2500,
+      keepAliveOnHover: true
+    });
+  }
 }
 </script>
 <template>

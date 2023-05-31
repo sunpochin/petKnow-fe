@@ -24,11 +24,15 @@ export const useUserStore = defineStore("user", () => {
     }
   }
   async function updateUserData (updateData: updateData) {
-    const putResult = (await User.apiUpdateUserData(updateData)) as AxiosResponse
-    if (putResult && putResult.data && (putResult.data.message == 'Success')) {
-      return putResult.data
-    } else {
-      throw new Error ('Failed to update user data. Please check your input data again')
+    try {
+      const putResult = (await User.apiUpdateUserData(updateData)) as AxiosResponse
+      if (putResult && putResult.data && (putResult.data.statusCode == 200)) {
+        return putResult.data
+      } else {
+        throw new Error ('Failed to update user data. Please check your input data again')
+      }
+    } catch (error) {
+      throw error
     }
   }
   
