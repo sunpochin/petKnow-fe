@@ -9,7 +9,7 @@ const props = defineProps({
   courseNum: Number,
   price: Number
 })
-console.log(props)
+// console.log(props)
 </script>
 <template>
     <div class="couse-card">
