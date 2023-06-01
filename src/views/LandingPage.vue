@@ -315,7 +315,7 @@
           disableOnInteraction: false
         }"
       >
-        <swiper-slide class="slide" v-for="i,index in tagNames.reverse()" :key="index">
+        <swiper-slide class="slide" v-for="i,index in tagNamesReverse" :key="index">
           <div class="topic-scrollbar" style="margin-left: 100px">
             <div @click="router.push(`/search/${i}`)">
               <button class="topic-button" style="cursor: pointer">
@@ -329,7 +329,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted,computed } from 'vue'
 import { NIcon } from 'naive-ui'
 import { ArrowRightAltSharp } from '@vicons/material'
 import AccordionComponent from '@/components/AccordionComponent.vue'
@@ -372,11 +372,11 @@ async function getData() {
   if (registerResult.data.data) {
     carouselData.value = registerResult.data.data.carousel
     popularData.value = registerResult.data.data.popular
-    tagNames.value = []
+    tagNames.value = registerResult.data.data.tagNames
   }
   console.log('data', carouselData.value, popularData.value)
 }
-
+const tagNamesReverse = computed(()=>tagNames.value.reverse())
 onMounted(() => {
   getData()
 })
