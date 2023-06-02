@@ -39,20 +39,6 @@ console.log(props)
 </template>
 
 <style lang="scss" scoped>
-.title {
-  width: 636px;
-  height: 38px;
-  /* TC / Heading03 / Regular */
-  font-family: 'Noto Sans TC';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 120%;
-  /* or 38px */
-  /* Black/100 */
-  color: #020202;
-}
-
 .course-card {
   @media (max-width: 768px) {
     flex-direction: column;
@@ -83,6 +69,8 @@ console.log(props)
     .card-upper {
       height: 70%;
       display: flex;
+      flex-direction: column;
+      text-align: right;
       justify-content: space-between;
 
       @media (max-width: 768px) {
@@ -90,12 +78,27 @@ console.log(props)
         height: 200px;
         margin-bottom: 1.5rem;
         // margin: 0rem, auto, 2rem;
+        text-align: left;
       }
 
       // font-weight: 900;
       // font-size: 32px;
       // line-height: 120%;
       // margin-bottom: 1.5rem;
+      .title {
+        text-align: left;
+        height: 38px;
+        /* TC / Heading03 / Regular */
+        font-family: 'Noto Sans TC';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 120%;
+        /* or 38px */
+        /* Black/100 */
+        color: #020202;
+      }
+
       .price {
         height: 38px;
         /* TC / Heading03 / Bold */
@@ -108,11 +111,8 @@ console.log(props)
         text-align: right;
         /* Black/100 */
         color: #020202;
-        // /* Inside auto layout */
-        // flex: none;
-        // order: 0;
-        // flex-grow: 0;
 
+        // /* Inside auto layout */
         @media (max-width: 768px) {
           // width: 196px;
           width: 48px;
