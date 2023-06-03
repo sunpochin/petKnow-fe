@@ -560,78 +560,78 @@ onMounted(function (){
 }
 
 :deep() {
-.en-title {
-  font-weight: 900;
-  font-size: 32px;
-  line-height: 38.4px;
-
-  &:before {
-    content: "";
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background: #ed888c;
-    margin-right: 24px;
-  }
-
-  @media (max-width: 768px) {
+  .en-title {
     font-weight: 900;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 32px;
+    line-height: 38.4px;
+
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: #ed888c;
+      margin-right: 24px;
+    }
+
+    @media (max-width: 768px) {
+      font-weight: 900;
+      font-size: 20px;
+      line-height: 24px;
+    }
   }
-}
 
-.cn-title {
-  font-weight: 900;
-  font-size: 120px;
-  line-height: 144px;
+  .cn-title {
+    font-weight: 900;
+    font-size: 120px;
+    line-height: 144px;
 
-  @media (max-width: 768px) {
+    @media (max-width: 768px) {
+      font-weight: 900;
+      font-size: 48px;
+      line-height: 57.6px;
+    }
+  }
+
+  .sub-title {
     font-weight: 900;
     font-size: 48px;
-    line-height: 57.6px;
   }
-}
+  .mb-4 {
+    margin-bottom: 4rem;
+  }
 
-.sub-title {
-  font-weight: 900;
-  font-size: 48px;
-}
-.mb-4 {
-  margin-bottom: 4rem;
-}
+  .mb-2 {
+    margin-bottom: 2rem;
+  }
 
-.mb-2 {
-  margin-bottom: 2rem;
-}
+  .mb-9 {
+    margin-bottom: 9rem;
+  }
 
-.mb-9 {
-  margin-bottom: 9rem;
-}
+  .position-absolute {
+    position: absolute;
+  }
 
-.position-absolute {
-  position: absolute;
-}
+  .z-index-top {
+    z-index: 3;
+  }
 
-.z-index-top {
-  z-index: 3;
-}
+  .d-flex {
+    display: flex;
+  }
 
-.d-flex {
-  display: flex;
-}
-
-.align-items-center {
-  align-items: center;
-}
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.flex-between {
-  display: flex;
-  justify-content: space-between;
-}
+  .align-items-center {
+    align-items: center;
+  }
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .flex-between {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 </style>
