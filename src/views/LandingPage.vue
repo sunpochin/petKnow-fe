@@ -20,9 +20,7 @@
     <div class="user-recommend-section">
       <div class="container">
         <div class="just-for-you-section">
-          <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> JUST FOR YOU
-          </h3>
+          <h3 class="en-title mb-2 d-flex align-items-center">JUST FOR YOU</h3>
           <p class="mb-4">{{user.nickName}}，開始學習</p>
           <swiper
             class="swiper"
@@ -52,9 +50,7 @@
           </swiper>
         </div>
         <div class="next-step-section-pc">
-          <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> NEXT STEP
-          </h3>
+          <h3 class="en-title mb-2 d-flex align-items-center">NEXT STEP</h3>
           <p class="cn-title mb-9">為您挑選</p>
           <SearchButton :text="'立即上課'" />
           <div class="course-card-section">
@@ -71,9 +67,7 @@
           </div>
         </div>
         <div class="next-step-section-phone">
-          <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> NEXT STEP
-          </h3>
+          <h3 class="en-title mb-2 d-flex align-items-center">NEXT STEP</h3>
           <p class="cn-title position-absolute z-index-top">為您挑選</p>
           <div class="course-card-section flex-center mb-2">
             <CourseCard-351-697
@@ -102,7 +96,7 @@
       <div class="container">
         <div class="">
           <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> YOU MIGHT LIKE IT
+            YOU MIGHT LIKE IT
           </h3>
           <p class="cn-title mb-4">你可能會喜歡</p>
           <swiper
@@ -147,7 +141,7 @@
       <div class="container">
         <div class="">
           <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> EVERYONE IS LEARNING
+            EVERYONE IS LEARNING
           </h3>
           <p class="cn-title mb-4 d-flex align-items-center">
             大家都在學
@@ -210,9 +204,7 @@
         <n-grid cols="2" item-responsive>
           <n-grid-item span="2 769:1">
             <div class="" style="">
-              <h3 class="en-title mb-2 d-flex align-items-center">
-                <span class="dot"></span> F&Q
-              </h3>
+              <h3 class="en-title mb-2 d-flex align-items-center">F&Q</h3>
               <p class="cn-title mb-4">常見問題</p>
             </div>
           </n-grid-item>
@@ -255,7 +247,7 @@
       <div class="container">
         <div class="">
           <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> FEATURED TOPICS
+            FEATURED TOPICS
           </h3>
           <p class="cn-title mb-4">精選主題</p>
         </div>
@@ -572,6 +564,15 @@ onMounted(function (){
   font-size: 32px;
   line-height: 38.4px;
 
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: #ed888c;
+    margin-right: 24px;
+  }
+
   @media (max-width: 768px) {
     font-weight: 900;
     font-size: 20px;
@@ -589,14 +590,6 @@ onMounted(function (){
     font-size: 48px;
     line-height: 57.6px;
   }
-}
-
-.dot {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background: #ed888c;
-  margin-right: 24px;
 }
 
 .sub-title {
