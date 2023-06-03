@@ -229,9 +229,6 @@
                       我可以在這個平台學習到什麼
                     </div>
                   </template>
-                  <!-- <template #header-extra>
-                    <n-icon><ArrowRightAltSharp /></n-icon>
-                  </template> -->
                   <template #arrow>
                     <div></div>
                     <n-icon
