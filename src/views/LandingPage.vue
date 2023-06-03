@@ -559,6 +559,7 @@ onMounted(function (){
   }
 }
 
+:deep() {
 .en-title {
   font-weight: 900;
   font-size: 32px;
@@ -631,5 +632,6 @@ onMounted(function (){
 .flex-between {
   display: flex;
   justify-content: space-between;
+}
 }
 </style>
