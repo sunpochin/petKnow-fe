@@ -12,6 +12,7 @@ export const useUserStore = defineStore("user", () => {
 
   // get user data
   async function getUserData () {
+    try {
     const getResult = (await User.apiGetUserData()) as AxiosResponse
     if (getResult && getResult.data && (getResult.data.statusCode == 200)) {
       const userData = {
@@ -21,6 +22,9 @@ export const useUserStore = defineStore("user", () => {
       return userData
     } else {
       throw new Error("Failed to get user data. Please check your login state")
+    }
+    } catch (error) {
+      throw error
     }
   }
   async function updateUserData (updateData: updateData) {
