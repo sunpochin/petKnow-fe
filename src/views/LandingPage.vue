@@ -319,13 +319,11 @@ const user = {
 }
 async function getData() {
   const registerResult = (await HomePage.apiGetHomePageData()) as AxiosResponse
-  console.log('registerResult', registerResult.data.data)
   if (registerResult.data.data) {
     carouselData.value = registerResult.data.data.carousel
     popularData.value = registerResult.data.data.popular
     tagNames.value = registerResult.data.data.tagNames
   }
-  console.log('data', carouselData.value, popularData.value)
 }
 const tagNamesReverse = computed(()=>tagNames.value.reverse())
 async function getUser() {
