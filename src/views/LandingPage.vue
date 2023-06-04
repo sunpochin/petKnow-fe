@@ -314,9 +314,9 @@ const popularData = ref<
   }[]
 >([])
 
-const user = {
-  nickName: '親愛的'
-}
+const user = ref<{
+  nickName: string
+}>({nickName: '親愛的'})
 const accessToken = ref<string | null>(localStorage.getItem('accessToken'))
 
 async function getData() {
@@ -333,7 +333,7 @@ async function getUser() {
     return
   }
   const userData = await userStore.getUserData()
-  user.nickName = userData.nickname
+  user.value.nickName = userData.nickname || '親愛的'
 }
 onMounted(function (){
   getData(),
