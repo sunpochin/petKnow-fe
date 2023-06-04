@@ -13,16 +13,16 @@ export const useUserStore = defineStore("user", () => {
   // get user data
   async function getUserData () {
     try {
-    const getResult = (await User.apiGetUserData()) as AxiosResponse
-    if (getResult && getResult.data && (getResult.data.statusCode == 200)) {
-      const userData = {
-        nickname: getResult.data.data.nickname || getResult.data.data.name,
-        bio: getResult.data.data.bio || '尚未填寫自我介紹' // default bio data
+      const getResult = (await User.apiGetUserData()) as AxiosResponse
+      if (getResult && getResult.data && (getResult.data.statusCode == 200)) {
+        const userData = {
+          nickname: getResult.data.data.nickname || getResult.data.data.name,
+          bio: getResult.data.data.bio || '尚未填寫自我介紹' // default bio data
+        }
+        return userData
+      } else {
+        throw new Error("Failed to get user data. Please check your login state")
       }
-      return userData
-    } else {
-      throw new Error("Failed to get user data. Please check your login state")
-    }
     } catch (error) {
       throw error
     }
