@@ -280,10 +280,8 @@
 import { ref, onMounted,computed } from 'vue'
 import { NIcon } from 'naive-ui'
 import { ArrowRightAltSharp } from '@vicons/material'
-import AccordionComponent from '@/components/AccordionComponent.vue'
 import courseCardImg from '@/assets/landing-page/course-card-img.png'
 import courseCardImg416160 from '@/assets/landing-page/course-card-img-416-160.png'
-import courseCardImg416451 from '@/assets/landing-page/course-card-img-416-451.png'
 import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { Autoplay } from 'swiper'
@@ -316,23 +314,26 @@ const popularData = ref<
   }[]
 >([])
 
-const user = {
-  nickName: '親愛的'
-}
+const user = ref<{
+  nickName: string
+}>({nickName: '親愛的'})
+const accessToken = ref<string | null>(localStorage.getItem('accessToken'))
+
 async function getData() {
   const registerResult = (await HomePage.apiGetHomePageData()) as AxiosResponse
-  console.log('registerResult', registerResult.data.data)
   if (registerResult.data.data) {
     carouselData.value = registerResult.data.data.carousel
     popularData.value = registerResult.data.data.popular
     tagNames.value = registerResult.data.data.tagNames
   }
-  console.log('data', carouselData.value, popularData.value)
 }
 const tagNamesReverse = computed(()=>tagNames.value.reverse())
 async function getUser() {
+  if (!accessToken.value) {
+    return
+  }
   const userData = await userStore.getUserData()
-  user.nickName = userData.nickname
+  user.value.nickName = userData.nickname || '親愛的'
 }
 onMounted(function (){
   getData(),
