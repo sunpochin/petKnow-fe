@@ -317,6 +317,8 @@ const popularData = ref<
 const user = {
   nickName: '親愛的'
 }
+const accessToken = ref<string | null>(localStorage.getItem('accessToken'))
+
 async function getData() {
   const registerResult = (await HomePage.apiGetHomePageData()) as AxiosResponse
   if (registerResult.data.data) {
@@ -327,6 +329,9 @@ async function getData() {
 }
 const tagNamesReverse = computed(()=>tagNames.value.reverse())
 async function getUser() {
+  if (!accessToken.value) {
+    return
+  }
   const userData = await userStore.getUserData()
   user.nickName = userData.nickname
 }
