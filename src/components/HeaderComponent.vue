@@ -130,7 +130,7 @@ const isLogin = ref(false)
 
 onMounted(() => {
   const accessToken = localStorage.getItem('accessToken')
-  if (accessToken !== '') isLogin.value = true
+  if (accessToken) isLogin.value = true
 })
 </script>
 <style lang="scss" scoped>
