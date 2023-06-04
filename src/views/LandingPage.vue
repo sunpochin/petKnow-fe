@@ -20,9 +20,7 @@
     <div class="user-recommend-section">
       <div class="container">
         <div class="just-for-you-section">
-          <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> JUST FOR YOU
-          </h3>
+          <h3 class="en-title mb-2 d-flex align-items-center">JUST FOR YOU</h3>
           <p class="mb-4">{{user.nickName}}，開始學習</p>
           <swiper
             class="swiper"
@@ -52,9 +50,7 @@
           </swiper>
         </div>
         <div class="next-step-section-pc">
-          <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> NEXT STEP
-          </h3>
+          <h3 class="en-title mb-2 d-flex align-items-center">NEXT STEP</h3>
           <p class="cn-title mb-9">為您挑選</p>
           <SearchButton :text="'立即上課'" />
           <div class="course-card-section">
@@ -71,9 +67,7 @@
           </div>
         </div>
         <div class="next-step-section-phone">
-          <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> NEXT STEP
-          </h3>
+          <h3 class="en-title mb-2 d-flex align-items-center">NEXT STEP</h3>
           <p class="cn-title position-absolute z-index-top">為您挑選</p>
           <div class="course-card-section flex-center mb-2">
             <CourseCard-351-697
@@ -102,7 +96,7 @@
       <div class="container">
         <div class="">
           <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> YOU MIGHT LIKE IT
+            YOU MIGHT LIKE IT
           </h3>
           <p class="cn-title mb-4">你可能會喜歡</p>
           <swiper
@@ -147,7 +141,7 @@
       <div class="container">
         <div class="">
           <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> EVERYONE IS LEARNING
+            EVERYONE IS LEARNING
           </h3>
           <p class="cn-title mb-4 d-flex align-items-center">
             大家都在學
@@ -206,59 +200,13 @@
       </div>
     </div>
     <div class="faq-section">
-      <div class="container">
-        <n-grid cols="2" item-responsive>
-          <n-grid-item span="2 769:1">
-            <div class="" style="">
-              <h3 class="en-title mb-2 d-flex align-items-center">
-                <span class="dot"></span> F&Q
-              </h3>
-              <p class="cn-title mb-4">常見問題</p>
-            </div>
-          </n-grid-item>
-          <n-grid-item span="2 769:1">
-            <n-card>
-              <n-collapse
-                default-expanded-names="1"
-                accordion
-                arrow-placement="right"
-              >
-                <n-collapse-item :name="i" v-for="i in 3" :key="i">
-                  <template #header>
-                    <div style="font-weight: bold; font-size: 36px">
-                      我可以在這個平台學習到什麼
-                    </div>
-                  </template>
-                  <!-- <template #header-extra>
-                    <n-icon><ArrowRightAltSharp /></n-icon>
-                  </template> -->
-                  <template #arrow>
-                    <div></div>
-                    <n-icon
-                      style="
-                        margin-left: 50px;
-                        font-size: 24px;
-                        font-weight: bold;
-                      "
-                    >
-                      <ArrowRightAltSharp />
-                    </n-icon>
-                  </template>
-                  <div>
-                    我們的線上學習平台提供多樣化的寵物知識課程，讓您可以學習如何與寵物建立更好的溝通關係、培養寵物的好習慣和技能，以及解決寵物的不良行為，讓您和您的寵物共同享受快樂的生活。
-                  </div>
-                </n-collapse-item>
-              </n-collapse>
-            </n-card>
-          </n-grid-item>
-        </n-grid>
-      </div>
+      <Faq/>
     </div>
     <div class="topics-section">
       <div class="container">
         <div class="">
           <h3 class="en-title mb-2 d-flex align-items-center">
-            <span class="dot"></span> FEATURED TOPICS
+            FEATURED TOPICS
           </h3>
           <p class="cn-title mb-4">精選主題</p>
         </div>
@@ -570,76 +518,79 @@ onMounted(function (){
   }
 }
 
-.en-title {
-  font-weight: 900;
-  font-size: 32px;
-  line-height: 38.4px;
-
-  @media (max-width: 768px) {
+:deep() {
+  .en-title {
     font-weight: 900;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 32px;
+    line-height: 38.4px;
+
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: #ed888c;
+      margin-right: 24px;
+    }
+
+    @media (max-width: 768px) {
+      font-weight: 900;
+      font-size: 20px;
+      line-height: 24px;
+    }
   }
-}
 
-.cn-title {
-  font-weight: 900;
-  font-size: 120px;
-  line-height: 144px;
+  .cn-title {
+    font-weight: 900;
+    font-size: 120px;
+    line-height: 144px;
 
-  @media (max-width: 768px) {
+    @media (max-width: 768px) {
+      font-weight: 900;
+      font-size: 48px;
+      line-height: 57.6px;
+    }
+  }
+
+  .sub-title {
     font-weight: 900;
     font-size: 48px;
-    line-height: 57.6px;
   }
-}
+  .mb-4 {
+    margin-bottom: 4rem;
+  }
 
-.dot {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background: #ed888c;
-  margin-right: 24px;
-}
+  .mb-2 {
+    margin-bottom: 2rem;
+  }
 
-.sub-title {
-  font-weight: 900;
-  font-size: 48px;
-}
-.mb-4 {
-  margin-bottom: 4rem;
-}
+  .mb-9 {
+    margin-bottom: 9rem;
+  }
 
-.mb-2 {
-  margin-bottom: 2rem;
-}
+  .position-absolute {
+    position: absolute;
+  }
 
-.mb-9 {
-  margin-bottom: 9rem;
-}
+  .z-index-top {
+    z-index: 3;
+  }
 
-.position-absolute {
-  position: absolute;
-}
+  .d-flex {
+    display: flex;
+  }
 
-.z-index-top {
-  z-index: 3;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.align-items-center {
-  align-items: center;
-}
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.flex-between {
-  display: flex;
-  justify-content: space-between;
+  .align-items-center {
+    align-items: center;
+  }
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .flex-between {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 </style>
