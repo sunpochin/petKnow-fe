@@ -151,7 +151,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref,watch,onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css'
 import { Book, Cart } from '@vicons/ionicons5'
@@ -160,8 +160,8 @@ const route = useRoute()
 
 const isDone = ref(false)
 
-onMounted(()=>{
-  console.log("route.params.id",route.params.id)
+onMounted(() => {
+  console.log('route.params.id', route.params.id)
 })
 </script>
 <style lang="scss" scoped>
