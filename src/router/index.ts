@@ -11,6 +11,7 @@ import ChapterList from "@/views/manage/ChapterList.vue";
 import ChapterAdd from "@/views/manage/ChapterAdd.vue";
 import ChapterEdit from "@/views/manage/ChapterEdit.vue";
 import CourseIntro from "@/views/CourseIntro.vue";
+import checkOrder from "@/views/checkOrder.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +83,11 @@ const router = createRouter({
       path: "/courseIntro/:id",
       name: "courseIntro",
       component: CourseIntro,
+    },
+    {
+      path: "/order",
+      name: "order",
+      component: checkOrder,
     },
   ],
   scrollBehavior (to, from, savedPosition) {
