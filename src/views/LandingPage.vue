@@ -276,7 +276,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted,computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { NIcon } from 'naive-ui'
 import { ArrowRightAltSharp } from '@vicons/material'
 import courseCardImg from '@/assets/landing-page/course-card-img.png'
@@ -315,10 +315,10 @@ const popularData = ref<
 
 const user = ref<{
   nickName: string
-}>({nickName: '親愛的'})
+}>({ nickName: '親愛的' })
 const accessToken = ref<string | null>(localStorage.getItem('accessToken'))
 
-async function getData() {
+async function getData () {
   const registerResult = (await HomePage.apiGetHomePageData()) as AxiosResponse
   if (registerResult.data.data) {
     carouselData.value = registerResult.data.data.carousel
@@ -326,16 +326,16 @@ async function getData() {
     tagNames.value = registerResult.data.data.tagNames
   }
 }
-const tagNamesReverse = computed(()=>tagNames.value.reverse())
-async function getUser() {
+const tagNamesReverse = computed(() => tagNames.value.reverse())
+async function getUser () {
   if (!accessToken.value) {
     return
   }
   const userData = await userStore.getUserData()
   user.value.nickName = userData.nickname || '親愛的'
 }
-onMounted(function (){
-  getData(),
+onMounted(() => {
+  getData()
   getUser()
 })
 </script>
