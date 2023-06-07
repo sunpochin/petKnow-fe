@@ -157,7 +157,7 @@
           >
             <div class="mb-2 flex-between align-items-center">
               <h4 class="sub-title">{{ item.tag }}</h4>
-              <p style="cursor: pointer">
+              <p class="show-more-btn">
                 看更多
                 <n-icon class="arrow-icon" size="16" color="#000000">
                   <ArrowRightAltSharp />
@@ -466,6 +466,19 @@ onMounted(() => {
     @media (hover: hover) {
       &:hover, &:hover svg {
         border-color: #ED888C;
+        color: #ED888C;
+        cursor: pointer;
+      }
+    }
+  }
+  .show-more-btn {
+    color: #020202;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    i { margin-left: 8px; }
+    @media (hover: hover) {
+      &:hover, &:hover svg {
         color: #ED888C;
         cursor: pointer;
       }
