@@ -12,7 +12,6 @@
         </h2>
         <SearchButton
           :text="'搜尋'"
-          style="cursor: pointer"
           @click="router.push('/search')"
         />
       </div>

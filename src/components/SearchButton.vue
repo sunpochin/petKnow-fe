@@ -9,7 +9,7 @@ console.log(props.text)
 <template>
   <button class="search-btn">
     <p>{{ text }}</p>
-    <n-icon class="arrow-icon" size="32" color="#000000">
+    <n-icon class="arrow-icon" size="32">
       <ArrowRightAltSharp />
     </n-icon>
   </button>
@@ -26,6 +26,7 @@ console.log(props.text)
   border: 4px solid #020202;
   border-radius: 999px;
   background-color: transparent;
+  color: #000000;
 
   p {
     font-weight: 900;
@@ -37,6 +38,14 @@ console.log(props.text)
   @media (max-width: 768px) {
     width: 269px;
     padding: 40.5px 0;
+  }
+
+  @media (hover: hover) {
+    &:hover, &:hover svg {
+      cursor: pointer;
+      color: #ED888C;
+      border-color: #ED888C;
+    }
   }
 }
 </style>
