@@ -3,7 +3,7 @@ import CourseCard416451 from '@/components/CourseCard-416-451.vue'
 import courseCardImg416451 from '@/assets/landing-page/course-card-img-416-451.png'
 import { useRoute } from 'vue-router'
 import { ref, onMounted} from 'vue'
-import SearchPage from '@/api/searchPage.ts'
+import SearchPage from '@/api/searchPage.js'
 import type { AxiosResponse } from 'axios'
 
 const route = useRoute()
