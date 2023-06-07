@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ArrowRightAltSharp } from '@vicons/material'
 
-const props = defineProps(['text'])
+defineProps(['text'])
 
-console.log(props.text)
 </script>
 <template>
   <button class="search-btn">
