@@ -463,6 +463,13 @@ onMounted(function (){
       height: 48px;
       margin-left: 143px;
     }
+    @media (hover: hover) {
+      &:hover, &:hover svg {
+        border-color: #ED888C;
+        color: #ED888C;
+        cursor: pointer;
+      }
+    }
   }
 }
 .carousel-section {
