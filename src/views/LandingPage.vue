@@ -326,7 +326,7 @@ async function getData () {
     tagNames.value = registerResult.data.data.tagNames
   }
 }
-const tagNamesReverse = computed(() => tagNames.value.reverse())
+const tagNamesReverse = computed(() => tagNames.value.slice().reverse())
 async function getUser () {
   if (!accessToken.value) {
     return
