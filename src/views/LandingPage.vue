@@ -12,7 +12,6 @@
         </h2>
         <SearchButton
           :text="'搜尋'"
-          style="cursor: pointer"
           @click="router.push('/search')"
         />
       </div>
@@ -158,7 +157,7 @@
           >
             <div class="mb-2 flex-between align-items-center">
               <h4 class="sub-title">{{ item.tag }}</h4>
-              <p style="cursor: pointer">
+              <p class="show-more-btn">
                 看更多
                 <n-icon class="arrow-icon" size="16" color="#000000">
                   <ArrowRightAltSharp />
@@ -277,7 +276,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted,computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { NIcon } from 'naive-ui'
 import { ArrowRightAltSharp } from '@vicons/material'
 import courseCardImg from '@/assets/landing-page/course-card-img.png'
@@ -316,10 +315,10 @@ const popularData = ref<
 
 const user = ref<{
   nickName: string
-}>({nickName: '親愛的'})
+}>({ nickName: '親愛的' })
 const accessToken = ref<string | null>(localStorage.getItem('accessToken'))
 
-async function getData() {
+async function getData () {
   const registerResult = (await HomePage.apiGetHomePageData()) as AxiosResponse
   if (registerResult.data.data) {
     carouselData.value = registerResult.data.data.carousel
@@ -327,16 +326,16 @@ async function getData() {
     tagNames.value = registerResult.data.data.tagNames
   }
 }
-const tagNamesReverse = computed(()=>tagNames.value.reverse())
-async function getUser() {
+const tagNamesReverse = computed(() => tagNames.value.slice().reverse())
+async function getUser () {
   if (!accessToken.value) {
     return
   }
   const userData = await userStore.getUserData()
   user.value.nickName = userData.nickname || '親愛的'
 }
-onMounted(function (){
-  getData(),
+onMounted(() => {
+  getData()
   getUser()
 })
 </script>
@@ -464,6 +463,26 @@ onMounted(function (){
       height: 48px;
       margin-left: 143px;
     }
+    @media (hover: hover) {
+      &:hover, &:hover svg {
+        border-color: #ED888C;
+        color: #ED888C;
+        cursor: pointer;
+      }
+    }
+  }
+  .show-more-btn {
+    color: #020202;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    i { margin-left: 8px; }
+    @media (hover: hover) {
+      &:hover, &:hover svg {
+        color: #ED888C;
+        cursor: pointer;
+      }
+    }
   }
 }
 .carousel-section {
@@ -491,7 +510,7 @@ onMounted(function (){
     flex-wrap: wrap;
     justify-content: space-evenly;
     width: 100%;
-    // margin-bottom: 8rem;
+
     .topic-button {
       width: 210px;
       height: 10%;
