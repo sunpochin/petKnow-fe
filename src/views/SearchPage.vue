@@ -27,13 +27,32 @@ const coursesData = ref<
   }[]
 >([])
 
-async function getData (searchTag:string) {
-  const searchResult = (await SearchPage.apiGetSearchPageData(searchTag)) as AxiosResponse
-  // console.log('searchResult: ', searchResult)
-  if (searchResult.data.data) {
-    coursesData.value = searchResult.data.data.courses
+function resultStr() {
+  if ((searchTag.value as string).trim() === '') {
+    totalPage.value = 0
+    return '查無資料，請重新輸入關鍵詞'
+  } else if (resultNum.value === 0) {
+    totalPage.value = 0
+    return '找不到和 ' + searchTag.value + ' 相關的課程，請重新輸入關鍵詞'
+  } else {
+    return '和 ' + searchTag.value + ' 相關的課程有 ' + resultNum.value + ' 筆結果'
+  }
+}
 
-    console.log('coursesData: ', coursesData)
+async function getData(searchTag: string) {
+  // console.log('getData: ', searchTag)
+  if (searchTag.trim() === '') {
+    resultNum.value = 0
+    return
+  }
+  try {
+    const searchResult = (await SearchPage.apiGetSearchPageData(searchTag)) as AxiosResponse
+    if (searchResult.data.data) {
+      coursesData.value = searchResult.data.data.courses
+      // console.log('coursesData: ', coursesData)
+    }
+  } catch (error) {
+    resultNum.value = 0
   }
 }
 
@@ -46,7 +65,8 @@ onMounted(function () {
 <template>
   <div class="wrapper">
     <div class="container">
-      <h2 class="result">和 {{ searchTag }} 相關的課程有 {{ resultNum }} 筆結果</h2>
+      <h2 class="result">{{ resultStr() }}</h2>
+      <!-- <h2 class="result">和 {{ searchTag }} 相關的課程有 {{ resultNum }} 筆結果</h2> -->
       <div class="result-cards">
         <n-grid cols="3" :x-gap="36" :y-gap="64" item-responsive>
           <n-grid-item span="3 769:1" v-for="(item, index) in coursesData" :key="index">
@@ -57,7 +77,7 @@ onMounted(function () {
           </n-grid-item>
         </n-grid>
       </div>
-      <div class="pagination">
+      <div class="pagination" v-if="totalPage > 0">
         <n-pagination v-model:page="page" :page-count="totalPage" />
       </div>
     </div>
@@ -69,18 +89,22 @@ onMounted(function () {
   width: 100%;
   height: 100%;
 }
+
 .container {
   max-width: 1328px;
   height: fit-content;
   margin: 0 auto;
   padding: 1rem;
 }
+
 .result {
   padding: 1rem;
 }
+
 .result-cards {
   padding: 1rem;
 }
+
 .pagination {
   margin-top: 3rem;
   width: 100%;
