@@ -5,7 +5,7 @@ const props = defineProps({
   teacher: String,
   price: Number
 })
-console.log(props)
+// console.log(props)
 </script>
 <template>
   <div class="course-card" style="cursor: pointer">
