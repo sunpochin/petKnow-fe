@@ -192,7 +192,6 @@ onMounted(() => {
 }
 
 .cart {
-  margin-right: 1rem;
   display: flex;
   align-items: center;
   cursor: pointer;
