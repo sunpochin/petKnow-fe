@@ -52,9 +52,7 @@
                 src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
               />
             </div>
-            <router-link v-else to="/login">
-              <n-button strong secondary type="info"> 登入/註冊 </n-button>
-            </router-link>
+            <n-button v-else @click="router.push('/login')" strong secondary type="info"> 登入/註冊 </n-button>
             <!--
             <div class="become-teacher">
               <button class="button">
