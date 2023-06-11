@@ -40,12 +40,12 @@
             >
               登出
             </n-button>
+            <div class="cart">
+              <n-icon size="20" color="#020202">
+                <Cart />
+              </n-icon>
+            </div>
             <div class="member-photo">
-              <div class="cart">
-                <n-icon size="20" color="#020202">
-                  <Cart />
-                </n-icon>
-              </div>
               <div v-if="isLogin" class="member-photo-background">
                 <n-avatar
                   round
