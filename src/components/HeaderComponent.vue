@@ -57,6 +57,7 @@
                 <n-button strong secondary type="info"> 登入/註冊 </n-button>
               </router-link>
             </div>
+            <!--
             <div class="become-teacher">
               <button class="button">
                 <p class="button-text">成為講師</p>
@@ -65,6 +66,7 @@
                 </n-icon>
               </button>
             </div>
+            -->
             <!-- RWD mobile menu -->
             <div class="cart-phone">
               <n-icon size="20" color="#020202">
@@ -119,7 +121,7 @@
 <script setup land="ts">
 import { ref, onMounted } from 'vue'
 import { Search, Cart, Menu } from '@vicons/ionicons5'
-import { ArrowRightAltSharp } from '@vicons/material'
+// import { ArrowRightAltSharp } from '@vicons/material'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 const router = useRouter()
