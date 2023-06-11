@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import CourseCard416451 from '@/components/CourseCard-416-451.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import SearchPage from '@/api/searchPage.js'
 import type { AxiosResponse } from 'axios'
 
 const route = useRoute()
+const router = useRouter()
 const searchTag = ref(route.params.searchTag)
 const resultNum = ref(24)
 const page = ref(1)
@@ -72,7 +73,8 @@ onMounted(function () {
           <n-grid-item span="3 769:1" v-for="(item, index) in coursesData" :key="index">
             <div class="flex-center">
               <CourseCard-416-451 :imageUrl="item.cover" :title="item.title"
-                :teacher="item.instructorName" :price="item.price" />
+                :teacher="item.instructorName" :price="item.price"
+                @click="router.push(`/courseIntro/${item._id}`)" />
             </div>
           </n-grid-item>
         </n-grid>
