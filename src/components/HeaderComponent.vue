@@ -65,7 +65,7 @@
                 </n-icon>
               </button>
             </div>
-            <!-- RWD手機板menu -->
+            <!-- RWD mobile menu -->
             <div class="cart-phone">
               <n-icon size="20" color="#020202">
                 <Cart />
