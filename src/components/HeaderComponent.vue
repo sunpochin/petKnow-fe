@@ -45,16 +45,16 @@
                 <Cart />
               </n-icon>
             </n-button>
-              <div v-if="isLogin" class="member-photo-background">
-                <n-avatar
-                  round
-                  :size="40"
-                  src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-                />
-              </div>
-              <router-link v-else to="/login">
-                <n-button strong secondary type="info"> 登入/註冊 </n-button>
-              </router-link>
+            <div v-if="isLogin" class="member-photo-background">
+              <n-avatar
+                round
+                :size="40"
+                src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+              />
+            </div>
+            <router-link v-else to="/login">
+              <n-button strong secondary type="info"> 登入/註冊 </n-button>
+            </router-link>
             <!--
             <div class="become-teacher">
               <button class="button">
