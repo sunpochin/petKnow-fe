@@ -45,7 +45,6 @@
                 <Cart />
               </n-icon>
             </n-button>
-            <div class="member-photo">
               <div v-if="isLogin" class="member-photo-background">
                 <n-avatar
                   round
@@ -56,7 +55,6 @@
               <router-link v-else to="/login">
                 <n-button strong secondary type="info"> 登入/註冊 </n-button>
               </router-link>
-            </div>
             <!--
             <div class="become-teacher">
               <button class="button">
