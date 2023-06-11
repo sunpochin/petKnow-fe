@@ -45,13 +45,11 @@
                 <Cart />
               </n-icon>
             </n-button>
-            <div v-if="isLogin" class="member-photo-background">
-              <n-avatar
-                round
-                :size="40"
-                src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-              />
-            </div>
+            <n-button quaternary circle v-if="isLogin" @click="router.push('/manage/profile')">
+              <n-icon size="20">
+                <PersonSharp/>
+              </n-icon>
+            </n-button>
             <n-button v-else @click="router.push('/login')" strong secondary type="info"> 登入/註冊 </n-button>
             <!--
             <div class="become-teacher">
@@ -116,7 +114,7 @@
 </template>
 <script setup land="ts">
 import { ref, onMounted } from 'vue'
-import { Search, Cart, Menu } from '@vicons/ionicons5'
+import { Search, Cart, Menu, PersonSharp } from '@vicons/ionicons5'
 // import { ArrowRightAltSharp } from '@vicons/material'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
@@ -201,19 +199,6 @@ onMounted(() => {
 
   @media (max-width: 768px) {
     display: none;
-  }
-
-  .member-photo-background {
-    width: 40px;
-    height: 40px;
-    background-color: #f2f2f2;
-    border-radius: 50%;
-    overflow: hidden;
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
   }
 }
 
