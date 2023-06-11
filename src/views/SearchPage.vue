@@ -67,7 +67,6 @@ onMounted(function () {
   <div class="wrapper">
     <div class="container">
       <h2 class="result">{{ resultStr() }}</h2>
-      <!-- <h2 class="result">和 {{ searchTag }} 相關的課程有 {{ resultNum }} 筆結果</h2> -->
       <div class="result-cards">
         <n-grid cols="3" :x-gap="36" :y-gap="64" item-responsive>
           <n-grid-item span="3 769:1" v-for="(item, index) in coursesData" :key="index">
