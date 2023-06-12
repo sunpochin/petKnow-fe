@@ -52,7 +52,11 @@
                 </n-tab-pane>
               </n-tabs>
               <div>
-                <n-button style="width: 100%" icon-placement="right">
+                <n-button
+                  style="width: 100%"
+                  icon-placement="right"
+                  @click="cartStore.addCart(String(route.params.id))"
+                >
                   <template #icon>
                     <n-icon>
                       <Cart />
@@ -156,6 +160,9 @@ import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css'
 import { Book, Cart } from '@vicons/ionicons5'
 import { useRoute } from 'vue-router'
+// import type { AxiosResponse } from 'axios'
+import { useCartStore } from '@/stores/cart.js'
+const cartStore = useCartStore()
 const route = useRoute()
 
 const isDone = ref(false)

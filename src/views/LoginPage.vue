@@ -114,19 +114,21 @@ const loginData = reactive({
   password: 'Abc123'
 })
 async function handleLogin () {
-  try {
-    // Login 登入
-    const loginResult = await authStore.login(loginData)
-    console.log('loginResult', loginResult)
-    if (loginResult) {
+  // Login 登入
+  const loginResult = await authStore.login(loginData)
+  console.log('loginResult', loginResult)
+  if (loginResult.success) {
+    if (localStorage.getItem('fromVisitorCart')) {
+      router.push('/cart')
+    } else {
       router.push('/')
-      notification.success({
-        content: '登入成功',
-        duration: 2500,
-        keepAliveOnHover: true
-      })
     }
-  } catch (err) {
+    notification.success({
+      content: '登入成功',
+      duration: 2500,
+      keepAliveOnHover: true
+    })
+  } else {
     notification.error({
       content: '登入失敗',
       meta: '請確認帳號密碼是否正確',
