@@ -110,8 +110,8 @@ const router = useRouter()
 const selectedTab = ref('login')
 
 const loginData = reactive({
-  email: 'test1',
-  password: 'test12'
+  email: 'Abc1231@gmail.com',
+  password: 'Abc123'
 })
 async function handleLogin () {
   try {
