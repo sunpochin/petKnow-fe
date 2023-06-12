@@ -40,23 +40,18 @@
             >
               登出
             </n-button>
-            <div class="member-photo">
-              <div class="cart">
-                <n-icon size="20" color="#020202">
-                  <Cart />
-                </n-icon>
-              </div>
-              <div v-if="isLogin" class="member-photo-background">
-                <n-avatar
-                  round
-                  :size="40"
-                  src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-                />
-              </div>
-              <router-link v-else to="/login">
-                <n-button strong secondary type="info"> 登入/註冊 </n-button>
-              </router-link>
-            </div>
+            <n-button quaternary class="cart">
+              <n-icon size="20" color="#020202">
+                <Cart />
+              </n-icon>
+            </n-button>
+            <n-button quaternary circle v-if="isLogin" @click="router.push('/manage/profile')">
+              <n-icon size="20">
+                <PersonSharp/>
+              </n-icon>
+            </n-button>
+            <n-button v-else @click="router.push('/login')" strong secondary type="info"> 登入/註冊 </n-button>
+            <!--
             <div class="become-teacher">
               <button class="button">
                 <p class="button-text">成為講師</p>
@@ -65,7 +60,8 @@
                 </n-icon>
               </button>
             </div>
-            <!-- RWD手機板menu -->
+            -->
+            <!-- RWD mobile menu -->
             <div class="cart-phone">
               <n-icon size="20" color="#020202">
                 <Cart />
@@ -118,8 +114,8 @@
 </template>
 <script setup land="ts">
 import { ref, onMounted } from 'vue'
-import { Search, Cart, Menu } from '@vicons/ionicons5'
-import { ArrowRightAltSharp } from '@vicons/material'
+import { Search, Cart, Menu, PersonSharp } from '@vicons/ionicons5'
+// import { ArrowRightAltSharp } from '@vicons/material'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 const router = useRouter()
@@ -190,7 +186,6 @@ onMounted(() => {
 }
 
 .cart {
-  margin-right: 1rem;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -204,19 +199,6 @@ onMounted(() => {
 
   @media (max-width: 768px) {
     display: none;
-  }
-
-  .member-photo-background {
-    width: 40px;
-    height: 40px;
-    background-color: #f2f2f2;
-    border-radius: 50%;
-    overflow: hidden;
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
   }
 }
 
