@@ -40,7 +40,7 @@
             >
               登出
             </n-button>
-            <n-button quaternary class="cart">
+            <n-button quaternary class="cart" @click="router.push('/cart')">
               <n-icon size="20" color="#020202">
                 <Cart />
               </n-icon>
