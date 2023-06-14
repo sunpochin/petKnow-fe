@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import CourseCard416451 from '@/components/CourseCard-416-451.vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted, onUpdated} from 'vue'
 import SearchPage from '@/api/searchPage.js'
 import type { AxiosResponse } from 'axios'
 
 const route = useRoute()
 const router = useRouter()
-const searchTag = ref(route.params.searchTag)
-const resultNum = ref(24)
 const page = ref(1)
 const totalPage = ref(5)
-
+const resultStr = ref('')
 const coursesData = ref<
   {
     cover: string
@@ -28,22 +26,13 @@ const coursesData = ref<
   }[]
 >([])
 
-function resultStr() {
-  if ((searchTag.value as string).trim() === '') {
-    totalPage.value = 0
-    return '查無資料，請重新輸入關鍵詞'
-  } else if (resultNum.value === 0) {
-    totalPage.value = 0
-    return '找不到和 ' + searchTag.value + ' 相關的課程，請重新輸入關鍵詞'
-  } else {
-    return '和 ' + searchTag.value + ' 相關的課程有 ' + resultNum.value + ' 筆結果'
-  }
-}
+const resultNum = computed(() => coursesData.value.length)
 
-async function getData(searchTag: string) {
-  // console.log('getData: ', searchTag)
+async function getData (searchTag: string) {
+  // console.log('getData searchTag: ', searchTag)
+  resultStr.value = '查詢中...'
   if (searchTag.trim() === '') {
-    resultNum.value = 0
+    resultStr.value = '查無資料，請重新輸入關鍵詞'
     return
   }
   try {
@@ -52,8 +41,10 @@ async function getData(searchTag: string) {
       coursesData.value = searchResult.data.data.courses
       // console.log('coursesData: ', coursesData)
     }
+    resultStr.value = '和 ' + searchTag + ' 相關的課程有 ' + resultNum.value + ' 筆結果'
   } catch (error) {
-    resultNum.value = 0
+    coursesData.value = []
+    resultStr.value = '找不到和 ' + searchTag + ' 相關的課程，請重新輸入關鍵詞'
   }
 }
 
@@ -66,7 +57,7 @@ onMounted(function () {
 <template>
   <div class="wrapper">
     <div class="container">
-      <h2 class="result">{{ resultStr() }}</h2>
+      <h2 class="result">{{ resultStr }}</h2>
       <div class="result-cards">
         <n-grid cols="3" :x-gap="36" :y-gap="64" item-responsive>
           <n-grid-item span="3 769:1" v-for="(item, index) in coursesData" :key="index">
