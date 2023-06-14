@@ -16,7 +16,7 @@
         />
       </div>
     </div>
-    <div class="user-recommend-section">
+    <div v-if="isLogin" class="user-recommend-section">
       <div class="container">
         <div class="just-for-you-section">
           <h3 class="en-title mb-2 d-flex align-items-center">JUST FOR YOU</h3>
@@ -288,6 +288,8 @@ import 'swiper/css'
 import type { AxiosResponse } from 'axios'
 import HomePage from '@/api/homePage.js'
 import { useUserStore } from '@/stores/user'
+const isLogin = ref(false)
+
 const userStore = useUserStore()
 const router = useRouter()
 const tagNames = ref<string[]>([])
@@ -337,6 +339,7 @@ async function getUser () {
 onMounted(() => {
   getData()
   getUser()
+  if (accessToken.value) isLogin.value = true
 })
 </script>
 <style lang="scss" scoped>
