@@ -157,7 +157,7 @@
           >
             <div class="mb-2 flex-between align-items-center">
               <h4 class="sub-title">{{ item.tag }}</h4>
-              <p class="show-more-btn">
+              <p class="show-more-btn" @click="router.push(`/search/${item.tag}`)">
                 看更多
                 <n-icon class="arrow-icon" size="16" color="#000000">
                   <ArrowRightAltSharp />
