@@ -22,7 +22,7 @@
               <n-icon size="17.5" color="#919191">
                 <Search />
               </n-icon>
-              <input type="text" placeholder="搜尋" class="search-input" />
+              <input @keyup.enter="searchKeyword" v-on:input="inputKeyword" type="text" placeholder="搜尋" class="search-input" />
             </div>
           </div>
         </n-grid-item>
@@ -123,11 +123,20 @@ const authStore = useAuthStore()
 
 const isOpenMenu = ref(false)
 const isLogin = ref(false)
+const keyword = ref('')
 
 onMounted(() => {
   const accessToken = localStorage.getItem('accessToken')
   if (accessToken) isLogin.value = true
 })
+
+const searchKeyword = () => {
+  router.push(`/search/${keyword.value}`)
+}
+const inputKeyword = (event) => {
+  keyword.value = event.target.value
+}
+
 </script>
 <style lang="scss" scoped>
 .header {
