@@ -8,8 +8,9 @@ import type { AxiosResponse } from 'axios'
 const route = useRoute()
 const router = useRouter()
 const page = ref(1)
-const totalPage = ref(5)
+const totalPage = ref(0)
 const resultStr = ref('')
+const prevSearchTag = ref('')
 const coursesData = ref<
   {
     cover: string
@@ -29,17 +30,16 @@ const coursesData = ref<
 const resultNum = computed(() => coursesData.value.length)
 
 async function getData (searchTag: string) {
-  // console.log('getData searchTag: ', searchTag)
+  prevSearchTag.value = searchTag
   resultStr.value = '查詢中...'
   if (searchTag.trim() === '') {
-    resultStr.value = '查無資料，請重新輸入關鍵詞'
+    resultStr.value = '請輸入關鍵詞'
     return
   }
   try {
     const searchResult = (await SearchPage.apiGetSearchPageData(searchTag)) as AxiosResponse
     if (searchResult.data.data) {
       coursesData.value = searchResult.data.data.courses
-      // console.log('coursesData: ', coursesData)
     }
     resultStr.value = '和 ' + searchTag + ' 相關的課程有 ' + resultNum.value + ' 筆結果'
   } catch (error) {
@@ -47,6 +47,15 @@ async function getData (searchTag: string) {
     resultStr.value = '找不到和 ' + searchTag + ' 相關的課程，請重新輸入關鍵詞'
   }
 }
+
+// 處理「已經在 search 頁時，在 search-box 搜尋」的狀況
+onUpdated(function () {
+  if (prevSearchTag.value === route.params.searchTag) {
+    // 擋掉第二次以後的搜尋，避免無限迴圈。
+    return
+  }
+  getData(route.params.searchTag as string)
+})
 
 onMounted(function () {
   getData(route.params.searchTag as string)
