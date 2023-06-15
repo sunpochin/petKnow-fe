@@ -26,7 +26,7 @@
           margin-bottom: 16px;
         "
       >
-        結帳總金額： $ {{ cartStore.orderData?.totalPrice }}
+        結帳總金額： $ {{ cartStore.orderData?.totalPrice.toLocaleString() }}
       </div>
       <div class="flex justify-center">
         <n-button
