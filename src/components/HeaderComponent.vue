@@ -62,11 +62,6 @@
             </div>
             -->
             <!-- RWD mobile menu -->
-            <div class="cart-phone">
-              <n-icon size="20" color="#020202">
-                <Cart />
-              </n-icon>
-            </div>
             <div class="menu-phone" @click="isOpenMenu = !isOpenMenu">
               <n-icon size="20" color="#020202">
                 <Menu />
@@ -257,15 +252,6 @@ const inputKeyword = (event) => {
   }
 }
 
-.cart-phone {
-  margin-right: 1rem;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
-}
 .menu-phone {
   margin-right: 1.6875rem;
   display: flex;
