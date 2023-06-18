@@ -80,11 +80,11 @@
     >
       <div>
         <div class="member-info">
-          <n-avatar
-            round
-            :size="40"
-            src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-          />
+          <n-button quaternary circle v-if="isLogin" @click="router.push('/manage/profile')">
+            <n-icon size="20">
+              <PersonSharp/>
+            </n-icon>
+          </n-button>
           <div class="member-text">
             <p class="name">陳曉明</p>
             <p class="email">chenxiaomin@gmail.com</p>
