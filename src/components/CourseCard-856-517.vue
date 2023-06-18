@@ -9,6 +9,7 @@ const props = defineProps({
   courseNum: Number,
   price: Number
 })
+const formatPrice = props.price?.toLocaleString()
 console.log(props)
 </script>
 <template>
@@ -22,7 +23,7 @@ console.log(props)
             <h3 class="title">{{ title }}</h3>
             <p class="info">{{ info }}</p>
             <p class="teacher">by {{ teacher }}</p>
-            <p class="price">NT${{ price }}</p>
+            <p class="price">NT${{ formatPrice }}</p>
         </div>
     </div>
 </template>

@@ -5,6 +5,7 @@ const props = defineProps({
   teacher: String,
   price: Number
 })
+const formattedPrice = props.price?.toLocaleString()
 // console.log(props)
 </script>
 <template>
@@ -20,7 +21,7 @@ const props = defineProps({
       <h3 class="title">{{ title }}</h3>
       <div class="flex-between">
         <p class="teacher">{{ teacher }}</p>
-        <p class="price" v-if="props.price">NT${{ price }}</p>
+        <p class="price" v-if="props.price">NT${{ formattedPrice }}</p>
       </div>
     </div>
   </div>

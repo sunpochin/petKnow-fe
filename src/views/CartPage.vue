@@ -28,7 +28,7 @@
       >
         <div class="d-flex flex-between" style="width: 40%; padding: 1rem">
           <div>小計</div>
-          <div>${{ cartStore.totalPrice }}</div>
+          <div>${{ cartStore.totalPrice.toLocaleString() }}</div>
         </div>
         <div class="d-flex flex-between" style="width: 40%; padding: 1rem">
           <div>優惠券折抵</div>

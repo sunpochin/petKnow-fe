@@ -15,6 +15,8 @@ const props = defineProps({
   discountPrice: Number,
   id: String
 })
+const formattedPrice = props.price?.toLocaleString()
+const formattedDiscountPrice = props.discountPrice?.toLocaleString()
 console.log(props)
 </script>
 <template>
@@ -40,10 +42,10 @@ console.log(props)
           v-if="props.discountPrice"
           style="margin-right: 1rem"
         >
-          NT${{ discountPrice }}
+          NT${{ formattedDiscountPrice }}
         </p>
         <p :class="props.discountPrice ? 'price' : 'discountPrice'">
-          NT${{ price }}
+          NT${{ formattedPrice }}
         </p>
         <p
           class="remove cursor-pointer"
