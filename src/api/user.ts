@@ -3,6 +3,7 @@ import { req } from "./https";
 interface userData {
   nickname: string;
   bio: string;
+  email: string;
 }
 
 const user = {
