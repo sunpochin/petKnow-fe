@@ -91,12 +91,12 @@
           </div>
         </div>
         <ul v-if="isLogin">
-          <li>個人資料</li>
-          <li>我的課堂</li>
-          <li>我開的課</li>
-          <li>購買紀錄</li>
-          <li>成為講師</li>
-          <li @click="authStore.logout">登出</li>
+          <li><a href="/manage/profile">個人資料</a></li>
+          <li><a href="/manage/learning">我的課堂</a></li>
+          <!-- <li>我開的課</li> -->
+          <!-- <li>購買紀錄</li> -->
+          <!-- <li>成為講師</li> -->
+          <li><a href="#" @click="authStore.logout">登出</a></li>
         </ul>
         <ul v-else>
           <router-link to="/login">
@@ -326,10 +326,17 @@ const inputKeyword = (event) => {
     }
 
     li {
-      padding-top: 16px;
-      padding-bottom: 16px;
-      padding-left: 12px;
+      // padding-top: 16px;
+      // padding-bottom: 16px;
+      // padding-left: 12px;
       border: 1px solid #f2f2f2;
+
+      a {
+        display: block;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        padding-left: 12px;
+      }
     }
   }
 }
