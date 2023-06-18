@@ -62,11 +62,11 @@
             </div>
             -->
             <!-- RWD mobile menu -->
-            <div class="menu-phone" @click="isOpenMenu = !isOpenMenu">
+            <n-button quaternary class="menu-phone" @click="isOpenMenu = !isOpenMenu">
               <n-icon size="20" color="#020202">
                 <Menu />
               </n-icon>
-            </div>
+            </n-button>
           </div>
         </n-grid-item>
       </n-grid>
