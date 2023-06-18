@@ -62,7 +62,7 @@
             </div>
             -->
             <!-- RWD mobile menu -->
-            <n-button quaternary class="menu-phone" @click="isOpenMenu = !isOpenMenu">
+            <n-button v-if="isLogin" quaternary class="menu-phone" @click="isOpenMenu = !isOpenMenu">
               <n-icon size="20" color="#020202">
                 <Menu />
               </n-icon>
