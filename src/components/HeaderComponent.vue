@@ -62,16 +62,11 @@
             </div>
             -->
             <!-- RWD mobile menu -->
-            <div class="cart-phone">
-              <n-icon size="20" color="#020202">
-                <Cart />
-              </n-icon>
-            </div>
-            <div class="menu-phone" @click="isOpenMenu = !isOpenMenu">
+            <n-button quaternary class="menu-phone" @click="isOpenMenu = !isOpenMenu">
               <n-icon size="20" color="#020202">
                 <Menu />
               </n-icon>
-            </div>
+            </n-button>
           </div>
         </n-grid-item>
       </n-grid>
@@ -85,11 +80,11 @@
     >
       <div>
         <div class="member-info">
-          <n-avatar
-            round
-            :size="40"
-            src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-          />
+          <n-button quaternary circle v-if="isLogin" @click="router.push('/manage/profile')">
+            <n-icon size="20">
+              <PersonSharp/>
+            </n-icon>
+          </n-button>
           <div class="member-text">
             <p class="name">陳曉明</p>
             <p class="email">chenxiaomin@gmail.com</p>
@@ -257,15 +252,6 @@ const inputKeyword = (event) => {
   }
 }
 
-.cart-phone {
-  margin-right: 1rem;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
-}
 .menu-phone {
   margin-right: 1.6875rem;
   display: flex;
