@@ -11,12 +11,24 @@
 
       <div class="flex justify-between" style="margin: auto; flex-wrap: wrap">
         <div style="word-break: break-all">
-          訂單編號：{{ cartStore.orderData?.merchantOrderNo }}
+          訂單編號：{{ cartStore.goldFlowData._id }}
         </div>
-        <div>訂購日期：2023/1/1</div>
+        <div>訂購日期：{{ getTodayDate() }}</div>
       </div>
       <div style="margin: 16px 0">
         <n-data-table :columns="columns" :data="data" :bordered="false" />
+      </div>
+      <div
+        class="d-flex flex-between"
+        style="padding: 1rem; text-align: center"
+        v-if="cartStore.couponPrice"
+      >
+        <span
+          >優惠價格:
+          <span style="color: red">
+            - ${{ cartStore.couponPrice.toLocaleString() }}</span
+          ></span
+        >
       </div>
       <div
         style="
@@ -26,7 +38,12 @@
           margin-bottom: 16px;
         "
       >
-        結帳總金額： $ {{ cartStore.orderData?.totalPrice.toLocaleString() }}
+        結帳總金額： $
+        {{
+          cartStore.orderData?.discountedPrice
+            ? cartStore.orderData?.discountedPrice.toLocaleString()
+            : cartStore.orderData?.totalPrice.toLocaleString()
+        }}
       </div>
       <div class="flex justify-center">
         <n-button
@@ -35,34 +52,59 @@
           @click="router.push('/cart')"
           >返回購物車</n-button
         >
-        <n-button
-          style="background: #ed888c; color: #fff; box-shadow: none"
-          quaternary
-          @click="cartStore.checkOrder"
-          >確定結帳
-        </n-button>
+        <!-- 藍新金流 -->
+        <form action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post">
+          <input
+            type="hidden"
+            name="MerchantID"
+            :value="cartStore.goldFlowData.merchantID"
+          />
+          <input
+            type="hidden"
+            name="TradeSha"
+            :value="cartStore.goldFlowData.tradeSha"
+          />
+          <input
+            type="hidden"
+            name="TradeInfo"
+            :value="cartStore.goldFlowData.tradeInfo"
+          />
+          <input
+            type="hidden"
+            name="TimeStamp"
+            :value="cartStore.goldFlowData.timeStamp"
+          />
+          <input
+            type="hidden"
+            name="Version"
+            :value="cartStore.goldFlowData.version"
+          />
+          <input
+            type="hidden"
+            name="MerchantOrderNo"
+            :value="cartStore.goldFlowData.merchantOrderNo"
+          />
+          <input type="hidden" name="Amt" :value="cartStore.goldFlowData.Amt" />
+          <input
+            type="hidden"
+            name="Email"
+            :value="cartStore.goldFlowData.Email"
+          />
+
+          <n-button
+            style="background: #ed888c; color: #fff; box-shadow: none"
+            quaternary
+            attr-type="submit"
+            >確定結帳
+          </n-button>
+        </form>
       </div>
     </div>
-    <!-- <form action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post">
-      <input type="text" name="MerchantID" :value="order.MerchantID" />
-      <input type="hidden" name="TradeSha" :value="order.shaEncrypted" />
-      <input type="hidden" name="TradeInfo" :value="order.aesEncrypted" />
-      <input type="text" name="TimeStamp" :value="order.order.TimeStamp" />
-      <input type="text" name="Version" :value="order.Version" />
-      <input
-        type="text"
-        name="MerchantOrderNo"
-        :value="order.order.MerchantOrderNo"
-      />
-      <input type="text" name="Amt" :value="order.order.Amt" />
-      <input type="email" name="Email" :value="order.order.Email" />
-      <button type="submit">確認支付</button>
-    </form> -->
   </div>
 </template>
 
 <script setup lang="ts">
-// import { ref } from 'vue'
+import { onMounted } from 'vue'
 import type { DataTableColumns } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart.js'
@@ -76,15 +118,33 @@ const columns: DataTableColumns = [
     title: '項目',
     key: 'title'
   },
-  {
-    title: '優待券代碼',
-    key: 'coupon'
-  },
+  // {
+  //   title: '優待券代碼',
+  //   key: 'coupon'
+  // },
   {
     title: '價格',
     key: 'price'
   }
 ]
+
+function getTodayDate () {
+  const fullDate = new Date(cartStore.goldFlowData.timeStamp * 1000)
+  console.log('fullDate', fullDate)
+  const yyyy = fullDate.getFullYear()
+  const MM =
+    fullDate.getMonth() + 1 >= 10
+      ? fullDate.getMonth() + 1
+      : '0' + (fullDate.getMonth() + 1)
+  const dd =
+    fullDate.getDate() < 10 ? '0' + fullDate.getDate() : fullDate.getDate()
+  const today = yyyy + '/' + MM + '/' + dd
+  return today
+}
+
+onMounted(() => {
+  cartStore.checkOrder()
+})
 </script>
 
 <style lang="scss" scoped>
