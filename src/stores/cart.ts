@@ -177,16 +177,7 @@ export const useCartStore = defineStore("cart", () => {
   })
 
   const couponValue = ref(null)
-  const couponOptions = ref([
-    {
-      label: 'Drive My Car',
-      value: 'song1'
-    },
-    {
-      label: 'Norwegian Wood',
-      value: 'song2'
-    }
-  ])
+  const couponOptions = ref([])
   async function getCouponSelectData(){
     const result = (await Cart.apiGetCoupon()) as AxiosResponse 
     result.data.data.coupons.forEach((item: { label: any; tagNames: string[]; })=>{
