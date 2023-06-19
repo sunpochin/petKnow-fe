@@ -30,14 +30,34 @@
           <div>小計</div>
           <div>${{ cartStore.totalPrice.toLocaleString() }}</div>
         </div>
+        <div
+          class="d-flex flex-between"
+          style="width: 40%; padding: 1rem"
+          v-if="cartStore.couponPrice"
+        >
+          <div>優惠價格</div>
+          <div>- ${{ cartStore.couponPrice.toLocaleString() }}</div>
+        </div>
+        <div class="d-flex flex-between" style="width: 40%; padding: 1rem">
+          <div>總計</div>
+          <div v-if="cartStore.discountedPrice">
+            ${{ cartStore.discountedPrice.toLocaleString() }}
+          </div>
+          <div v-else>${{ cartStore.totalPrice.toLocaleString() }}</div>
+        </div>
         <div class="d-flex flex-between" style="width: 40%; padding: 1rem">
           <div>優惠券折抵</div>
           <n-select
             v-model:value="cartStore.couponValue"
             :options="cartStore.couponOptions"
-            style="max-width: 200px"
+            label-field="label"
+            value-field="couponCode"
+            style="max-width: 250px"
             clearable
             placeholder="請選擇優惠券"
+            @click="cartStore.getCouponSelectData"
+            @update:value="cartStore.addCoupon"
+            @on-clear="cartStore.deleteCoupon"
           />
         </div>
         <n-button
@@ -105,14 +125,15 @@ import { useCartStore } from '@/stores/cart.js'
 const router = useRouter()
 const cartStore = useCartStore()
 
-onMounted(() => {
+onMounted(async () => {
   if (
     localStorage.getItem('accessToken') !== '' &&
     localStorage.getItem('fromVisitorCart') === 'true'
   ) {
     localStorage.removeItem('fromVisitorCart')
   }
-  cartStore.getCartData()
+  await cartStore.getCartData()
+  await cartStore.getCouponSelectData()
 })
 </script>
 <style lang="scss" scoped>
@@ -200,6 +221,6 @@ onMounted(() => {
 </style>
 <style>
 .n-base-select-menu .n-base-select-option .n-base-select-option__check {
-  right: 0;
+  opacity: 0;
 }
 </style>

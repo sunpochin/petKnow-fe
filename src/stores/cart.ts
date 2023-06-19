@@ -26,6 +26,8 @@ export const useCartStore = defineStore("cart", () => {
   const notification = useNotification()
   const router = useRouter()
   const totalPrice = ref(0)
+  const couponPrice=ref(0)
+  const discountedPrice = ref(0)
   const cartData = ref<cartType[]>([])
   const youMightLike = ref<cartType[]>([])
   const courseIds  =ref<string[]>([])
@@ -39,6 +41,9 @@ export const useCartStore = defineStore("cart", () => {
         youMightLike.value = result.data.data.youMightLike
         totalPrice.value = result.data.data.totalPrice
         courseIds.value = result.data.data.courseIds
+        couponValue.value = result.data.data.couponCode
+        couponPrice.value = result.data.data.couponPrice
+        discountedPrice.value = result.data.data.discountedPrice
         }
     }else{
         if(localStorage.getItem('visitorCartData') !== ''){
@@ -162,11 +167,13 @@ export const useCartStore = defineStore("cart", () => {
   const orderData = ref<{
     shoppingCart:cartType[]
     totalPrice:Number
-    merchantOrderNo:string
+    _id:string
+    discountedPrice?:Number
   }>({
     shoppingCart:[],
     totalPrice:0,
-    merchantOrderNo:""
+    _id:"",
+    discountedPrice:0
   })
 
   const couponValue = ref(null)
@@ -180,6 +187,14 @@ export const useCartStore = defineStore("cart", () => {
       value: 'song2'
     }
   ])
+  async function getCouponSelectData(){
+    const result = (await Cart.apiGetCoupon()) as AxiosResponse 
+    result.data.data.coupons.forEach((item: { label: any; tagNames: string[]; })=>{
+        item.label = item.tagNames.join("、")
+    })
+    couponOptions.value = result.data.data.coupons
+  }
+
   async function createOrder(){
     if(localStorage.getItem('accessToken')){
         const result = (await Cart.apiCreateOrder({
@@ -189,7 +204,8 @@ export const useCartStore = defineStore("cart", () => {
         orderData.value = {
         shoppingCart:result.data.data.shoppingCart,
         totalPrice:result.data.data.totalPrice,
-        merchantOrderNo:result.data.data.merchantOrderNo
+        _id:result.data.data._id,
+        discountedPrice:result.data.data.discountedPrice
         }
         console.log("createOrder",result.data.data)
         if(result.data.isSuccess){
@@ -212,28 +228,92 @@ export const useCartStore = defineStore("cart", () => {
     
   }
 
-  function addCoupon(){
-    console.log('addCoupon')
+ async function addCoupon(){
+    if(couponValue.value){
+        try{
+            const result = (await Cart.apiPostCoupon({
+                couponCode : couponValue.value
+            })) as AxiosResponse 
+            console.log('addCoupon',result)
+            getCartData ()
+         if(result.data.isSuccess){
+            notification.success({
+                content: result.data.message,
+                duration: 2500,
+                keepAliveOnHover: true
+            })
+          }
+        }catch(err){
+            notification.error({
+                content: '請選擇與課程相關的優惠券',
+                duration: 2500,
+                keepAliveOnHover: true
+            })
+            couponValue.value= null
+        }
+    }
+   
   }
-  function deleteCoupon(){
-    console.log('deleteCoupon')
+ async function deleteCoupon(){
+    if(!couponValue.value){
+        try{
+        const result = (await Cart.apiDeleteCoupon()) as AxiosResponse 
+        if(result.data.isSuccess){
+            notification.success({
+                content: "優惠券"+result.data.message,
+                duration: 2500,
+                keepAliveOnHover: true
+            })
+            getCartData ()
+          }
+        }catch{
+            notification.error({
+                content: '刪除失敗',
+                duration: 2500,
+                keepAliveOnHover: true
+            })
+        }
+    }
+    console.log('deleteCoupon',couponValue.value)
+    
   }
+  interface goldFlowType{
+    [index: string]: any;
+  }
+  const goldFlowData = ref<goldFlowType>({})
   async function checkOrder(){
     console.log('checkOrder')
-    // const result = (await Cart.apiPostOrderCheck()) as AxiosResponse
+    const result = (await Cart.apiPostOrderCheck({
+        _id:orderData.value._id
+    })) as AxiosResponse
+    if(result.data.isSuccess){
+        goldFlowData.value = result.data.data
+        console.log("result",result.data.data)
+        notification.success({
+            content: '確認訂單',
+            duration: 2500,
+            keepAliveOnHover: true
+        })
+    }
+  
   }
   return {  
     cartData,
     youMightLike,
     totalPrice,
-    orderData,visitorCartIds,
+    orderData,
+    visitorCartIds,
     couponValue,
     couponOptions,
+    couponPrice,
+    discountedPrice,
+    goldFlowData,
     addCart,
     deleteCart,
     createOrder,
     checkOrder,
     getCartData,
     addCoupon,
-    deleteCoupon };
+    deleteCoupon,
+    getCouponSelectData };
 });
