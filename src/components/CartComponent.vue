@@ -23,7 +23,6 @@ console.log(props)
   <div class="course-card">
     <div class="card-img cursor-pointer">
       <img
-        style="object-fit: cover; width: 100%"
         :src="imageUrl"
         alt="course-img"
         @click="router.push(`/courseIntro/${id}`)"
@@ -94,23 +93,34 @@ console.log(props)
   height: 100%;
   display: flex;
   gap: 20px;
+  margin: 30px 0px;
 
   .card-img {
-    // width: 31%;
+    width: 31%;
     height: 100%;
     border-radius: 0px 0px 80px 0px;
     overflow: hidden;
 
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
     img {
-      height: 312px;
       object-fit: cover;
+      width: 400px;
+      height: 312px;
       object-position: 50% 50%;
+      @media (max-width: 768px) {
+        width: 100%;
+      }
     }
   }
 
   .card-content {
-    // width: 69%;
-    width: 100%;
+    width: 69%;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
 
     .card-upper {
       height: 70%;
@@ -119,15 +129,10 @@ console.log(props)
 
       @media (max-width: 768px) {
         flex-direction: column;
-        height: 200px;
+        height: 8rem;
         margin-bottom: 1.5rem;
-        // margin: 0rem, auto, 2rem;
       }
 
-      // font-weight: 900;
-      // font-size: 32px;
-      // line-height: 120%;
-      // margin-bottom: 1.5rem;
       .price {
         text-decoration: line-through;
         height: 38px;
@@ -165,10 +170,6 @@ console.log(props)
         text-align: right;
         /* Black/100 */
         color: #020202;
-        // /* Inside auto layout */
-        // flex: none;
-        // order: 0;
-        // flex-grow: 0;
 
         @media (max-width: 768px) {
           // width: 196px;
@@ -202,19 +203,20 @@ console.log(props)
       width: 100%;
       display: flex;
       padding: 0, 4rem, 0, 1rem;
+      align-items: center;
 
       @media (max-width: 768px) {
         flex-direction: column;
+        height: 8rem;
+        justify-content: space-around;
       }
 
       .lower-1 {
         display: flex;
-        align-self: flex-end;
-
         width: 50%;
-
         @media (max-width: 768px) {
           flex-direction: row;
+          justify-items: center;
           width: 100%;
         }
 
