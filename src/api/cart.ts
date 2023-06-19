@@ -35,11 +35,8 @@ const cart = {
     },
     // 確認訂單
     apiPostOrderCheck(data: {
-        amt: number
-        itemDesc: string
-        timeStamp: number
-        merchantOrderNo: string
-        }){
+        _id: string
+    }){
     return req("post", "/goldFlow/checkOrder" , data)
     },
 }
