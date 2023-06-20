@@ -4,8 +4,7 @@ import type { AxiosResponse } from "axios";
 
 type updateData = {
   nickname: string,
-  bio: string,
-  email: string
+  bio: string
 }
 
 export const useUserStore = defineStore("user", () => {
