@@ -242,6 +242,8 @@ export const useCartStore = defineStore("cart", () => {
             })
             couponValue.value= null
         }
+    }else{
+        deleteCoupon()
     }
    
   }

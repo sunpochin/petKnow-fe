@@ -13,7 +13,7 @@
         <div style="word-break: break-all">
           訂單編號：{{ cartStore.goldFlowData._id }}
         </div>
-        <div>訂購日期：{{ getTodayDate() }}</div>
+        <div>訂購日期：{{ getDate() }}</div>
       </div>
       <div style="margin: 16px 0">
         <n-data-table :columns="columns" :data="data" :bordered="false" />
@@ -104,15 +104,23 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 import type { DataTableColumns } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart.js'
 const cartStore = useCartStore()
 const router = useRouter()
 
-const data = cartStore.orderData?.shoppingCart
-
+const data = computed(() => {
+  const result = JSON.parse(JSON.stringify(cartStore.orderData?.shoppingCart))
+  result.forEach((item: { price: string }) => {
+    item.price = item.price.toLocaleString()
+  })
+  return result
+})
+onMounted(() => {
+  console.log('here', cartStore.orderData?.shoppingCart)
+})
 const columns: DataTableColumns = [
   {
     title: '項目',
@@ -128,7 +136,7 @@ const columns: DataTableColumns = [
   }
 ]
 
-function getTodayDate () {
+function getDate () {
   const fullDate = new Date(cartStore.goldFlowData.timeStamp * 1000)
   console.log('fullDate', fullDate)
   const yyyy = fullDate.getFullYear()
