@@ -125,15 +125,17 @@ async function handleLogin () {
     }
     notification.success({
       content: '登入成功',
-      duration: 2500,
-      keepAliveOnHover: true
+      duration: 1500,
+      keepAliveOnHover: false,
+      closable: false
     })
   } else {
     notification.error({
       content: '登入失敗',
       meta: '請確認帳號密碼是否正確',
-      duration: 2500,
-      keepAliveOnHover: true
+      duration: 1500,
+      keepAliveOnHover: false,
+      closable: false
     })
   }
 }
@@ -154,31 +156,35 @@ async function handleRegister () {
         notification.success({
           content: '註冊成功',
           meta: '請重新登入',
-          duration: 2500,
-          keepAliveOnHover: true
+          duration: 1500,
+          keepAliveOnHover: false,
+          closable: false
         })
       } else {
         notification.error({
           content: '註冊失敗',
           meta: '請與相關人員聯繫',
-          duration: 2500,
-          keepAliveOnHover: true
+          duration: 1500,
+          keepAliveOnHover: false,
+          closable: false
         })
       }
     } catch {
       notification.error({
         content: '註冊失敗',
         meta: '請與相關人員聯繫',
-        duration: 2500,
-        keepAliveOnHover: true
+        duration: 1500,
+        keepAliveOnHover: false,
+        closable: false
       })
     }
   } else {
     notification.error({
       content: 'email格式錯誤',
       meta: '請輸入正確的email格式',
-      duration: 2500,
-      keepAliveOnHover: true
+      duration: 1500,
+      keepAliveOnHover: false,
+      closable: false
     })
   }
 }

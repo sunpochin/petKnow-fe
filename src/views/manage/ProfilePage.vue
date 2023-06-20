@@ -35,15 +35,17 @@ async function submitForm () {
     })
     notification.success({
       content: '修改成功',
-      duration: 2500,
-      keepAliveOnHover: true
+      duration: 1500,
+      keepAliveOnHover: false,
+      closable: false
     })
   } catch (error) {
     notification.error({
       content: '修改失敗',
-      duration: 2500,
-      keepAliveOnHover: true
-    });
+      duration: 1500,
+      keepAliveOnHover: false,
+      closable: false
+    })
   }
 }
 </script>
@@ -100,9 +102,9 @@ async function submitForm () {
   width: 320px;
   max-width: 100%;
   button.save-btn {
-    background-color: #ED888C !important;
+    background-color: #ed888c !important;
     box-shadow: none;
-    border-color: #ED888C;
+    border-color: #ed888c;
   }
 }
 </style>
