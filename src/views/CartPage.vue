@@ -26,26 +26,26 @@
         style="margin: 1rem 0"
         v-if="cartStore.cartData?.length > 0"
       >
-        <div class="d-flex flex-between" style="width: 40%; padding: 1rem">
+        <div class="d-flex flex-between" style="min-width: 40%; padding: 1rem">
           <div>小計</div>
           <div>${{ cartStore.totalPrice.toLocaleString() }}</div>
         </div>
         <div
           class="d-flex flex-between"
-          style="width: 40%; padding: 1rem"
+          style="min-width: 40%; padding: 1rem"
           v-if="cartStore.couponPrice"
         >
           <div>優惠價格</div>
           <div>- ${{ cartStore.couponPrice.toLocaleString() }}</div>
         </div>
-        <div class="d-flex flex-between" style="width: 40%; padding: 1rem">
+        <div class="d-flex flex-between" style="min-width: 40%; padding: 1rem">
           <div>總計</div>
           <div v-if="cartStore.discountedPrice">
             ${{ cartStore.discountedPrice.toLocaleString() }}
           </div>
           <div v-else>${{ cartStore.totalPrice.toLocaleString() }}</div>
         </div>
-        <div class="d-flex flex-between" style="width: 40%; padding: 1rem">
+        <div class="d-flex flex-between" style="min-width: 40%; padding: 1rem">
           <div>優惠券折抵</div>
           <n-select
             v-model:value="cartStore.couponValue"
