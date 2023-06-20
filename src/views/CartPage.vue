@@ -57,7 +57,6 @@
             placeholder="請選擇優惠券"
             @click="cartStore.getCouponSelectData"
             @update:value="cartStore.addCoupon"
-            @on-clear="cartStore.deleteCoupon"
           />
         </div>
         <n-button
