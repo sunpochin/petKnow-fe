@@ -17,7 +17,8 @@ export const useUserStore = defineStore("user", () => {
       if (getResult && getResult.data && (getResult.data.statusCode == 200)) {
         const userData = {
           nickname: getResult.data.data.nickname || getResult.data.data.name,
-          bio: getResult.data.data.bio || '尚未填寫自我介紹' // default bio data
+          bio: getResult.data.data.bio || '尚未填寫自我介紹', // default bio data
+          email: getResult.data.data.email || 'test@gmail.com' // default email data
         }
         return userData
       } else {

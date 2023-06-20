@@ -62,7 +62,7 @@
             </div>
             -->
             <!-- RWD mobile menu -->
-            <n-button quaternary class="menu-phone" @click="isOpenMenu = !isOpenMenu">
+            <n-button v-if="isLogin" quaternary class="menu-phone" @click="isOpenMenu = !isOpenMenu">
               <n-icon size="20" color="#020202">
                 <Menu />
               </n-icon>
@@ -86,17 +86,17 @@
             </n-icon>
           </n-button>
           <div class="member-text">
-            <p class="name">陳曉明</p>
-            <p class="email">chenxiaomin@gmail.com</p>
+            <p class="name">{{ user.nickname }}</p>
+            <p class="email">{{ user.email }}</p>
           </div>
         </div>
         <ul v-if="isLogin">
-          <li>個人資料</li>
-          <li>我的課堂</li>
-          <li>我開的課</li>
-          <li>購買紀錄</li>
-          <li>成為講師</li>
-          <li @click="authStore.logout">登出</li>
+          <li><a href="/manage/profile">個人資料</a></li>
+          <li><a href="/manage/learning">我的課堂</a></li>
+          <!-- <li>我開的課</li> -->
+          <!-- <li>購買紀錄</li> -->
+          <!-- <li>成為講師</li> -->
+          <li><a href="#" @click="authStore.logout">登出</a></li>
         </ul>
         <ul v-else>
           <router-link to="/login">
@@ -108,11 +108,13 @@
   </div>
 </template>
 <script setup land="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import { Search, Cart, Menu, PersonSharp } from '@vicons/ionicons5'
 // import { ArrowRightAltSharp } from '@vicons/material'
 import { useAuthStore } from '@/stores/auth'
+import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
+const userStore = useUserStore()
 const router = useRouter()
 const authStore = useAuthStore()
 
@@ -120,9 +122,22 @@ const isOpenMenu = ref(false)
 const isLogin = ref(false)
 const keyword = ref('')
 
-onMounted(() => {
+const user = reactive({
+  nickname: '親愛的',
+  email: 'test@gmail.com'
+})
+
+onMounted(async () => {
   const accessToken = localStorage.getItem('accessToken')
-  if (accessToken) isLogin.value = true
+  if (!accessToken) { return }
+  isLogin.value = true
+  try {
+    const userData = await userStore.getUserData()
+    user.nickname = userData.nickname || '親愛的'
+    user.email = userData.email || 'test@gmail.com'
+  } catch (error) {
+    console.error('Failed to get user data:', error)
+  }
 })
 
 const searchKeyword = () => {
@@ -311,10 +326,17 @@ const inputKeyword = (event) => {
     }
 
     li {
-      padding-top: 16px;
-      padding-bottom: 16px;
-      padding-left: 12px;
+      // padding-top: 16px;
+      // padding-bottom: 16px;
+      // padding-left: 12px;
       border: 1px solid #f2f2f2;
+
+      a {
+        display: block;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        padding-left: 12px;
+      }
     }
   }
 }

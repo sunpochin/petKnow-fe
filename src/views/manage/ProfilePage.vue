@@ -29,10 +29,10 @@ onMounted(renderFormData)
 
 async function submitForm () {
   try {
-    await userStore.updateUserData({ 
-      nickname: formData.nickname, 
-      bio: formData.bio 
-    });
+    await userStore.updateUserData({
+      nickname: formData.nickname,
+      bio: formData.bio
+    })
     notification.success({
       content: '修改成功',
       duration: 2500,
