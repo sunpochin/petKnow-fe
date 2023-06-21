@@ -74,14 +74,16 @@ export const useCartStore = defineStore("cart", () => {
         if(result.data.isSuccess){
             notification.success({
                 content: result.data.message,
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
         }else{
             notification.error({
                 content: result.data.message,
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
         }
         console.log('result', result.data)    
@@ -96,21 +98,24 @@ export const useCartStore = defineStore("cart", () => {
             if(visitorCartIds.value){
                 notification.success({
                     content: '成功',
-                    duration: 2500,
-                    keepAliveOnHover: true
+                    duration: 1500,
+                    keepAliveOnHover: false,
+                    closable: false,
                 })
             }else{
                 notification.error({
                     content: '新增失敗',
-                    duration: 2500,
-                    keepAliveOnHover: true
+                    duration: 1500,
+                    keepAliveOnHover: false,
+                    closable: false,
                 })
             }
         }else{
             notification.success({
                 content: '已儲存在購物車當中',
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
         }
 
@@ -126,15 +131,17 @@ export const useCartStore = defineStore("cart", () => {
         if(result.data.isSuccess){
             notification.success({
                 content: "刪除成功",
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
             getCartData ()
         }else{
             notification.error({
                 content: "刪除失敗",
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
         }
         console.log('result', result.data)    
@@ -149,15 +156,17 @@ export const useCartStore = defineStore("cart", () => {
           if(visitorCartIds.value.length){
             notification.success({
                 content: "刪除成功",
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
             getCartData ()
         }else{
             notification.error({
                 content: "刪除失敗",
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
         }
         console.log("deleteIdx",deleteIdx,visitorCartIds.value)
@@ -202,16 +211,18 @@ export const useCartStore = defineStore("cart", () => {
         if(result.data.isSuccess){
         notification.success({
             content: result.data.message,
-            duration: 2500,
-            keepAliveOnHover: true
+            duration: 1500,
+            keepAliveOnHover: false,
+            closable: false,
         })
         }
         router.push('/order')
     }else{
         notification.error({
             content: "結帳前請先登入",
-            duration: 2500,
-            keepAliveOnHover: true
+            duration: 1500,
+            keepAliveOnHover: false,
+            closable: false,
         })
         router.push('/login')
         localStorage.setItem('fromVisitorCart', JSON.stringify(true))
@@ -230,15 +241,17 @@ export const useCartStore = defineStore("cart", () => {
          if(result.data.isSuccess){
             notification.success({
                 content: result.data.message,
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
           }
         }catch(err){
             notification.error({
                 content: '請選擇與課程相關的優惠券',
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
             couponValue.value= null
         }
@@ -254,16 +267,18 @@ export const useCartStore = defineStore("cart", () => {
         if(result.data.isSuccess){
             notification.success({
                 content: "優惠券"+result.data.message,
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
             getCartData ()
           }
         }catch{
             notification.error({
                 content: '刪除失敗',
-                duration: 2500,
-                keepAliveOnHover: true
+                duration: 1500,
+                keepAliveOnHover: false,
+                closable: false,
             })
         }
     }
@@ -284,8 +299,9 @@ export const useCartStore = defineStore("cart", () => {
         console.log("result",result.data.data)
         notification.success({
             content: '確認訂單',
-            duration: 2500,
-            keepAliveOnHover: true
+            duration: 1500,
+            keepAliveOnHover: false,
+            closable: false,
         })
     }
   
