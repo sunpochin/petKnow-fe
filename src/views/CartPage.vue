@@ -63,6 +63,7 @@
             v-model:value="cartStore.couponValue"
             type="text"
             placeholder="請輸入優惠券碼"
+            @update:value="cartStore.addCoupon"
           />
         </div>
         <n-button
@@ -116,14 +117,19 @@
 </template>
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { ArrowRightAltSharp } from '@vicons/material'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { Autoplay } from 'swiper'
 import { useCartStore } from '@/stores/cart.js'
 const router = useRouter()
 const cartStore = useCartStore()
-
+watch(
+  () => cartStore.couponValue,
+  () => {
+    cartStore.getCouponSelectData()
+  }
+)
 onMounted(async () => {
   if (
     localStorage.getItem('accessToken') !== '' &&
@@ -132,7 +138,6 @@ onMounted(async () => {
     localStorage.removeItem('fromVisitorCart')
   }
   await cartStore.getCartData()
-  await cartStore.getCouponSelectData()
 })
 </script>
 <style lang="scss" scoped>
