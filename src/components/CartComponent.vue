@@ -4,23 +4,24 @@ import { useCartStore } from '@/stores/cart.js'
 const cartStore = useCartStore()
 const router = useRouter()
 
-const props = defineProps({
-  imageUrl: String,
-  level: String,
-  title: String,
-  teacher: String,
-  time: Number,
-  price: Number,
-  courseNum: Number,
-  discountPrice: Number,
-  id: String
-})
+const props = defineProps<{
+  imageUrl: string
+  level?: string
+  title: string
+  teacher: string
+  time?: number
+  price: number
+  courseNum: number
+  discountPrice: number
+  id: string
+  tagNames?: string[]
+}>()
 const formattedPrice = props.price?.toLocaleString()
 const formattedDiscountPrice = props.discountPrice?.toLocaleString()
 console.log(props)
 </script>
 <template>
-  <div class="course-card">
+  <div class="card-course" style="margin-bottom: 40px">
     <div class="card-img cursor-pointer">
       <img
         :src="imageUrl"
@@ -28,218 +29,175 @@ console.log(props)
         @click="router.push(`/courseIntro/${id}`)"
       />
     </div>
-    <div class="card-content">
-      <div class="card-upper">
-        <p
-          class="title cursor-pointer"
-          @click="router.push(`/courseIntro/${id}`)"
-        >
-          {{ title }}
-        </p>
-        <p
-          class="discountPrice"
-          v-if="props.discountPrice"
-          style="margin-right: 1rem"
-        >
-          NT${{ formattedDiscountPrice }}
-        </p>
-        <p :class="props.discountPrice ? 'price' : 'discountPrice'">
-          NT${{ formattedPrice }}
-        </p>
-        <p
-          class="remove cursor-pointer"
-          @click="cartStore.deleteCart(String(id))"
-        >
-          移除
-        </p>
-      </div>
-      <hr />
-      <div class="card-lower">
-        <div class="lower-1">
-          <div class="lower-2">{{ teacher }}老師</div>
-          <div class="lower-2">共計 {{ time }} 小時</div>
+    <div class="flex column" style="width: 100%">
+      <div>
+        <div class="flex column-sm" style="width: auto">
+          <div style="width: 100%">
+            <p
+              class="title cursor-pointer"
+              @click="router.push(`/courseIntro/${id}`)"
+            >
+              {{ title }}
+            </p>
+          </div>
+          <div class="flex items-md-center column-sm" style="width: auto">
+            <p
+              class="discountPrice"
+              v-if="props.discountPrice"
+              style="margin-right: 1rem"
+            >
+              NT${{ formattedDiscountPrice }}
+            </p>
+            <p :class="props.discountPrice ? 'price' : 'discountPrice'">
+              NT${{ formattedPrice }}
+            </p>
+            <div style="width: 100%">
+              <n-button
+                class="removeBtn"
+                quaternary
+                type="error"
+                @click="cartStore.deleteCart(String(id))"
+              >
+                移除
+              </n-button>
+            </div>
+          </div>
         </div>
-        <div class="lower-1">
-          <div class="lower-2">{{ courseNum }} 堂講座</div>
-          <div class="lower-2">{{ level }}課程</div>
-        </div>
+        <n-tag
+          style="margin: 16px 0"
+          v-for="(item, index) in props.tagNames"
+          :key="index"
+          >{{ item }}</n-tag
+        >
       </div>
-      <hr />
+
+      <div>
+        <hr />
+        <div class="flex justify-between">
+          <div style="padding: 20px; width: 100%">{{ teacher }}老師</div>
+          <div style="padding: 20px; width: 100%">共計 {{ time }} 小時</div>
+          <div style="padding: 20px; width: 100%">{{ courseNum }} 堂講座</div>
+          <div style="padding: 20px; width: 100%">{{ level }}課程</div>
+        </div>
+        <hr />
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .title {
-  width: 636px;
-  height: 38px;
   /* TC / Heading03 / Regular */
   font-family: 'Noto Sans TC';
   font-style: normal;
   font-weight: 400;
   font-size: 32px;
   line-height: 120%;
-  /* or 38px */
+  font-weight: bold;
+  margin-bottom: 16px;
   /* Black/100 */
   color: #020202;
 }
-
-.course-card {
+.card-course {
+  display: flex;
   @media (max-width: 768px) {
     flex-direction: column;
   }
-
-  width: 100%;
+}
+.card-img {
+  width: 40%;
   height: 100%;
-  display: flex;
-  gap: 20px;
-  margin: 30px 0px;
-
-  .card-img {
-    width: 31%;
-    height: 100%;
-    border-radius: 0px 0px 80px 0px;
-    overflow: hidden;
-
-    @media (max-width: 768px) {
-      width: 100%;
-    }
-
-    img {
-      object-fit: cover;
-      width: 400px;
-      height: 312px;
-      object-position: 50% 50%;
-      @media (max-width: 768px) {
-        width: 100%;
-      }
-    }
+  border-radius: 0px 0px 80px 0px;
+  overflow: hidden;
+  margin-right: 20px;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 16px;
   }
 
-  .card-content {
-    width: 69%;
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 312px;
+    object-position: 50% 50%;
     @media (max-width: 768px) {
       width: 100%;
     }
+  }
+}
+.price {
+  text-decoration: line-through;
+  height: 38px;
+  /* TC / Heading03 / Bold */
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 120%;
+  /* or 38px */
+  text-align: right;
+  /* Black/100 */
+  color: #d3d3d3;
 
-    .card-upper {
-      height: 70%;
-      display: flex;
-      justify-content: space-between;
+  @media (max-width: 768px) {
+    width: 48px;
+    height: 29px;
+    font-size: 24px;
+  }
+}
+.discountPrice {
+  height: 38px;
+  /* TC / Heading03 / Bold */
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 120%;
+  /* or 38px */
+  text-align: right;
+  /* Black/100 */
+  color: #020202;
 
-      @media (max-width: 768px) {
-        flex-direction: column;
-        height: 8rem;
-        margin-bottom: 1.5rem;
-      }
+  @media (max-width: 768px) {
+    width: 48px;
+    height: 29px;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+}
 
-      .price {
-        text-decoration: line-through;
-        height: 38px;
-        /* TC / Heading03 / Bold */
-        font-family: 'Noto Sans TC';
-        font-style: normal;
-        font-weight: 900;
-        font-size: 32px;
-        line-height: 120%;
-        /* or 38px */
-        text-align: right;
-        /* Black/100 */
-        color: #d3d3d3;
-        // /* Inside auto layout */
-        // flex: none;
-        // order: 0;
-        // flex-grow: 0;
-
-        @media (max-width: 768px) {
-          // width: 196px;
-          width: 48px;
-          height: 29px;
-          font-size: 24px;
-        }
-      }
-      .discountPrice {
-        height: 38px;
-        /* TC / Heading03 / Bold */
-        font-family: 'Noto Sans TC';
-        font-style: normal;
-        font-weight: 900;
-        font-size: 32px;
-        line-height: 120%;
-        /* or 38px */
-        text-align: right;
-        /* Black/100 */
-        color: #020202;
-
-        @media (max-width: 768px) {
-          // width: 196px;
-          width: 48px;
-          height: 29px;
-          font-size: 24px;
-        }
-      }
-      .remove {
-        /* 移除 */
-        // width: 32px;
-        height: 24px;
-        /* TC / Body / Bold */
-        font-family: 'Noto Sans TC';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 150%;
-        /* identical to box height, or 24px */
-        /* Primary/Main */
-        color: #ed888c;
-        /* Inside auto layout */
-        flex: none;
-        order: 1;
-        flex-grow: 0;
-      }
-    }
-
-    .card-lower {
-      height: 30%;
-      width: 100%;
-      display: flex;
-      padding: 0, 4rem, 0, 1rem;
-      align-items: center;
-
-      @media (max-width: 768px) {
-        flex-direction: column;
-        height: 8rem;
-        justify-content: space-around;
-      }
-
-      .lower-1 {
-        display: flex;
-        width: 50%;
-        @media (max-width: 768px) {
-          flex-direction: row;
-          justify-items: center;
-          width: 100%;
-        }
-
-        .lower-2 {
-          width: 50%;
-          padding-left: 1rem;
-        }
-      }
-
-      // font-weight: 900;
-      // font-size: 32px;
-      // line-height: 120%;
-      // margin-bottom: 1.5rem;
-    }
-
-    .teacher {
-      font-weight: 700;
-      font-size: 48px;
-      line-height: 120%;
-    }
+.column-sm {
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.items-center {
+  align-items: center;
+}
+.items-md-center {
+  align-items: center;
+  @media (max-width: 768px) {
+    align-items: start;
+  }
+}
+
+.column {
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.removeBtn {
+  margin-left: 12px;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 </style>
