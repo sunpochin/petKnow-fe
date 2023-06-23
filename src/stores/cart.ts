@@ -19,6 +19,7 @@ interface cartType {
     total?:string
     couponCode?:string
     couponPrice?:Number
+    tagNames?:string[]
   }
 export const useCartStore = defineStore("cart", () => {
   const accessToken = localStorage.getItem('accessToken')
@@ -52,6 +53,7 @@ export const useCartStore = defineStore("cart", () => {
         }else{
             visitorCartIds.value=[]
         }
+        console.log("visitorCartIds.value",visitorCartIds.value)
         const result = (await Cart.apiGetVisitorCartData({
             courseIds:visitorCartIds.value,
             couponCode:''
@@ -148,12 +150,13 @@ export const useCartStore = defineStore("cart", () => {
     }else{
         console.log('訪客 deleteCart')  
         const deleteIdx = visitorCartIds.value.findIndex((item)=>item === id)
-        visitorCartIds.value.splice(deleteIdx,1)
-        localStorage.setItem(
-            'visitorCartIds',
-            JSON.stringify(visitorCartIds.value)
-          )
-          if(visitorCartIds.value.length){
+        console.log("deleteIdx",deleteIdx)
+        if(deleteIdx !== -1){
+            visitorCartIds.value.splice(deleteIdx,1)
+            localStorage.setItem(
+                'visitorCartIds',
+                JSON.stringify(visitorCartIds.value)
+              )
             notification.success({
                 content: "刪除成功",
                 duration: 1500,
@@ -161,6 +164,7 @@ export const useCartStore = defineStore("cart", () => {
                 closable: false,
             })
             getCartData ()
+        
         }else{
             notification.error({
                 content: "刪除失敗",
@@ -187,12 +191,16 @@ export const useCartStore = defineStore("cart", () => {
 
   const couponValue = ref(null)
   const couponOptions = ref([])
+  const couponLabel = ref('')
   async function getCouponSelectData(){
     const result = (await Cart.apiGetCoupon()) as AxiosResponse 
+    const coupon = result.data.data.coupons.find((item: { couponCode: null; })=>item.couponCode === couponValue.value)
+    couponLabel.value = coupon.tagNames[0]
     result.data.data.coupons.forEach((item: { label: any; tagNames: string[]; })=>{
         item.label = item.tagNames.join("、")
     })
     couponOptions.value = result.data.data.coupons
+    console.log('couponOptions.value',couponOptions.value)
   }
 
   async function createOrder(){
@@ -261,6 +269,7 @@ export const useCartStore = defineStore("cart", () => {
    
   }
  async function deleteCoupon(){
+    couponValue.value=null
     if(!couponValue.value){
         try{
         const result = (await Cart.apiDeleteCoupon()) as AxiosResponse 
@@ -312,6 +321,7 @@ export const useCartStore = defineStore("cart", () => {
     totalPrice,
     orderData,
     visitorCartIds,
+    couponLabel,
     couponValue,
     couponOptions,
     couponPrice,

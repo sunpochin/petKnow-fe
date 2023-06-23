@@ -18,6 +18,7 @@
           :discountPrice="item.discountPrice"
           :price="item.price"
           :id="item._id"
+          :tagNames="item.tagNames"
         />
       </div>
       <div v-else style="text-align: center">目前購物車裡沒有課程～</div>
@@ -45,18 +46,23 @@
           </div>
           <div v-else>${{ cartStore.totalPrice.toLocaleString() }}</div>
         </div>
-        <div class="d-flex flex-between" style="min-width: 40%; padding: 1rem">
+        <div class="d-flex flex-between coupon" style="padding: 1rem">
           <div>優惠券折抵</div>
-          <n-select
-            v-model:value="cartStore.couponValue"
-            :options="cartStore.couponOptions"
-            label-field="label"
-            value-field="couponCode"
+          <!-- bvCyXjGL -->
+          <div v-if="cartStore.couponValue">
+            <n-tag
+              style="margin: 16px 0"
+              closable
+              @close="cartStore.deleteCoupon"
+              >{{ cartStore.couponLabel }}</n-tag
+            >
+          </div>
+          <n-input
+            v-else
             style="max-width: 250px"
-            clearable
-            placeholder="請選擇優惠券"
-            @click="cartStore.getCouponSelectData"
-            @update:value="cartStore.addCoupon"
+            v-model:value="cartStore.couponValue"
+            type="text"
+            placeholder="請輸入優惠券碼"
           />
         </div>
         <n-button
@@ -72,12 +78,6 @@
       <div style="margin: 40px 0">
         <div class="mb-2 flex-between align-items-center">
           <h4 class="sub-title">你可能會喜歡</h4>
-          <p class="show-more-btn">
-            看更多
-            <n-icon class="arrow-icon" size="16" color="#000000">
-              <ArrowRightAltSharp />
-            </n-icon>
-          </p>
         </div>
         <swiper
           :modules="[Autoplay]"
@@ -221,5 +221,13 @@ onMounted(async () => {
 <style>
 .n-base-select-menu .n-base-select-option .n-base-select-option__check {
   opacity: 0;
+}
+
+.coupon {
+  width: 40%;
+  @media (max-width: 768px) {
+    width: 60%;
+    margin-left: 0;
+  }
 }
 </style>
