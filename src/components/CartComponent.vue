@@ -87,8 +87,6 @@ console.log(props)
 
 <style lang="scss" scoped>
 .title {
-  // width: 636px;
-  // height: 38px;
   /* TC / Heading03 / Regular */
   font-family: 'Noto Sans TC';
   font-style: normal;
@@ -97,13 +95,11 @@ console.log(props)
   line-height: 120%;
   font-weight: bold;
   margin-bottom: 16px;
-  /* or 38px */
   /* Black/100 */
   color: #020202;
 }
 .card-course {
   display: flex;
-  // height: 100%;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -143,13 +139,8 @@ console.log(props)
   text-align: right;
   /* Black/100 */
   color: #d3d3d3;
-  // /* Inside auto layout */
-  // flex: none;
-  // order: 0;
-  // flex-grow: 0;
 
   @media (max-width: 768px) {
-    // width: 196px;
     width: 48px;
     height: 29px;
     font-size: 24px;
@@ -169,7 +160,6 @@ console.log(props)
   color: #020202;
 
   @media (max-width: 768px) {
-    // width: 196px;
     width: 48px;
     height: 29px;
     font-size: 24px;
@@ -182,7 +172,6 @@ console.log(props)
     flex-direction: column;
   }
 }
-
 .cursor-pointer {
   cursor: pointer;
 }
