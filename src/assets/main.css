@@ -34,10 +34,9 @@ background-color: #fff;
 }
 .custom-tabs .n-tabs-tab.n-tabs-tab--active {
   border-bottom: 4px solid #ED888C !important;
+  color: #020202 !important;
+  font-weight:bold !important;
 }
 .custom-tabs .n-tabs-tab--active a {
   color: #020202;
 }
-/* .n-base-close .n-notification__close{
-  padding:20px;
-} */

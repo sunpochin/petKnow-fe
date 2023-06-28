@@ -1,17 +1,18 @@
 <script setup lang="ts">
-const props = defineProps({
-  imageUrl: String,
-  title: String,
-  teacher: String,
-  price: Number
-})
+const props = defineProps<{
+  imageUrl: string
+  title: string
+  teacher?: string
+  price?: number
+  imgHeight?: string
+}>()
 const formattedPrice = props.price?.toLocaleString()
-// console.log(props)
 </script>
 <template>
   <div class="course-card" style="cursor: pointer">
     <div class="card-img">
       <img
+        :style="props.imgHeight ? props.imgHeight : ''"
         style="object-fit: cover; width: 100%"
         :src="imageUrl"
         alt="course-img"
