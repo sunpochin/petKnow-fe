@@ -5,7 +5,6 @@ import { FacebookRound } from '@vicons/material'
 </script>
 
 <template>
-  <!-- <div>123</div> -->
   <div class="footer">
     <div class="container">
       <div class="logo">

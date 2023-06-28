@@ -84,11 +84,11 @@
             name="MerchantOrderNo"
             :value="cartStore.goldFlowData.merchantOrderNo"
           />
-          <input type="hidden" name="Amt" :value="cartStore.goldFlowData.Amt" />
+          <input type="hidden" name="Amt" :value="cartStore.goldFlowData.amt" />
           <input
             type="hidden"
             name="Email"
-            :value="cartStore.goldFlowData.Email"
+            :value="cartStore.goldFlowData.email"
           />
 
           <n-button
