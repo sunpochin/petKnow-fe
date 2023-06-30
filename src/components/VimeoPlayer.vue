@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 
 import Player from '@vimeo/player'
 const props = defineProps({
@@ -12,16 +12,24 @@ const props = defineProps({
   }
 })
 const divName = ref('divFrame')
-
-onMounted(() => {
-  const options = {
-    id: Number(props.id),
-    responsive: true
-    // width: 640
+watch(
+  () => props.id,
+  () => {
+    nextTick(() => {
+      const options = {
+        id: Number(props.id),
+        responsive: true,
+        height: 450
+      }
+      const player = new Player(divName.value, options)
+      player.loadVideo(options.id)
+      console.log('player', options.id, player)
+    })
+  },
+  {
+    immediate: true
   }
-  const player = new Player(divName.value, options)
-  console.log('player', player)
-})
+)
 </script>
 
 <style lang="scss" scoped></style>

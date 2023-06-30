@@ -34,12 +34,17 @@ export const useAuthStore = defineStore("auth", () => {
       throw new Error("Failed to authenticate. Check your login data.");
     }
   }
-
+  function getAccessToken(){
+    if(localStorage.getItem('accessToken')){
+      userToken.value = localStorage.getItem('accessToken') || ''
+    }
+    
+  }
   function logout() {
     userToken.value = "";
     localStorage.setItem('accessToken',"")
     router.push('/login');
   }
 
-  return { login, logout, accessToken };
+  return { login, logout, accessToken,getAccessToken };
 });

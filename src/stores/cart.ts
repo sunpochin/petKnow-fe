@@ -75,7 +75,7 @@ export const useCartStore = defineStore("cart", () => {
         })) as AxiosResponse
         if(result.data.isSuccess){
             notification.success({
-                content: "加入"+result.data.message,
+                content:  result.data.message,
                 duration: 1500,
                 keepAliveOnHover: false,
                 closable: false,

@@ -8,5 +8,4 @@
 const props = defineProps<{
   videoId: string
 }>()
-// ['807306477', '807306201', '192191']
 </script>

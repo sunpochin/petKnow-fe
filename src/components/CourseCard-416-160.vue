@@ -11,7 +11,16 @@ console.log(props)
 <template>
   <div class="couse-card">
     <div class="card-img">
-      <img :src="imageUrl" alt="course-img" />
+      <img
+        :src="imageUrl"
+        alt="course-img"
+        style="
+          height: 160px;
+          width: 100%;
+          object-fit: cover;
+          object-position: 50% 40%;
+        "
+      />
     </div>
     <div class="card-content">
       <span>{{ tag }}</span>
@@ -31,7 +40,7 @@ console.log(props)
   display: flex;
 
   .card-img {
-    width: 47%;
+    width: 50%;
     height: 100%;
     border-radius: 0px 0px 80px 0px;
     overflow: hidden;

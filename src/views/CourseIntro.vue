@@ -13,7 +13,7 @@
             <n-grid-item span="12 m:12 l:8" style="height: 100%">
               <VimeoBlock
                 style="width: 100%"
-                v-if="authStore.accessToken"
+                v-if="authStore.accessToken && videoId"
                 :videoId="videoId"
               />
               <div v-else class="fit" style="background: #d3d3d3">
@@ -146,7 +146,6 @@
                 >
                   <template #header-extra>
                     <div style="color: #a9a8a8; margin-right: 12px">
-                      <!-- 0 / 3  -->
                       <span style="margin-left: 16px">
                         {{ formatSecond(chapter.time) }}
                       </span>
@@ -157,19 +156,17 @@
                     v-for="subChapter in chapter.subchapters"
                     :key="subChapter._id"
                     @click="changeVideo(subChapter.fileName)"
+                    :class="{
+                      active: courseFileName === subChapter.fileName
+                    }"
                   >
-                    <n-checkbox
-                      :disabled="authStore.accessToken ? false : true"
-                      v-model:checked="isDone"
-                      style="margin-right: 12px"
-                    />
-                    <span>
+                    <span class="flex justify-between" style="width: 100%">
                       <div style="font-weight: bold; margin-bottom: 12px">
                         {{ subChapter.sequence }}. {{ subChapter.title }}
                       </div>
-                      <div style="color: #a9a8a8">
+                      <span style="color: #a9a8a8">
                         {{ formatSecond(subChapter.time) }}
-                      </div>
+                      </span>
                     </span>
                   </div>
                 </n-collapse-item>
@@ -198,7 +195,6 @@ const cartStore = useCartStore()
 const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
-const isDone = ref(false)
 
 const courseIntro = ref<{
   _id: string
@@ -232,26 +228,23 @@ const lecturerRelatedCourses = ref<
 >([])
 watch(
   () => route.params.id,
-  () => {
-    getCourseIntro()
+  async () => {
+    await getCourseIntro()
+    const videoId = courseIntro.value?.chapters[0].subchapters[0].fileName
+    await changeVideo(videoId)
   }
 )
 async function getCourseIntro () {
-  if (localStorage.getItem('accessToken')) {
-    console.log('accessToken')
-  } else {
-    const result = (await HomePage.apiGetCourseIntroData(
-      String(route.params.id)
-    )) as AxiosResponse
-    courseIntro.value = result.data.data.course
-    lecturerRelatedCourses.value = result.data.data.lecturerRelatedCourses
-    console.log('result', courseIntro.value, lecturerRelatedCourses.value)
-  }
+  const result = (await HomePage.apiGetCourseIntroData(
+    String(route.params.id)
+  )) as AxiosResponse
+  courseIntro.value = result.data.data.course
+  lecturerRelatedCourses.value = result.data.data.lecturerRelatedCourses
+  console.log('getCourseIntro', courseIntro.value, lecturerRelatedCourses.value)
 }
 function getDate (date: string) {
   if (date) {
     const fullDate = new Date(date)
-    console.log('fullDate', fullDate)
     const yyyy = fullDate.getFullYear()
     const MM =
       fullDate.getMonth() + 1 >= 10
@@ -278,16 +271,22 @@ function playBtnAction () {
     closable: false
   })
 }
-// vimeo 影片ID
-const videoId = ref('807306477')
-onMounted(() => {
-  console.log('route.params.id', route.params.id)
-  getCourseIntro()
-})
-function changeVideo (id: string) {
-  videoId.value = id
-  console.log('videoId', id)
+// vimeo 影片
+const videoId = ref<string>()
+const courseFileName = ref<string>()
+
+// 課程 Active
+function changeVideo (url?: string) {
+  courseFileName.value = url
+  videoId.value = url?.split('/').pop()
 }
+onMounted(async () => {
+  authStore.getAccessToken()
+  await getCourseIntro()
+  const videoUrl = courseIntro.value?.chapters[0].subchapters[0].fileName
+  courseFileName.value = videoUrl
+  await changeVideo(videoUrl)
+})
 </script>
 <style lang="scss" scoped>
 .swiper {
@@ -330,5 +329,8 @@ function changeVideo (id: string) {
   @media (max-width: 768px) {
     height: 200px;
   }
+}
+.active {
+  background-color: #d3d3d3;
 }
 </style>

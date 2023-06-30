@@ -113,23 +113,22 @@ const router = useRouter()
 
 const data = computed(() => {
   const result = JSON.parse(JSON.stringify(cartStore.orderData?.shoppingCart))
-  result.forEach((item: { price: string }) => {
-    item.price = item.price.toLocaleString()
+  result.forEach((item: { price: string; discountPrice: string }) => {
+    console.log('here', item)
+    if (item.discountPrice) {
+      item.price = item.discountPrice.toLocaleString()
+    } else {
+      item.price = item.price.toLocaleString()
+    }
   })
   return result
 })
-onMounted(() => {
-  console.log('here', cartStore.orderData?.shoppingCart)
-})
+
 const columns: DataTableColumns = [
   {
     title: '項目',
     key: 'title'
   },
-  // {
-  //   title: '優待券代碼',
-  //   key: 'coupon'
-  // },
   {
     title: '價格',
     key: 'price'
