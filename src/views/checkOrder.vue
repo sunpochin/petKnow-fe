@@ -90,6 +90,16 @@
             name="Email"
             :value="cartStore.goldFlowData.email"
           />
+          <input
+            type="hidden"
+            name="Name"
+            :value="cartStore.goldFlowData.userName"
+          />
+          <input
+            type="hidden"
+            name="ItemDesc"
+            :value="cartStore.goldFlowData.itemDesc"
+          />
 
           <n-button
             style="background: #ed888c; color: #fff; box-shadow: none"

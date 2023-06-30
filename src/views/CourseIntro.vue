@@ -11,11 +11,10 @@
             :x-gap="24"
           >
             <n-grid-item span="12 m:12 l:8" style="height: 100%">
-              <VimeoBlock
-                style="width: 100%"
-                v-if="authStore.accessToken && videoId"
-                :videoId="videoId"
-              />
+              <div v-if="authStore.accessToken && videoId">
+                <VimeoBlock style="width: 100%" :videoId="videoId" />
+              </div>
+
               <div v-else class="fit" style="background: #d3d3d3">
                 <img
                   class="courseCover"
@@ -34,15 +33,41 @@
               </div>
 
               <div style="margin: 32px 0">
-                <div
-                  style="
-                    font-weight: bold;
-                    font-size: 28px;
-                    margin-bottom: 20px;
-                  "
-                >
-                  {{ courseIntro?.title }}
+                <div class="flex justify-between">
+                  <div
+                    style="
+                      font-weight: bold;
+                      font-size: 28px;
+                      margin-bottom: 20px;
+                    "
+                  >
+                    {{ courseIntro?.title }}
+                  </div>
+                  <div
+                    class="flex"
+                    v-if="
+                      route.params.id !== '6493d9c4127ca634f0eebac9' &&
+                      route.params.id !== '6493d9c4127ca634f0eebaa6' &&
+                      route.params.id !== '6493d9c2127ca634f0eeafb6'
+                    "
+                  >
+                    <p
+                      class="discountPrice"
+                      style="margin-right: 1rem"
+                      v-if="courseIntro?.discountPrice"
+                    >
+                      NT${{ courseIntro?.discountPrice.toLocaleString() }}
+                    </p>
+                    <p
+                      :class="
+                        courseIntro?.discountPrice ? 'price' : 'discountPrice'
+                      "
+                    >
+                      NT${{ courseIntro?.price.toLocaleString() }}
+                    </p>
+                  </div>
                 </div>
+
                 <div class="flex justify-between">
                   <span>By {{ courseIntro?.name }}</span>
                   <span
@@ -157,7 +182,7 @@
                     :key="subChapter._id"
                     @click="changeVideo(subChapter.fileName)"
                     :class="{
-                      active: courseFileName === subChapter.fileName
+                      active: videoId === subChapter.fileName
                     }"
                   >
                     <span class="flex justify-between" style="width: 100%">
@@ -203,6 +228,8 @@ const courseIntro = ref<{
   name: string
   instructors: string
   shelfDate: string
+  discountPrice: number
+  price: number
   chapters: {
     _id: string
     sequence: number
@@ -273,19 +300,16 @@ function playBtnAction () {
 }
 // vimeo 影片
 const videoId = ref<string>()
-const courseFileName = ref<string>()
 
 // 課程 Active
-function changeVideo (url?: string) {
-  courseFileName.value = url
-  videoId.value = url?.split('/').pop()
+function changeVideo (id?: string) {
+  videoId.value = id
 }
 onMounted(async () => {
   authStore.getAccessToken()
   await getCourseIntro()
-  const videoUrl = courseIntro.value?.chapters[0].subchapters[0].fileName
-  courseFileName.value = videoUrl
-  await changeVideo(videoUrl)
+  videoId.value = courseIntro.value?.chapters[0].subchapters[0].fileName
+  await changeVideo(videoId.value)
 })
 </script>
 <style lang="scss" scoped>
@@ -332,5 +356,46 @@ onMounted(async () => {
 }
 .active {
   background-color: #d3d3d3;
+}
+
+.price {
+  text-decoration: line-through;
+  height: 38px;
+  /* TC / Heading03 / Bold */
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 120%;
+  /* or 38px */
+  text-align: right;
+  /* Black/100 */
+  color: #d3d3d3;
+
+  @media (max-width: 768px) {
+    width: 48px;
+    height: 29px;
+    font-size: 24px;
+  }
+}
+.discountPrice {
+  height: 38px;
+  /* TC / Heading03 / Bold */
+  font-family: 'Noto Sans TC';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 120%;
+  /* or 38px */
+  text-align: right;
+  /* Black/100 */
+  color: #ec888c;
+
+  @media (max-width: 768px) {
+    width: 48px;
+    height: 29px;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
 }
 </style>
