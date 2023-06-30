@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import CourseCard416451 from '@/components/CourseCard-416-451.vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ref, computed, onMounted, onUpdated} from 'vue'
+import { ref, computed, onMounted, onUpdated } from 'vue'
 import SearchPage from '@/api/searchPage.js'
 import type { AxiosResponse } from 'axios'
 
@@ -29,7 +28,7 @@ const coursesData = ref<
 
 const resultNum = computed(() => coursesData.value.length)
 
-async function getData (searchTag: string) {
+async function onSearch (searchTag: string) {
   prevSearchTag.value = searchTag
   resultStr.value = '查詢中...'
   if (searchTag.trim() === '') {
@@ -37,11 +36,14 @@ async function getData (searchTag: string) {
     return
   }
   try {
-    const searchResult = (await SearchPage.apiGetSearchPageData(searchTag)) as AxiosResponse
+    const searchResult = (await SearchPage.apiGetSearchPageData(
+      searchTag
+    )) as AxiosResponse
     if (searchResult.data.data) {
       coursesData.value = searchResult.data.data.courses
     }
-    resultStr.value = '和 ' + searchTag + ' 相關的課程有 ' + resultNum.value + ' 筆結果'
+    resultStr.value =
+      '和 ' + searchTag + ' 相關的課程有 ' + resultNum.value + ' 筆結果'
   } catch (error) {
     coursesData.value = []
     resultStr.value = '找不到和 ' + searchTag + ' 相關的課程，請重新輸入關鍵詞'
@@ -54,13 +56,12 @@ onUpdated(function () {
     // 擋掉第二次以後的搜尋，避免無限迴圈。
     return
   }
-  getData(route.params.searchTag as string)
+  onSearch(route.params.searchTag as string)
 })
 
 onMounted(function () {
-  getData(route.params.searchTag as string)
+  onSearch(route.params.searchTag as string)
 })
-
 </script>
 
 <template>
@@ -69,11 +70,19 @@ onMounted(function () {
       <h2 class="result">{{ resultStr }}</h2>
       <div class="result-cards">
         <n-grid cols="3" :x-gap="36" :y-gap="64" item-responsive>
-          <n-grid-item span="3 769:1" v-for="(item, index) in coursesData" :key="index">
+          <n-grid-item
+            span="3 769:1"
+            v-for="(item, index) in coursesData"
+            :key="index"
+          >
             <div class="flex-center">
-              <CourseCard-416-451 :imageUrl="item.cover" :title="item.title"
-                :teacher="item.instructorName" :price="item.price"
-                @click="router.push(`/courseIntro/${item._id}`)" />
+              <CourseCard-416-451
+                :imageUrl="item.cover"
+                :title="item.title"
+                :teacher="item.instructorName"
+                :price="item.price"
+                @click="router.push(`/courseIntro/${item._id}`)"
+              />
             </div>
           </n-grid-item>
         </n-grid>

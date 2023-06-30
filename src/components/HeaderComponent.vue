@@ -19,16 +19,32 @@
         <n-grid-item span="0  769:1">
           <div class="search-bar">
             <div class="search-box">
-              <n-icon size="17.5" color="#919191">
+              <n-icon
+                size="17.5"
+                color="#919191"
+                @click="searchKeyword"
+                style="cursor: pointer"
+              >
                 <Search />
               </n-icon>
-              <input @keyup.enter="searchKeyword" v-on:input="inputKeyword" type="text" placeholder="搜尋" class="search-input" />
+              <input
+                @keyup.enter="searchKeyword"
+                v-on:input="inputKeyword"
+                type="text"
+                placeholder="搜尋"
+                class="search-input"
+              />
             </div>
           </div>
         </n-grid-item>
         <n-grid-item span="1  769:1">
           <div class="d-flex-end">
-            <n-button v-if="isLogin" quaternary class="my-course" @click="router.push('/manage/learning')">
+            <n-button
+              v-if="isLogin"
+              quaternary
+              class="my-course"
+              @click="router.push('/manage/learning')"
+            >
               我的課堂
             </n-button>
             <n-button
@@ -45,12 +61,25 @@
                 <Cart />
               </n-icon>
             </n-button>
-            <n-button quaternary circle v-if="isLogin" @click="router.push('/manage/profile')">
+            <n-button
+              quaternary
+              circle
+              v-if="isLogin"
+              @click="router.push('/manage/profile')"
+            >
               <n-icon size="20">
-                <PersonSharp/>
+                <PersonSharp />
               </n-icon>
             </n-button>
-            <n-button v-else @click="router.push('/login')" strong secondary type="info"> 登入/註冊 </n-button>
+            <n-button
+              v-else
+              @click="router.push('/login')"
+              strong
+              secondary
+              type="info"
+            >
+              登入/註冊
+            </n-button>
             <!--
             <div class="become-teacher">
               <button class="button">
@@ -62,7 +91,12 @@
             </div>
             -->
             <!-- RWD mobile menu -->
-            <n-button v-if="isLogin" quaternary class="menu-phone" @click="isOpenMenu = !isOpenMenu">
+            <n-button
+              v-if="isLogin"
+              quaternary
+              class="menu-phone"
+              @click="isOpenMenu = !isOpenMenu"
+            >
               <n-icon size="20" color="#020202">
                 <Menu />
               </n-icon>
@@ -80,9 +114,14 @@
     >
       <div>
         <div class="member-info">
-          <n-button quaternary circle v-if="isLogin" @click="router.push('/manage/profile')">
+          <n-button
+            quaternary
+            circle
+            v-if="isLogin"
+            @click="router.push('/manage/profile')"
+          >
             <n-icon size="20">
-              <PersonSharp/>
+              <PersonSharp />
             </n-icon>
           </n-button>
           <div class="member-text">
@@ -93,9 +132,7 @@
         <ul v-if="isLogin">
           <li><a href="/manage/profile">個人資料</a></li>
           <li><a href="/manage/learning">我的課堂</a></li>
-          <!-- <li>我開的課</li> -->
-          <!-- <li>購買紀錄</li> -->
-          <!-- <li>成為講師</li> -->
+
           <li><a href="#" @click="authStore.logout">登出</a></li>
         </ul>
         <ul v-else>
@@ -110,14 +147,15 @@
 <script setup land="ts">
 import { ref, onMounted, reactive } from 'vue'
 import { Search, Cart, Menu, PersonSharp } from '@vicons/ionicons5'
-// import { ArrowRightAltSharp } from '@vicons/material'
 import { useAuthStore } from '@/stores/auth'
+import { useSearchStore } from '@/stores/search'
 import { useUserStore } from '@/stores/user'
+
 import { useRouter } from 'vue-router'
 const userStore = useUserStore()
-const router = useRouter()
 const authStore = useAuthStore()
-
+const searchStore = useSearchStore()
+const router = useRouter()
 const isOpenMenu = ref(false)
 const isLogin = ref(false)
 const keyword = ref('')
@@ -129,7 +167,9 @@ const user = reactive({
 
 onMounted(async () => {
   const accessToken = localStorage.getItem('accessToken')
-  if (!accessToken) { return }
+  if (!accessToken) {
+    return
+  }
   isLogin.value = true
   try {
     const userData = await userStore.getUserData()
@@ -143,10 +183,11 @@ onMounted(async () => {
 const searchKeyword = () => {
   router.push(`/search/${keyword.value}`)
 }
+
 const inputKeyword = (event) => {
   keyword.value = event.target.value
+  searchStore.searchKeyword = keyword.value
 }
-
 </script>
 <style lang="scss" scoped>
 .header {

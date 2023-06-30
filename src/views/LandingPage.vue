@@ -12,7 +12,7 @@
         </h2>
         <SearchButton
           :text="'搜尋'"
-          @click="router.push('/search')"
+          @click="router.push(`/search/${searchStore.searchKeyword}`)"
         />
       </div>
     </div>
@@ -20,7 +20,7 @@
       <div class="container">
         <div class="just-for-you-section">
           <h3 class="en-title mb-2 d-flex align-items-center">JUST FOR YOU</h3>
-          <p class="mb-4">{{user.nickName}}，開始學習</p>
+          <p class="mb-4">{{ user.nickName }}，開始學習</p>
           <swiper
             class="swiper"
             :space-between="20"
@@ -37,13 +37,19 @@
               }
             }"
           >
-            <swiper-slide class="slide" v-for="i in 5" :key="i">
+            <swiper-slide
+              class="slide"
+              v-for="(item, index) in learningList"
+              :key="index"
+              @click="router.push(`/courseIntro/${item._id}`)"
+              style="cursor: pointer"
+            >
               <CourseCard-416-160
-                :imageUrl="courseCardImg416160"
-                :tag="'貓咪的貓叫聲'"
-                :title="'第一章：不同種類的喵叫聲及其含義'"
-                :info="'1.嬉鬧聲'"
-                :time="30"
+                :imageUrl="item.imageUrl"
+                :tag="item.tag"
+                :title="item.title"
+                :info="item.info"
+                :time="item.time"
               />
             </swiper-slide>
           </swiper>
@@ -157,7 +163,10 @@
           >
             <div class="mb-2 flex-between align-items-center">
               <h4 class="sub-title">{{ item.tag }}</h4>
-              <p class="show-more-btn" @click="router.push(`/search/${item.tag}`)">
+              <p
+                class="show-more-btn"
+                @click="router.push(`/search/${item.tag}`)"
+              >
                 看更多
                 <n-icon class="arrow-icon" size="16" color="#000000">
                   <ArrowRightAltSharp />
@@ -199,7 +208,7 @@
       </div>
     </div>
     <div class="faq-section">
-      <Faq/>
+      <Faq />
     </div>
     <div class="topics-section">
       <div class="container">
@@ -231,11 +240,11 @@
           disableOnInteraction: false
         }"
       >
-        <swiper-slide class="slide" v-for="i,index in tagNames" :key="index">
+        <swiper-slide class="slide" v-for="(i, index) in tagNames" :key="index">
           <div class="topic-scrollbar">
             <div @click="router.push(`/search/${i}`)">
               <button class="topic-button" style="cursor: pointer">
-                <p>{{i}}</p>
+                <p>{{ i }}</p>
               </button>
             </div>
           </div>
@@ -262,11 +271,15 @@
           disableOnInteraction: false
         }"
       >
-        <swiper-slide class="slide" v-for="i,index in tagNamesReverse" :key="index">
+        <swiper-slide
+          class="slide"
+          v-for="(i, index) in tagNamesReverse"
+          :key="index"
+        >
           <div class="topic-scrollbar" style="margin-left: 100px">
             <div @click="router.push(`/search/${i}`)">
               <button class="topic-button" style="cursor: pointer">
-                <p>{{i}}</p>
+                <p>{{ i }}</p>
               </button>
             </div>
           </div>
@@ -280,7 +293,6 @@ import { ref, onMounted, computed } from 'vue'
 import { NIcon } from 'naive-ui'
 import { ArrowRightAltSharp } from '@vicons/material'
 import courseCardImg from '@/assets/landing-page/course-card-img.png'
-import courseCardImg416160 from '@/assets/landing-page/course-card-img-416-160.png'
 import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { Autoplay } from 'swiper'
@@ -288,6 +300,9 @@ import 'swiper/css'
 import type { AxiosResponse } from 'axios'
 import HomePage from '@/api/homePage.js'
 import { useUserStore } from '@/stores/user'
+import { useSearchStore } from '@/stores/search'
+const searchStore = useSearchStore()
+
 const isLogin = ref(false)
 
 const userStore = useUserStore()
@@ -309,7 +324,7 @@ const popularData = ref<
       isFree: boolean
       price: number
       title: string
-      instructorName:string
+      instructorName: string
       _id: string
     }[]
   }[]
@@ -341,6 +356,37 @@ onMounted(() => {
   getUser()
   if (accessToken.value) isLogin.value = true
 })
+
+// 開始學習（寫死）
+const learningList = ref([
+  {
+    imageUrl:
+      'https://images.unsplash.com/photo-1532971731140-1d7cccc06c3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    tag: '寵物行為問題解決指南',
+    info: '1.觀察行為模式',
+    time: 8,
+    title: '第一節：問題行為評估',
+    _id: '6493d9c4127ca634f0eebac9'
+  },
+  {
+    imageUrl:
+      'https://images.unsplash.com/photo-1491485880348-85d48a9e5312?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGNhdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
+    tag: '寵物洗澡技巧與注意事項',
+    info: '1.選擇洗澡地點',
+    time: 15,
+    title: '第一章：準備工作',
+    _id: '6493d9c4127ca634f0eebaa6'
+  },
+  {
+    imageUrl:
+      'https://images.unsplash.com/photo-1598134493179-51332e56807f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    tag: '狗狗解悶遊戲指南',
+    info: '1.狗狗解悶遊戲對健康的影響',
+    time: 13,
+    title: '第一章：遊戲的重要性',
+    _id: '6493d9c2127ca634f0eeafb6'
+  }
+])
 </script>
 <style lang="scss" scoped>
 .wrapper {
@@ -467,9 +513,10 @@ onMounted(() => {
       margin-left: 143px;
     }
     @media (hover: hover) {
-      &:hover, &:hover svg {
-        border-color: #ED888C;
-        color: #ED888C;
+      &:hover,
+      &:hover svg {
+        border-color: #ed888c;
+        color: #ed888c;
         cursor: pointer;
       }
     }
@@ -479,10 +526,13 @@ onMounted(() => {
     font-weight: 900;
     display: flex;
     align-items: center;
-    i { margin-left: 8px; }
+    i {
+      margin-left: 8px;
+    }
     @media (hover: hover) {
-      &:hover, &:hover svg {
-        color: #ED888C;
+      &:hover,
+      &:hover svg {
+        color: #ed888c;
         cursor: pointer;
       }
     }
@@ -548,7 +598,7 @@ onMounted(() => {
     line-height: 38.4px;
 
     &:before {
-      content: "";
+      content: '';
       display: inline-block;
       width: 16px;
       height: 16px;

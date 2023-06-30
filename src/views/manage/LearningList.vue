@@ -1,11 +1,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import TabBar from '@/components/manage/shared/TabBar.vue'
-import LearningCard from '@/components/manage/LearningCard.vue'
 export default defineComponent({
   components: {
-    TabBar,
-    LearningCard
+    TabBar
   },
   data () {
     return {
@@ -13,9 +11,7 @@ export default defineComponent({
     }
   },
   methods: {
-    submitForm: function () {
-
-    }
+    submitForm: function () {}
   }
 })
 </script>
@@ -23,12 +19,9 @@ export default defineComponent({
   <div class="wrapper">
     <div class="container">
       <div class="content">
-        <TabBar :page-title="pageTitle"/>
+        <TabBar :page-title="pageTitle" />
         <div class="card-wrapper">
-          <LearningCard/>
-          <LearningCard/>
-          <LearningCard/>
-          <LearningCard/>
+          <LearningCard />
         </div>
       </div>
     </div>
@@ -38,7 +31,7 @@ export default defineComponent({
 .wrapper {
   width: 100%;
   height: 100%;
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 }
 .container {
   max-width: 1328px;
@@ -63,5 +56,4 @@ export default defineComponent({
     padding-bottom: 96px;
   }
 }
-
 </style>
