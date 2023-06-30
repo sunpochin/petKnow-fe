@@ -4,25 +4,9 @@
   </div>
 </template>
 
-<script>
-import VimeoPlayer from './VimeoPlayer.vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-export default {
-  data() {
-    return {
-      videoId: '',
-      // 3 initial demo videos of cat and dog.
-      vimeoIdList: ['807306477', '807306201', '192191']
-    }
-  },
-  mounted() {
-  },
-
-  methods: {
-  },
-  components: {
-    VimeoPlayer
-  }
-}
+const vimeoIdList = ref(['807306477'])
+// ['807306477', '807306201', '192191']
 </script>
-

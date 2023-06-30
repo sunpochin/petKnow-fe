@@ -1,35 +1,43 @@
 @import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+.n-collapse-item__header-main {
+    padding: 20px;
   }
+.bg-gray {
+background-color: #f8f8f8;
 }
 
-@media (min-width: 1024px) {
-  body {
+.bg-white {
+background-color: #fff;
+}
+.flex{
     display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
 }
+.justify-between{
+    justify-content: space-between;
+}
+
+/*
+  FIXME: remove !important to reduce css weight
+  FIXME: move custom-tabs style into scss or ts file
+*/
+.custom-tabs.n-tabs  {
+  padding-top: 32px;
+  border-top: .5px solid #D1D1D1;
+  border-bottom: .5px solid #D1D1D1;
+}
+.custom-tabs .n-tabs-tab {
+  border: none !important;
+  border-bottom: 4px solid transparent !important; 
+}
+.custom-tabas .n-tabs-tab a {
+  color: #525252;
+}
+.custom-tabs .n-tabs-tab.n-tabs-tab--active {
+  border-bottom: 4px solid #ED888C !important;
+}
+.custom-tabs .n-tabs-tab--active a {
+  color: #020202;
+}
+/* .n-base-close .n-notification__close{
+  padding:20px;
+} */
