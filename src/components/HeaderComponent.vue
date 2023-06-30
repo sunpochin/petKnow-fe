@@ -24,6 +24,7 @@
                 color="#919191"
                 @click="searchKeyword"
                 style="cursor: pointer"
+                :class="!keyword && keyword === '' ? 'disable' : ''"
               >
                 <Search />
               </n-icon>
@@ -387,5 +388,9 @@ const inputKeyword = (event) => {
   @media screen and (max-width: 768px) {
     display: none;
   }
+}
+.disable {
+  pointer-events: none;
+  color: #d3d3d3;
 }
 </style>
