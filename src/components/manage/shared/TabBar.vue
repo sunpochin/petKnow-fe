@@ -8,8 +8,7 @@ export default defineComponent({
   },
   props: ['pageTitle', 'pageName'],
   data () {
-    return {
-    }
+    return {}
   }
 })
 </script>
@@ -22,9 +21,9 @@ export default defineComponent({
     <n-tab name="我的課程">
       <a href="/manage/learning">我的課程</a>
     </n-tab>
-    <n-tab name="我開的課">
+    <!-- <n-tab name="我開的課">
       <a href="/manage/teaching">我開的課</a>
-    </n-tab>
+    </n-tab> -->
   </n-tabs>
 </template>
 <style lang="scss" scoped>

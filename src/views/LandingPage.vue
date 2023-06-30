@@ -50,6 +50,7 @@
                 :title="item.title"
                 :info="item.info"
                 :time="item.time"
+                :isBuy="item.isBuy"
               />
             </swiper-slide>
           </swiper>
@@ -57,17 +58,21 @@
         <div class="next-step-section-pc">
           <h3 class="en-title mb-2 d-flex align-items-center">NEXT STEP</h3>
           <p class="cn-title mb-9">為您挑選</p>
-          <SearchButton :text="'立即上課'" />
+          <SearchButton
+            :text="'立即上課'"
+            @click="router.push('/courseIntro/6493d9c4127ca634f0eeb6f7')"
+          />
+
           <div class="course-card-section">
             <CourseCard-856-517
-              :imageUrl="courseCardImg"
+              :imageUrl="'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'"
               :level="'初階'"
-              :title="'寵物攝影達人：捕捉寵物最佳畫面與構圖技巧'"
-              :info="'學會寵物攝影的專業技巧，捕捉最佳畫面與構圖技巧，讓你的寵物照片更加生動、有趣與吸睛。'"
-              :teacher="'陳曉明'"
+              :title="'犬種的選擇與飼養準備'"
+              :info="'一門旨在幫助有意養狗的人們瞭解如何選擇適合自己和家庭的犬種，並準備迎接新成員的課程。這個課程將提供有關不同犬種的特點、飼養要求和必備準備工作的相關知識和技巧。'"
+              :teacher="'葉芳馨'"
               :time="16"
               :courseNum="52"
-              :price="1600"
+              :price="'6,736'"
             />
           </div>
         </div>
@@ -87,7 +92,10 @@
             />
           </div>
           <div class="flex-center">
-            <button class="search-btn-phone">
+            <button
+              class="search-btn-phone"
+              @click="router.push('/courseIntro/6493d9c4127ca634f0eeb6f7')"
+            >
               <p>立即上課</p>
               <n-icon class="arrow-icon" size="32" color="#000000">
                 <ArrowRightAltSharp />
@@ -366,7 +374,8 @@ const learningList = ref([
     info: '1.觀察行為模式',
     time: 8,
     title: '第一節：問題行為評估',
-    _id: '6493d9c4127ca634f0eebac9'
+    _id: '6493d9c4127ca634f0eebac9',
+    isBuy: true
   },
   {
     imageUrl:
@@ -375,7 +384,8 @@ const learningList = ref([
     info: '1.選擇洗澡地點',
     time: 15,
     title: '第一章：準備工作',
-    _id: '6493d9c4127ca634f0eebaa6'
+    _id: '6493d9c4127ca634f0eebaa6',
+    isBuy: true
   },
   {
     imageUrl:
@@ -384,7 +394,8 @@ const learningList = ref([
     info: '1.狗狗解悶遊戲對健康的影響',
     time: 13,
     title: '第一章：遊戲的重要性',
-    _id: '6493d9c2127ca634f0eeafb6'
+    _id: '6493d9c2127ca634f0eeafb6',
+    isBuy: true
   }
 ])
 </script>
